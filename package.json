@@ -1,0 +1,13 @@
+{
+  "license": "LGPL-3.0-or-later",
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.24",
+    "solhint": "^3.3.7",
+    "solhint-plugin-prettier": "^0.0.5"
+  },
+  "scripts": {
+    "fmt": "prettier 'src/**/*.sol' -w && prettier 'test/**/*.sol' -w",
+    "lint": "solhint 'src/**/*.sol' 'test/**/*.sol'"
+  }
+}
