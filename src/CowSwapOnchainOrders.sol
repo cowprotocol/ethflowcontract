@@ -10,6 +10,7 @@ contract CowSwapOnchainOrders {
 
     /// @dev The domain separator for the CowSwap settlement contract.
     bytes32 public immutable cowSwapDomainSeparator;
+    bytes32 public testVariable = bytes32(0);
 
     constructor() {
         cowSwapDomainSeparator = CowSwapEip712.domainSeparator();
@@ -36,12 +37,12 @@ contract CowSwapOnchainOrders {
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
         bytes memory data
-    ) public returns (bytes memory orderUid) {
+    ) public returns (bytes32) {
         emit OrderPlacement(msg.sender, order, signature, data);
-        orderUid.packOrderUidParams(
-            order.hash(cowSwapDomainSeparator),
-            msg.sender,
-            order.validTo
-        );
+        return order.hash(cowSwapDomainSeparator);
+    }
+
+    function simpleTestFunction() public view returns (bool) {
+        return testVariable == bytes32(0);
     }
 }

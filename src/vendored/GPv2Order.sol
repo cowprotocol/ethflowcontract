@@ -62,7 +62,7 @@ library GPv2Order {
     /// ```
     /// keccak256("sell")
     /// ```
-    bytes32 internal constant KIND_SELL =
+    bytes32 public constant KIND_SELL =
         hex"f3b277728b3fee749481eb3e0b3b48980dbbab78658fc419025cb16eee346775";
 
     /// @dev The OrderKind marker value for a buy order for computing the order
