@@ -1,20 +1,12 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 pragma solidity ^0.8;
 
-import "./vendored/GPv2Order.sol";
-import "./libraries/CowSwapEip712.sol";
+import "../vendored/GPv2Order.sol";
+import "./CowSwapEip712.sol";
 
-contract CowSwapOnchainOrders {
+library CowSwapOnchainOrder {
     using GPv2Order for GPv2Order.Data;
     using GPv2Order for bytes;
-
-    /// @dev The domain separator for the CowSwap settlement contract.
-    bytes32 public immutable cowSwapDomainSeparator;
-    bytes32 public testVariable = bytes32(0);
-
-    constructor() {
-        cowSwapDomainSeparator = CowSwapEip712.domainSeparator();
-    }
 
     enum OnchainSigningScheme {
         Eip1271,
@@ -33,16 +25,12 @@ contract CowSwapOnchainOrders {
         bytes data
     );
 
-    function placeOrder(
+    function broadcastOrder(
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
         bytes memory data
-    ) public returns (bytes32) {
+    ) internal returns (bytes32 orderDigest) {
         emit OrderPlacement(msg.sender, order, signature, data);
-        return order.hash(cowSwapDomainSeparator);
-    }
-
-    function simpleTestFunction() public view returns (bool) {
-        return testVariable == bytes32(0);
+        orderDigest = order.hash(CowSwapEip712.domainSeparator());
     }
 }

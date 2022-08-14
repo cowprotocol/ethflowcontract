@@ -7,6 +7,6 @@
     "solhint-plugin-prettier": "^0.0.5"
   },
   "scripts": {
-    "fmt": "prettier 'src/**/*.sol' -w"
+    "fmt": "prettier 'src/**/*.sol' -w && prettier 'test/**/*.sol' -w"
   }
 }

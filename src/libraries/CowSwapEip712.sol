@@ -32,7 +32,6 @@ library CowSwapEip712 {
         assembly {
             chainId := chainid()
         }
-        console.log(chainId);
 
         return
             keccak256(

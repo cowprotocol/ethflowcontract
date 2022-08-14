@@ -28,7 +28,7 @@ contract TestCowSwapEip712 is Test {
     function testConsistentGoerliDomainSeparator() public {
         // https://goerli.etherscan.io/address/0x9008d19f58aabd9ed0d60971565aa8510560ab41#readContract
         bytes32 GOERLI_DOMAIN_SEPARATOR = 0xfb378b35457022ecc5709ae5dafad9393c1387ae6d8ce24913a0c969074c07fb;
-        
+
         vm.chainId(5);
         assertEq(CowSwapEip712.domainSeparator(), GOERLI_DOMAIN_SEPARATOR);
     }

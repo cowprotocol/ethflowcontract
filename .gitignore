@@ -9,3 +9,6 @@ out/
 
 # JS dependencies
 node_modules/
+
+# Enviroment variable file
+.env
