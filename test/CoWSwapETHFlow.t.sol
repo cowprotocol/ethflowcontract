@@ -119,18 +119,16 @@ contract TestCoWSwapETHFlow is Test {
         CowSwapOnchainOrder.OnchainSignature
             memory signature = CowSwapOnchainOrder.OnchainSignature(
                 CowSwapOnchainOrder.OnchainSigningScheme.Eip1271,
-                abi.encodePacked(address(this))
+                abi.encodePacked(address(ethflow))
             );
         GPv2Order.Data memory modified_order_of_ethflow_contract = order;
         modified_order_of_ethflow_contract.validTo = type(uint32).max;
-        // Todo: Acutally, we wanna check vm.expectEmit(true, false, false, true, address(ethflow));
-        // Generally, I really don't like the log testing with foundry
-        vm.expectEmit(true, false, false, false, address(ethflow));
+        vm.expectEmit(true, false, false, true, address(ethflow));
         emit CowSwapOnchainOrder.OrderPlacement(
             address(this),
             modified_order_of_ethflow_contract,
             signature,
-            abi.encodePacked(quoteId)
+            abi.encodePacked(order.validTo, quoteId)
         );
         ethflow.createOrder{value: order.sellAmount}(order, quoteId);
     }

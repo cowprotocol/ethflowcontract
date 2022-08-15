@@ -50,7 +50,7 @@ contract CoWSwapETHFlow is ERC1271 {
                 abi.encodePacked(address(this))
             );
 
-        bytes memory data = abi.encodePacked(quoteId);
+        bytes memory data = abi.encodePacked(validTo,quoteId);
         orderDigest = CowSwapOnchainOrder.broadcastOrder(
             order,
             signature,
