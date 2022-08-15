@@ -1,0 +1,1921 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract ISettlement",
+          "name": "_settlement",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "sellToken",
+              "type": "address"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "kind",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sellTokenBalance",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "buyTokenBalance",
+              "type": "bytes32"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct GPv2Order.Data",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum CowSwapOnchainOrder.OnchainSigningScheme",
+              "name": "scheme",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct CowSwapOnchainOrder.OnchainSignature",
+          "name": "signature",
+          "type": "tuple"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "OrderPlacement",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "sellToken",
+              "type": "address"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "kind",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sellTokenBalance",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "buyTokenBalance",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct GPv2Order.Data",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum CowSwapOnchainOrder.OnchainSigningScheme",
+              "name": "scheme",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct CowSwapOnchainOrder.OnchainSignature",
+          "name": "signature",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "broadcastOrder",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "sellToken",
+              "type": "address"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "kind",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sellTokenBalance",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "buyTokenBalance",
+              "type": "bytes32"
+            }
+          ],
+          "internalType": "struct GPv2Order.Data",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum CowSwapOnchainOrder.OnchainSigningScheme",
+              "name": "scheme",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct CowSwapOnchainOrder.OnchainSignature",
+          "name": "signature",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "presignOrder",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderDigest",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "settlement",
+      "outputs": [
+        {
+          "internalType": "contract ISettlement",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "this_contract_address",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60a060405234801561001057600080fd5b506040516108f03803806108f083398101604081905261002f91610052565b6001600160a01b0316608052600080546001600160a01b03191630179055610082565b60006020828403121561006457600080fd5b81516001600160a01b038116811461007b57600080fd5b9392505050565b60805161084d6100a3600039600081816056015261018c015261084d6000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806351160630146100515780639bf893df14610095578063a042c89c146100b6578063dd77d2f2146100c9575b600080fd5b6100787f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100a86100a336600461055a565b6100dc565b60405190815260200161008c565b600054610078906001600160a01b031681565b6100a86100d736600461055a565b6101fe565b600080546001600160a01b0316300361014b5760405162461bcd60e51b815260206004820152602660248201527f73686f756c64206f6e6c792062652063616c6c6564207669612064656c6567616044820152651d1958d85b1b60d21b60648201526084015b60405180910390fd5b6101568484846101fe565b9050606061017582338760a0015184610213909392919063ffffffff16565b60405163ec6cb13f60e01b81526001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000169063ec6cb13f906101c49084906001906004016106c1565b600060405180830381600087803b1580156101de57600080fd5b505af11580156101f2573d6000803e3d6000fd5b50505050509392505050565b600061020b848484610276565b949350505050565b60388451146102645760405162461bcd60e51b815260206004820152601960248201527f475076323a2075696420627566666572206f766572666c6f77000000000000006044820152606401610142565b60388401526034830152602090910152565b6000336001600160a01b03167fcf5f9de2984132265203b5c335b25727702ca77262ff622e136baa7362bf1da98585856040516102b593929190610724565b60405180910390a261020b61037f604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c918101919091527ff9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf60608201524660808201819052739008d19f58aabd9ed0d60971565aa8510560ab4160a083015260009160c0016040516020818303038152906040528051906020012091505090565b601f19860180517fd5a25ba2e97094ad7d83dc28a6572da797d6b3e7fc6663bd93efb789fc17e48982526101a08220915260405161190160f01b8152600281019290925260228201526042902090565b634e487b7160e01b600052604160045260246000fd5b604051610180810167ffffffffffffffff81118282101715610409576104096103cf565b60405290565b80356001600160a01b038116811461042657600080fd5b919050565b803563ffffffff8116811461042657600080fd5b8035801515811461042657600080fd5b600082601f83011261046057600080fd5b813567ffffffffffffffff8082111561047b5761047b6103cf565b604051601f8301601f19908116603f011681019082821181831017156104a3576104a36103cf565b816040528381528660208588010111156104bc57600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000604082840312156104ee57600080fd5b6040516040810167ffffffffffffffff8282108183111715610512576105126103cf565b81604052829350843591506002821061052a57600080fd5b9082526020840135908082111561054057600080fd5b5061054d8582860161044f565b6020830152505092915050565b60008060008385036101c081121561057157600080fd5b6101808082121561058157600080fd5b6105896103e5565b91506105948661040f565b82526105a26020870161040f565b60208301526105b36040870161040f565b604083015260608601356060830152608086013560808301526105d860a0870161042b565b60a083015260c086013560c083015260e086013560e083015261010080870135818401525061012061060b81880161043f565b908301526101408681013590830152610160808701359083015290935084013567ffffffffffffffff8082111561064157600080fd5b61064d878388016104dc565b93506101a086013591508082111561066457600080fd5b506106718682870161044f565b9150509250925092565b6000815180845260005b818110156106a157602081850181015186830182015201610685565b506000602082860101526020601f19601f83011685010191505092915050565b6040815260006106d4604083018561067b565b905082151560208301529392505050565b600081516002811061070757634e487b7160e01b600052602160045260246000fd5b8084525060208201516040602085015261020b604085018261067b565b83516001600160a01b0316815260006101c0602086015161075060208501826001600160a01b03169052565b50604086015161076b60408501826001600160a01b03169052565b50606086015160608401526080860151608084015260a086015161079760a085018263ffffffff169052565b5060c086015160c084015260e086015160e0840152610100808701518185015250610120808701516107cc8286018215159052565b50506101408681015190840152610160808701519084015261018083018190526107f8818401866106e5565b90508281036101a084015261080d818561067b565b969550505050505056fea264697066735822122059f2f40dcce3a4da31574ae06fd0522f32a14ba135d4a317013b8f21fa9b1bcd64736f6c63430008100033",
+    "sourceMap": "230:1389:7:-:0;;;621:125;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;668:24:7;;;702:21;:37;;-1:-1:-1;;;;;;702:37:7;734:4;702:37;;;230:1389;;14:311:16;105:6;158:2;146:9;137:7;133:23;129:32;126:52;;;174:1;171;164:12;126:52;200:16;;-1:-1:-1;;;;;245:31:16;;235:42;;225:70;;291:1;288;281:12;225:70;314:5;14:311;-1:-1:-1;;;14:311:16:o;:::-;230:1389:7;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c806351160630146100515780639bf893df14610095578063a042c89c146100b6578063dd77d2f2146100c9575b600080fd5b6100787f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100a86100a336600461055a565b6100dc565b60405190815260200161008c565b600054610078906001600160a01b031681565b6100a86100d736600461055a565b6101fe565b600080546001600160a01b0316300361014b5760405162461bcd60e51b815260206004820152602660248201527f73686f756c64206f6e6c792062652063616c6c6564207669612064656c6567616044820152651d1958d85b1b60d21b60648201526084015b60405180910390fd5b6101568484846101fe565b9050606061017582338760a0015184610213909392919063ffffffff16565b60405163ec6cb13f60e01b81526001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000169063ec6cb13f906101c49084906001906004016106c1565b600060405180830381600087803b1580156101de57600080fd5b505af11580156101f2573d6000803e3d6000fd5b50505050509392505050565b600061020b848484610276565b949350505050565b60388451146102645760405162461bcd60e51b815260206004820152601960248201527f475076323a2075696420627566666572206f766572666c6f77000000000000006044820152606401610142565b60388401526034830152602090910152565b6000336001600160a01b03167fcf5f9de2984132265203b5c335b25727702ca77262ff622e136baa7362bf1da98585856040516102b593929190610724565b60405180910390a261020b61037f604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c918101919091527ff9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf60608201524660808201819052739008d19f58aabd9ed0d60971565aa8510560ab4160a083015260009160c0016040516020818303038152906040528051906020012091505090565b601f19860180517fd5a25ba2e97094ad7d83dc28a6572da797d6b3e7fc6663bd93efb789fc17e48982526101a08220915260405161190160f01b8152600281019290925260228201526042902090565b634e487b7160e01b600052604160045260246000fd5b604051610180810167ffffffffffffffff81118282101715610409576104096103cf565b60405290565b80356001600160a01b038116811461042657600080fd5b919050565b803563ffffffff8116811461042657600080fd5b8035801515811461042657600080fd5b600082601f83011261046057600080fd5b813567ffffffffffffffff8082111561047b5761047b6103cf565b604051601f8301601f19908116603f011681019082821181831017156104a3576104a36103cf565b816040528381528660208588010111156104bc57600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000604082840312156104ee57600080fd5b6040516040810167ffffffffffffffff8282108183111715610512576105126103cf565b81604052829350843591506002821061052a57600080fd5b9082526020840135908082111561054057600080fd5b5061054d8582860161044f565b6020830152505092915050565b60008060008385036101c081121561057157600080fd5b6101808082121561058157600080fd5b6105896103e5565b91506105948661040f565b82526105a26020870161040f565b60208301526105b36040870161040f565b604083015260608601356060830152608086013560808301526105d860a0870161042b565b60a083015260c086013560c083015260e086013560e083015261010080870135818401525061012061060b81880161043f565b908301526101408681013590830152610160808701359083015290935084013567ffffffffffffffff8082111561064157600080fd5b61064d878388016104dc565b93506101a086013591508082111561066457600080fd5b506106718682870161044f565b9150509250925092565b6000815180845260005b818110156106a157602081850181015186830182015201610685565b506000602082860101526020601f19601f83011685010191505092915050565b6040815260006106d4604083018561067b565b905082151560208301529392505050565b600081516002811061070757634e487b7160e01b600052602160045260246000fd5b8084525060208201516040602085015261020b604085018261067b565b83516001600160a01b0316815260006101c0602086015161075060208501826001600160a01b03169052565b50604086015161076b60408501826001600160a01b03169052565b50606086015160608401526080860151608084015260a086015161079760a085018263ffffffff169052565b5060c086015160c084015260e086015160e0840152610100808701518185015250610120808701516107cc8286018215159052565b50506101408681015190840152610160808701519084015261018083018190526107f8818401866106e5565b90508281036101a084015261080d818561067b565b969550505050505056fea264697066735822122059f2f40dcce3a4da31574ae06fd0522f32a14ba135d4a317013b8f21fa9b1bcd64736f6c63430008100033",
+    "sourceMap": "230:1389:7:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;348:39;;;;;;;;-1:-1:-1;;;;;321:32:16;;;303:51;;291:2;276:18;348:39:7;;;;;;;;1192:425;;;;;;:::i;:::-;;:::i;:::-;;;4540:25:16;;;4528:2;4513:18;1192:425:7;4394:177:16;393:36:7;;;;;-1:-1:-1;;;;;393:36:7;;;922:264;;;;;;:::i;:::-;;:::i;1192:425::-;1382:19;512:21;;-1:-1:-1;;;;;512:21:7;503:4;495:38;474:123;;;;-1:-1:-1;;;474:123:7;;4986:2:16;474:123:7;;;4968:21:16;5025:2;5005:18;;;4998:30;5064:34;5044:18;;;5037:62;-1:-1:-1;;;5115:18:16;;;5108:36;5161:19;;474:123:7;;;;;;;;;1427:38:::1;1442:5;1449:9;1460:4;1427:14;:38::i;:::-;1413:52;;1475:16;1501:62;1524:11;1537:10;1549:5;:13;;;1501:3;:22;;:62;;;;;;:::i;:::-;1573:37;::::0;-1:-1:-1;;;1573:37:7;;-1:-1:-1;;;;;1573:10:7::1;:26;::::0;::::1;::::0;:37:::1;::::0;1600:3;;1605:4:::1;::::0;1573:37:::1;;;:::i;:::-;;;;;;;;;;;;;;;;;;::::0;::::1;;;;;;;;;;;;::::0;::::1;;;;;;;;;1403:214;1192:425:::0;;;;;:::o;922:264::-;1095:7;1121:58;1156:5;1163:9;1174:4;1121:34;:58::i;:::-;1114:65;922:264;-1:-1:-1;;;;922:264:7:o;7268:1736:13:-;4187:2;7441:8;:15;:29;7433:67;;;;-1:-1:-1;;;7433:67:13;;6219:2:16;7433:67:13;;;6201:21:16;6258:2;6238:18;;;6231:30;6297:27;6277:18;;;6270:55;6342:18;;7433:67:13;6017:349:16;7433:67:13;8879:2;8865:17;;8858:34;8926:2;8912:17;;8905:32;8971:2;8957:17;;;8950:38;7268:1736::o;559:315:11:-;714:19;765:10;-1:-1:-1;;;;;750:50:11;;777:5;784:9;795:4;750:50;;;;;;;;:::i;:::-;;;;;;;;824:43;835:31;1353:201:10;;;570:117;1353:201;;;8811:25:16;811:28:10;8852:18:16;;;8845:34;;;;969:15:10;8895:18:16;;;8888:34;1278:9:10;8938:18:16;;;8931:34;;;378:42:10;8981:19:16;;;8974:61;1041:7:10;;8783:19:16;;1353:201:10;;;;;;;;;;;;1326:242;;;;;;1307:261;;;991:584;;835:31:11;-1:-1:-1;;5632:14:13;;5671:16;;5718:9;5700:28;;5776:3;5755:25;;5793:23;;6375:4;6369:11;-1:-1:-1;;;6393:37:13;;6473:1;6450:25;;6443:50;;;;6536:2;6513:26;;6506:46;6609:2;6580:32;;;5038:1590;365:127:16;426:10;421:3;417:20;414:1;407:31;457:4;454:1;447:15;481:4;478:1;471:15;497:250;564:2;558:9;606:6;594:19;;643:18;628:34;;664:22;;;625:62;622:88;;;690:18;;:::i;:::-;726:2;719:22;497:250;:::o;752:181::-;828:20;;-1:-1:-1;;;;;877:31:16;;867:42;;857:70;;923:1;920;913:12;857:70;752:181;;;:::o;938:163::-;1005:20;;1065:10;1054:22;;1044:33;;1034:61;;1091:1;1088;1081:12;1106:160;1171:20;;1227:13;;1220:21;1210:32;;1200:60;;1256:1;1253;1246:12;1271:718;1313:5;1366:3;1359:4;1351:6;1347:17;1343:27;1333:55;;1384:1;1381;1374:12;1333:55;1420:6;1407:20;1446:18;1483:2;1479;1476:10;1473:36;;;1489:18;;:::i;:::-;1564:2;1558:9;1532:2;1618:13;;-1:-1:-1;;1614:22:16;;;1638:2;1610:31;1606:40;1594:53;;;1662:18;;;1682:22;;;1659:46;1656:72;;;1708:18;;:::i;:::-;1748:10;1744:2;1737:22;1783:2;1775:6;1768:18;1829:3;1822:4;1817:2;1809:6;1805:15;1801:26;1798:35;1795:55;;;1846:1;1843;1836:12;1795:55;1910:2;1903:4;1895:6;1891:17;1884:4;1876:6;1872:17;1859:54;1957:1;1950:4;1945:2;1937:6;1933:15;1929:26;1922:37;1977:6;1968:15;;;;;;1271:718;;;;:::o;1994:699::-;2057:5;2105:4;2093:9;2088:3;2084:19;2080:30;2077:50;;;2123:1;2120;2113:12;2077:50;2156:4;2150:11;2200:4;2192:6;2188:17;2224:18;2292:6;2280:10;2277:22;2272:2;2260:10;2257:18;2254:46;2251:72;;;2303:18;;:::i;:::-;2345:10;2339:4;2332:24;2374:6;2365:15;;2417:9;2404:23;2389:38;;2458:1;2449:7;2446:14;2436:42;;2474:1;2471;2464:12;2436:42;2487:23;;;2561:2;2546:18;;2533:32;;2577:14;;;2574:34;;;2604:1;2601;2594:12;2574:34;;2641:45;2682:3;2673:6;2662:9;2658:22;2641:45;:::i;:::-;2636:2;2628:6;2624:15;2617:70;;;1994:699;;;;:::o;2698:1691::-;2842:6;2850;2858;2902:9;2893:7;2889:23;2932:3;2928:2;2924:12;2921:32;;;2949:1;2946;2939:12;2921:32;2972:6;2998:2;2994;2990:11;2987:31;;;3014:1;3011;3004:12;2987:31;3040:17;;:::i;:::-;3027:30;;3080:37;3107:9;3080:37;:::i;:::-;3073:5;3066:52;3150:46;3192:2;3181:9;3177:18;3150:46;:::i;:::-;3145:2;3138:5;3134:14;3127:70;3229:46;3271:2;3260:9;3256:18;3229:46;:::i;:::-;3224:2;3217:5;3213:14;3206:70;3336:2;3325:9;3321:18;3308:32;3303:2;3296:5;3292:14;3285:56;3402:3;3391:9;3387:19;3374:33;3368:3;3361:5;3357:15;3350:58;3441:38;3474:3;3463:9;3459:19;3441:38;:::i;:::-;3435:3;3428:5;3424:15;3417:63;3541:3;3530:9;3526:19;3513:33;3507:3;3500:5;3496:15;3489:58;3608:3;3597:9;3593:19;3580:33;3574:3;3567:5;3563:15;3556:58;3633:3;3696:2;3685:9;3681:18;3668:32;3663:2;3656:5;3652:14;3645:56;;3720:3;3755:35;3786:2;3775:9;3771:18;3755:35;:::i;:::-;3739:14;;;3732:59;3810:3;3858:18;;;3845:32;3829:14;;;3822:56;3897:3;3945:18;;;3932:32;3916:14;;;3909:56;3743:5;;-1:-1:-1;4025:18:16;;4012:32;4063:18;4093:14;;;4090:34;;;4120:1;4117;4110:12;4090:34;4143:67;4202:7;4193:6;4182:9;4178:22;4143:67;:::i;:::-;4133:77;;4263:3;4252:9;4248:19;4235:33;4219:49;;4293:2;4283:8;4280:16;4277:36;;;4309:1;4306;4299:12;4277:36;;4332:51;4375:7;4364:8;4353:9;4349:24;4332:51;:::i;:::-;4322:61;;;2698:1691;;;;;:::o;5191:422::-;5232:3;5270:5;5264:12;5297:6;5292:3;5285:19;5322:1;5332:162;5346:6;5343:1;5340:13;5332:162;;;5408:4;5464:13;;;5460:22;;5454:29;5436:11;;;5432:20;;5425:59;5361:12;5332:162;;;5336:3;5539:1;5532:4;5523:6;5518:3;5514:16;5510:27;5503:38;5602:4;5595:2;5591:7;5586:2;5578:6;5574:15;5570:29;5565:3;5561:39;5557:50;5550:57;;;5191:422;;;;:::o;5714:298::-;5883:2;5872:9;5865:21;5846:4;5903:44;5943:2;5932:9;5928:18;5920:6;5903:44;:::i;:::-;5895:52;;5997:6;5990:14;5983:22;5978:2;5967:9;5963:18;5956:50;5714:298;;;;;:::o;6470:429::-;6529:3;6563:5;6557:12;6595:1;6591:2;6588:9;6578:140;;6640:10;6635:3;6631:20;6628:1;6621:31;6675:4;6672:1;6665:15;6703:4;6700:1;6693:15;6578:140;6739:2;6734:3;6727:15;;6788:4;6781:5;6777:16;6771:23;6826:4;6819;6814:3;6810:14;6803:28;6847:46;6887:4;6882:3;6878:14;6864:12;6847:46;:::i;6904:1643::-;7259:13;;-1:-1:-1;;;;;93:31:16;81:44;;7186:4;7215:3;7331:4;7323:6;7319:17;7313:24;7346:67;7407:4;7396:9;7392:20;7378:12;-1:-1:-1;;;;;93:31:16;81:44;;14:117;7346:67;;7462:4;7454:6;7450:17;7444:24;7477:69;7540:4;7529:9;7525:20;7509:14;-1:-1:-1;;;;;93:31:16;81:44;;14:117;7477:69;;7602:4;7594:6;7590:17;7584:24;7577:4;7566:9;7562:20;7555:54;7665:4;7657:6;7653:17;7647:24;7640:4;7629:9;7625:20;7618:54;7721:4;7713:6;7709:17;7703:24;7736:55;7785:4;7774:9;7770:20;7754:14;6447:10;6436:22;6424:35;;6371:94;7736:55;;7847:4;7839:6;7835:17;7829:24;7822:4;7811:9;7807:20;7800:54;7910:4;7902:6;7898:17;7892:24;7885:4;7874:9;7870:20;7863:54;7936:6;7996:2;7988:6;7984:15;7978:22;7973:2;7962:9;7958:18;7951:50;;8020:6;8075:2;8067:6;8063:15;8057:22;8088:51;8135:2;8124:9;8120:18;8104:14;5688:13;5681:21;5669:34;;5618:91;8088:51;-1:-1:-1;;8158:6:16;8206:15;;;8200:22;8180:18;;;8173:50;8242:6;8290:15;;;8284:22;8264:18;;;8257:50;8338:3;8323:19;;8316:31;;;8370:62;8413:18;;;8405:6;8370:62;:::i;:::-;8356:76;;8481:9;8473:6;8469:22;8463:3;8452:9;8448:19;8441:51;8509:32;8534:6;8526;8509:32;:::i;:::-;8501:40;6904:1643;-1:-1:-1;;;;;;6904:1643:16:o",
+    "linkReferences": {},
+    "immutableReferences": {
+      "21392": [
+        {
+          "start": 86,
+          "length": 32
+        },
+        {
+          "start": 396,
+          "length": 32
+        }
+      ]
+    }
+  },
+  "methodIdentifiers": {
+    "broadcastOrder((address,address,address,uint256,uint256,uint32,bytes32,uint256,bytes32,bool,bytes32,bytes32),(uint8,bytes),bytes)": "dd77d2f2",
+    "presignOrder((address,address,address,uint256,uint256,uint32,bytes32,uint256,bytes32,bool,bytes32,bytes32),(uint8,bytes),bytes)": "9bf893df",
+    "settlement()": "51160630",
+    "this_contract_address()": "a042c89c"
+  },
+  "ast": {
+    "absolutePath": "src/CowSwapOnchainOrderBroadcaster.sol",
+    "id": 21505,
+    "exportedSymbols": {
+      "CowSwapEip712": [21597],
+      "CowSwapOnchainOrder": [21661],
+      "CowSwapOnchainOrderBroadcaster": [21504],
+      "GPv2Order": [21833],
+      "IERC20": [21911],
+      "ISettlement": [21521],
+      "console": [12970]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:1574:7",
+    "nodes": [
+      {
+        "id": 21378,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:7",
+        "literals": ["solidity", "^", "0.8"]
+      },
+      {
+        "id": 21379,
+        "nodeType": "ImportDirective",
+        "src": "69:34:7",
+        "absolutePath": "src/vendored/GPv2Order.sol",
+        "file": "./vendored/GPv2Order.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21505,
+        "sourceUnit": 21834,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21380,
+        "nodeType": "ImportDirective",
+        "src": "104:39:7",
+        "absolutePath": "src/libraries/CowSwapEip712.sol",
+        "file": "./libraries/CowSwapEip712.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21505,
+        "sourceUnit": 21598,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21381,
+        "nodeType": "ImportDirective",
+        "src": "144:45:7",
+        "absolutePath": "src/libraries/CowSwapOnchainOrder.sol",
+        "file": "./libraries/CowSwapOnchainOrder.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21505,
+        "sourceUnit": 21662,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21382,
+        "nodeType": "ImportDirective",
+        "src": "190:38:7",
+        "absolutePath": "src/interfaces/ISettlement.sol",
+        "file": "./interfaces/ISettlement.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21505,
+        "sourceUnit": 21522,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21504,
+        "nodeType": "ContractDefinition",
+        "src": "230:1389:7",
+        "nodes": [
+          {
+            "id": 21386,
+            "nodeType": "UsingForDirective",
+            "src": "276:35:7",
+            "global": false,
+            "libraryName": {
+              "id": 21383,
+              "name": "GPv2Order",
+              "nameLocations": ["282:9:7"],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 21833,
+              "src": "282:9:7"
+            },
+            "typeName": {
+              "id": 21385,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 21384,
+                "name": "GPv2Order.Data",
+                "nameLocations": ["296:9:7", "306:4:7"],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 21708,
+                "src": "296:14:7"
+              },
+              "referencedDeclaration": 21708,
+              "src": "296:14:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Data_$21708_storage_ptr",
+                "typeString": "struct GPv2Order.Data"
+              }
+            }
+          },
+          {
+            "id": 21389,
+            "nodeType": "UsingForDirective",
+            "src": "316:26:7",
+            "global": false,
+            "libraryName": {
+              "id": 21387,
+              "name": "GPv2Order",
+              "nameLocations": ["322:9:7"],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 21833,
+              "src": "322:9:7"
+            },
+            "typeName": {
+              "id": 21388,
+              "name": "bytes",
+              "nodeType": "ElementaryTypeName",
+              "src": "336:5:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes_storage_ptr",
+                "typeString": "bytes"
+              }
+            }
+          },
+          {
+            "id": 21392,
+            "nodeType": "VariableDeclaration",
+            "src": "348:39:7",
+            "constant": false,
+            "functionSelector": "51160630",
+            "mutability": "immutable",
+            "name": "settlement",
+            "nameLocation": "377:10:7",
+            "scope": 21504,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_ISettlement_$21521",
+              "typeString": "contract ISettlement"
+            },
+            "typeName": {
+              "id": 21391,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 21390,
+                "name": "ISettlement",
+                "nameLocations": ["348:11:7"],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 21521,
+                "src": "348:11:7"
+              },
+              "referencedDeclaration": 21521,
+              "src": "348:11:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ISettlement_$21521",
+                "typeString": "contract ISettlement"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 21394,
+            "nodeType": "VariableDeclaration",
+            "src": "393:36:7",
+            "constant": false,
+            "functionSelector": "a042c89c",
+            "mutability": "mutable",
+            "name": "this_contract_address",
+            "nameLocation": "408:21:7",
+            "scope": 21504,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 21393,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "393:7:7",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 21408,
+            "nodeType": "ModifierDefinition",
+            "src": "436:179:7",
+            "body": {
+              "id": 21407,
+              "nodeType": "Block",
+              "src": "464:151:7",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 21402,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "arguments": [
+                            {
+                              "id": 21399,
+                              "name": "this",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": -28,
+                              "src": "503:4:7",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_CowSwapOnchainOrderBroadcaster_$21504",
+                                "typeString": "contract CowSwapOnchainOrderBroadcaster"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_contract$_CowSwapOnchainOrderBroadcaster_$21504",
+                                "typeString": "contract CowSwapOnchainOrderBroadcaster"
+                              }
+                            ],
+                            "id": 21398,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "495:7:7",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_address_$",
+                              "typeString": "type(address)"
+                            },
+                            "typeName": {
+                              "id": 21397,
+                              "name": "address",
+                              "nodeType": "ElementaryTypeName",
+                              "src": "495:7:7",
+                              "typeDescriptions": {}
+                            }
+                          },
+                          "id": 21400,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "495:13:7",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "id": 21401,
+                          "name": "this_contract_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21394,
+                          "src": "512:21:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "495:38:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "73686f756c64206f6e6c792062652063616c6c6564207669612064656c656761746563616c6c",
+                        "id": 21403,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "547:40:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_073f850795552f513019778f034a0ae651e81218ee19eb25fd412f4c94ba3191",
+                          "typeString": "literal_string \"should only be called via delegatecall\""
+                        },
+                        "value": "should only be called via delegatecall"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_073f850795552f513019778f034a0ae651e81218ee19eb25fd412f4c94ba3191",
+                          "typeString": "literal_string \"should only be called via delegatecall\""
+                        }
+                      ],
+                      "id": 21396,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [-18, -18],
+                      "referencedDeclaration": -18,
+                      "src": "474:7:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 21404,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "474:123:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 21405,
+                  "nodeType": "ExpressionStatement",
+                  "src": "474:123:7"
+                },
+                {
+                  "id": 21406,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "607:1:7"
+                }
+              ]
+            },
+            "name": "onlyDelegateCall",
+            "nameLocation": "445:16:7",
+            "parameters": {
+              "id": 21395,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "461:2:7"
+            },
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "id": 21426,
+            "nodeType": "FunctionDefinition",
+            "src": "621:125:7",
+            "body": {
+              "id": 21425,
+              "nodeType": "Block",
+              "src": "658:88:7",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 21416,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21414,
+                      "name": "settlement",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21392,
+                      "src": "668:10:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ISettlement_$21521",
+                        "typeString": "contract ISettlement"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 21415,
+                      "name": "_settlement",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21411,
+                      "src": "681:11:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ISettlement_$21521",
+                        "typeString": "contract ISettlement"
+                      }
+                    },
+                    "src": "668:24:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ISettlement_$21521",
+                      "typeString": "contract ISettlement"
+                    }
+                  },
+                  "id": 21417,
+                  "nodeType": "ExpressionStatement",
+                  "src": "668:24:7"
+                },
+                {
+                  "expression": {
+                    "id": 21423,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21418,
+                      "name": "this_contract_address",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21394,
+                      "src": "702:21:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 21421,
+                          "name": "this",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -28,
+                          "src": "734:4:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_CowSwapOnchainOrderBroadcaster_$21504",
+                            "typeString": "contract CowSwapOnchainOrderBroadcaster"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_contract$_CowSwapOnchainOrderBroadcaster_$21504",
+                            "typeString": "contract CowSwapOnchainOrderBroadcaster"
+                          }
+                        ],
+                        "id": 21420,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "ElementaryTypeNameExpression",
+                        "src": "726:7:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_address_$",
+                          "typeString": "type(address)"
+                        },
+                        "typeName": {
+                          "id": 21419,
+                          "name": "address",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "726:7:7",
+                          "typeDescriptions": {}
+                        }
+                      },
+                      "id": 21422,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "726:13:7",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "702:37:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 21424,
+                  "nodeType": "ExpressionStatement",
+                  "src": "702:37:7"
+                }
+              ]
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 21412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21411,
+                  "mutability": "mutable",
+                  "name": "_settlement",
+                  "nameLocation": "645:11:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21426,
+                  "src": "633:23:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_ISettlement_$21521",
+                    "typeString": "contract ISettlement"
+                  },
+                  "typeName": {
+                    "id": 21410,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21409,
+                      "name": "ISettlement",
+                      "nameLocations": ["633:11:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21521,
+                      "src": "633:11:7"
+                    },
+                    "referencedDeclaration": 21521,
+                    "src": "633:11:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ISettlement_$21521",
+                      "typeString": "contract ISettlement"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "632:25:7"
+            },
+            "returnParameters": {
+              "id": 21413,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "658:0:7"
+            },
+            "scope": 21504,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21438,
+            "nodeType": "EventDefinition",
+            "src": "752:164:7",
+            "anonymous": false,
+            "eventSelector": "cf5f9de2984132265203b5c335b25727702ca77262ff622e136baa7362bf1da9",
+            "name": "OrderPlacement",
+            "nameLocation": "758:14:7",
+            "parameters": {
+              "id": 21437,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21428,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "owner",
+                  "nameLocation": "798:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21438,
+                  "src": "782:21:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 21427,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "782:7:7",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21431,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "828:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21438,
+                  "src": "813:20:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 21430,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21429,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": ["813:9:7", "823:4:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21708,
+                      "src": "813:14:7"
+                    },
+                    "referencedDeclaration": 21708,
+                    "src": "813:14:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21708_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21434,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "880:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21438,
+                  "src": "843:46:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                    "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                  },
+                  "typeName": {
+                    "id": 21433,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21432,
+                      "name": "CowSwapOnchainOrder.OnchainSignature",
+                      "nameLocations": ["843:19:7", "863:16:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21617,
+                      "src": "843:36:7"
+                    },
+                    "referencedDeclaration": 21617,
+                    "src": "843:36:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_OnchainSignature_$21617_storage_ptr",
+                      "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21436,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "905:4:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21438,
+                  "src": "899:10:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 21435,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "899:5:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "772:143:7"
+            }
+          },
+          {
+            "id": 21459,
+            "nodeType": "FunctionDefinition",
+            "src": "922:264:7",
+            "body": {
+              "id": 21458,
+              "nodeType": "Block",
+              "src": "1104:82:7",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 21453,
+                        "name": "order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21441,
+                        "src": "1156:5:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                          "typeString": "struct GPv2Order.Data memory"
+                        }
+                      },
+                      {
+                        "id": 21454,
+                        "name": "signature",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21444,
+                        "src": "1163:9:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                          "typeString": "struct CowSwapOnchainOrder.OnchainSignature memory"
+                        }
+                      },
+                      {
+                        "id": 21455,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21446,
+                        "src": "1174:4:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                          "typeString": "struct GPv2Order.Data memory"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                          "typeString": "struct CowSwapOnchainOrder.OnchainSignature memory"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "expression": {
+                        "id": 21451,
+                        "name": "CowSwapOnchainOrder",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21661,
+                        "src": "1121:19:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_CowSwapOnchainOrder_$21661_$",
+                          "typeString": "type(library CowSwapOnchainOrder)"
+                        }
+                      },
+                      "id": 21452,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1141:14:7",
+                      "memberName": "broadcastOrder",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21660,
+                      "src": "1121:34:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Data_$21708_memory_ptr_$_t_struct$_OnchainSignature_$21617_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                        "typeString": "function (struct GPv2Order.Data memory,struct CowSwapOnchainOrder.OnchainSignature memory,bytes memory) returns (bytes32)"
+                      }
+                    },
+                    "id": 21456,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1121:58:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 21450,
+                  "id": 21457,
+                  "nodeType": "Return",
+                  "src": "1114:65:7"
+                }
+              ]
+            },
+            "functionSelector": "dd77d2f2",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "broadcastOrder",
+            "nameLocation": "931:14:7",
+            "parameters": {
+              "id": 21447,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21441,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "977:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21459,
+                  "src": "955:27:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 21440,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21439,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": ["955:9:7", "965:4:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21708,
+                      "src": "955:14:7"
+                    },
+                    "referencedDeclaration": 21708,
+                    "src": "955:14:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21708_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21444,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "1036:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21459,
+                  "src": "992:53:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                    "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                  },
+                  "typeName": {
+                    "id": 21443,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21442,
+                      "name": "CowSwapOnchainOrder.OnchainSignature",
+                      "nameLocations": ["992:19:7", "1012:16:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21617,
+                      "src": "992:36:7"
+                    },
+                    "referencedDeclaration": 21617,
+                    "src": "992:36:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_OnchainSignature_$21617_storage_ptr",
+                      "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21446,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1068:4:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21459,
+                  "src": "1055:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 21445,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1055:5:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "945:133:7"
+            },
+            "returnParameters": {
+              "id": 21450,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21449,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21459,
+                  "src": "1095:7:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21448,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1095:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1094:9:7"
+            },
+            "scope": 21504,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 21503,
+            "nodeType": "FunctionDefinition",
+            "src": "1192:425:7",
+            "body": {
+              "id": 21502,
+              "nodeType": "Block",
+              "src": "1403:214:7",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 21480,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 21474,
+                      "name": "orderDigest",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 21472,
+                      "src": "1413:11:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 21476,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21462,
+                          "src": "1442:5:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                            "typeString": "struct GPv2Order.Data memory"
+                          }
+                        },
+                        {
+                          "id": 21477,
+                          "name": "signature",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21465,
+                          "src": "1449:9:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                            "typeString": "struct CowSwapOnchainOrder.OnchainSignature memory"
+                          }
+                        },
+                        {
+                          "id": 21478,
+                          "name": "data",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21467,
+                          "src": "1460:4:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                            "typeString": "struct GPv2Order.Data memory"
+                          },
+                          {
+                            "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                            "typeString": "struct CowSwapOnchainOrder.OnchainSignature memory"
+                          },
+                          {
+                            "typeIdentifier": "t_bytes_memory_ptr",
+                            "typeString": "bytes memory"
+                          }
+                        ],
+                        "id": 21475,
+                        "name": "broadcastOrder",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21459,
+                        "src": "1427:14:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_internal_nonpayable$_t_struct$_Data_$21708_memory_ptr_$_t_struct$_OnchainSignature_$21617_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                          "typeString": "function (struct GPv2Order.Data memory,struct CowSwapOnchainOrder.OnchainSignature memory,bytes memory) returns (bytes32)"
+                        }
+                      },
+                      "id": 21479,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "1427:38:7",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "1413:52:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 21481,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1413:52:7"
+                },
+                {
+                  "assignments": [21483],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 21483,
+                      "mutability": "mutable",
+                      "name": "uid",
+                      "nameLocation": "1488:3:7",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 21502,
+                      "src": "1475:16:7",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_memory_ptr",
+                        "typeString": "bytes"
+                      },
+                      "typeName": {
+                        "id": 21482,
+                        "name": "bytes",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1475:5:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_storage_ptr",
+                          "typeString": "bytes"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 21484,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1475:16:7"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 21488,
+                        "name": "orderDigest",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21472,
+                        "src": "1524:11:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21489,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -15,
+                          "src": "1537:3:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 21490,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1541:6:7",
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "1537:10:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21491,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21462,
+                          "src": "1549:5:7",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                            "typeString": "struct GPv2Order.Data memory"
+                          }
+                        },
+                        "id": 21492,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1555:7:7",
+                        "memberName": "validTo",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21695,
+                        "src": "1549:13:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      ],
+                      "expression": {
+                        "id": 21485,
+                        "name": "uid",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21483,
+                        "src": "1501:3:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      },
+                      "id": 21487,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1505:18:7",
+                      "memberName": "packOrderUidParams",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21810,
+                      "src": "1501:22:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_bytes_memory_ptr_$_t_bytes32_$_t_address_$_t_uint32_$returns$__$bound_to$_t_bytes_memory_ptr_$",
+                        "typeString": "function (bytes memory,bytes32,address,uint32) pure"
+                      }
+                    },
+                    "id": 21493,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1501:62:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 21494,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1501:62:7"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 21498,
+                        "name": "uid",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21483,
+                        "src": "1600:3:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      },
+                      {
+                        "hexValue": "74727565",
+                        "id": 21499,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "bool",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1605:4:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "value": "true"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        },
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "expression": {
+                        "id": 21495,
+                        "name": "settlement",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21392,
+                        "src": "1573:10:7",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ISettlement_$21521",
+                          "typeString": "contract ISettlement"
+                        }
+                      },
+                      "id": 21497,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1584:15:7",
+                      "memberName": "setPreSignature",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21520,
+                      "src": "1573:26:7",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_bytes_memory_ptr_$_t_bool_$returns$__$",
+                        "typeString": "function (bytes memory,bool) external"
+                      }
+                    },
+                    "id": 21500,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1573:37:7",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 21501,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1573:37:7"
+                }
+              ]
+            },
+            "functionSelector": "9bf893df",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 21470,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 21469,
+                  "name": "onlyDelegateCall",
+                  "nameLocations": ["1356:16:7"],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 21408,
+                  "src": "1356:16:7"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1356:16:7"
+              }
+            ],
+            "name": "presignOrder",
+            "nameLocation": "1201:12:7",
+            "parameters": {
+              "id": 21468,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21462,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "1245:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21503,
+                  "src": "1223:27:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21708_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 21461,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21460,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": ["1223:9:7", "1233:4:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21708,
+                      "src": "1223:14:7"
+                    },
+                    "referencedDeclaration": 21708,
+                    "src": "1223:14:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21708_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21465,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "1304:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21503,
+                  "src": "1260:53:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_OnchainSignature_$21617_memory_ptr",
+                    "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                  },
+                  "typeName": {
+                    "id": 21464,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21463,
+                      "name": "CowSwapOnchainOrder.OnchainSignature",
+                      "nameLocations": ["1260:19:7", "1280:16:7"],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21617,
+                      "src": "1260:36:7"
+                    },
+                    "referencedDeclaration": 21617,
+                    "src": "1260:36:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_OnchainSignature_$21617_storage_ptr",
+                      "typeString": "struct CowSwapOnchainOrder.OnchainSignature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21467,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1336:4:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21503,
+                  "src": "1323:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 21466,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1323:5:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1213:133:7"
+            },
+            "returnParameters": {
+              "id": 21473,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21472,
+                  "mutability": "mutable",
+                  "name": "orderDigest",
+                  "nameLocation": "1390:11:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21503,
+                  "src": "1382:19:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21471,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1382:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1381:21:7"
+            },
+            "scope": 21504,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "CowSwapOnchainOrderBroadcaster",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [21504],
+        "name": "CowSwapOnchainOrderBroadcaster",
+        "nameLocation": "239:30:7",
+        "scope": 21505,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 7
+}
