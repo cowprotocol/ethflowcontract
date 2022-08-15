@@ -1,6 +1,6 @@
 # ETH flow contracts
 
-Smmart contracts that enable native ETH sell orders on CowSwap.
+Smart contracts that enable native ETH sell orders on CowSwap.
 
 ## Development
 

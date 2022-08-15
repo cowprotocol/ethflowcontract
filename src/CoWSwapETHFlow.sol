@@ -13,7 +13,8 @@ contract CoWSwapETHFlow is ERC1271 {
 
     ISettlement public immutable settlement;
     IWETH public weth;
-
+    // bytes32 used like that:
+    //uint32 validTo + address of owner + 64 unused bytes.
     mapping(bytes32 => bytes32) public orders;
 
     constructor(

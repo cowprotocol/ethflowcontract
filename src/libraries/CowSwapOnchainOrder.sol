@@ -19,7 +19,7 @@ library CowSwapOnchainOrder {
     }
 
     event OrderPlacement(
-        address indexed owner,
+        address indexed sender,
         GPv2Order.Data order,
         OnchainSignature signature,
         bytes data
