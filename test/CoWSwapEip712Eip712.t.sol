@@ -7,13 +7,9 @@ import "./Constants.sol";
 
 contract TestCoWSwapEip712 is Test {
     function testDomainSeparator() public {
-        // Computed in the CoW Swap contract repo as:
-        // > ethers.utils._TypedDataEncoder.hashDomain(domain(31337, "0x9008D19f58AAbD9eD0D60971565AA8510560ab41"))
-        bytes32 anvilDomainSeparator = 0x28dc932d67cd79da82085f7fbb19d7c88f84894397b07917354176f60f0096d4;
-
         assertEq(
             CoWSwapEip712.domainSeparator(Constants.COWSWAP_ADDRESS),
-            anvilDomainSeparator
+            Constants.COWSWAP_TEST_DOMAIN_SEPARATOR
         );
     }
 
