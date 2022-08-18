@@ -16,7 +16,7 @@ interface ICoWSwapOnchainOrders {
     struct OnchainSignature {
         /// @dev The signing scheme used by the signature data.
         OnchainSigningScheme scheme;
-        /// @dev The actual data used as an order signature.
+        /// @dev The data used as an order signature.
         bytes data;
     }
 
@@ -25,8 +25,8 @@ interface ICoWSwapOnchainOrders {
     /// @param sender The user who triggered the creation of the order. Note that this address does *not* need to be
     /// the actual owner of the order and does not need to be related to the order or signature in any way.
     /// For example, if a smart contract creates orders on behalf of the user, then the sender would be the user who
-    /// triggered the creation of the order, while the actual owner of the order would be the smart contract that
-    /// created it.
+    /// triggers the creation of the order, while the actual owner of the order would be the smart contract that
+    /// creates it.
     /// @param order Information on the order that is created in this transacion. The order is expected to be a valid
     /// order for the CoW Swap settlement contract and contain all information needed to settle it in a batch.
     /// @param signature The signature that can be used to verify the newly created order. Note that it is always
