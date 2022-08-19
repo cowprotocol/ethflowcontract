@@ -55,7 +55,7 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
         bytes32 orderHash = 0x65e25f4dac20ef9e411ba2e6a5c6c2697ce004564ffeeb5fe8a3d9f6529974f5;
 
         assertEq(
-            onchainOrders.placeOrderPublic(
+            onchainOrders.broadcastOrderPublic(
                 address(42),
                 order,
                 ICoWSwapOnchainOrders.OnchainSignature(
@@ -86,6 +86,6 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
             signature,
             data
         );
-        onchainOrders.placeOrderPublic(sender, order, signature, data);
+        onchainOrders.broadcastOrderPublic(sender, order, signature, data);
     }
 }

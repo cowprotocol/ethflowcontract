@@ -21,12 +21,12 @@ contract CoWSwapOnchainOrdersExposed is CoWSwapOnchainOrders {
 
     }
 
-    function placeOrderPublic(
+    function broadcastOrderPublic(
         address sender,
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
         bytes memory data
     ) public returns (bytes32) {
-        return placeOrder(sender, order, signature, data);
+        return broadcastOrder(sender, order, signature, data);
     }
 }

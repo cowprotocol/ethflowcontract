@@ -27,7 +27,7 @@ contract CoWSwapOnchainOrders is ICoWSwapOnchainOrders {
     ///
     /// See [`ICoWSwapOnchainOrders.OrderPlacement`] for details on the meaning of each parameter.
     /// @return The EIP-712 hash of the order data as computed by the CoW Swap settlement contract.
-    function placeOrder(
+    function broadcastOrder(
         address sender,
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
