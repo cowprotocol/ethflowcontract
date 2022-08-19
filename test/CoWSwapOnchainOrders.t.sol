@@ -7,8 +7,6 @@ import "./Constants.sol";
 import "../src/vendored/GPv2Order.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 
-// Note: inheriting the interface ICoWSwapOnchainOrders allows us to emit the event without redefining it again in this
-// contract.
 contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
     CoWSwapOnchainOrdersExposed internal onchainOrders;
 
