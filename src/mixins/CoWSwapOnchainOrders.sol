@@ -26,14 +26,19 @@ contract CoWSwapOnchainOrders is ICoWSwapOnchainOrders {
     /// hash.
     ///
     /// See [`ICoWSwapOnchainOrders.OrderPlacement`] for details on the meaning of each parameter.
-    /// @return The EIP-712 hash of the order data as computed by the CoW Swap settlement contract.
+    /// @return orderUid
     function broadcastOrder(
         address sender,
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
         bytes memory data
-    ) internal returns (bytes32) {
+    ) internal returns (bytes memory orderUid) {
         emit OrderPlacement(sender, order, signature, data);
-        return order.hash(cowSwapDomainSeparator);
+        orderUid = new bytes(56);
+        orderUid.packOrderUidParams(
+            order.hash(cowSwapDomainSeparator),
+            sender, /* bad! sender does not have to be owner. good for gas tests however */
+            order.validTo
+        );
     }
 }

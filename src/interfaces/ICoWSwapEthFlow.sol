@@ -8,7 +8,7 @@ import "../libraries/EthFlowOrder.sol";
 interface ICoWSwapEthFlow {
     /// @dev Error thrown when trying to create a new order whose order hash is the same as an order hash that was
     /// already assigned.
-    error OrderIsAlreadyOwned(bytes32 orderHash);
+    error OrderIsAlreadyOwned(bytes orderUid);
 
     /// @dev Error thrown when trying to create an order without sending the expected amount of ETH to this contract.
     error IncorrectEthAmount();
@@ -18,9 +18,9 @@ interface ICoWSwapEthFlow {
     ///
     /// @param order The data describing the order to be created. See [`EthFlowOrder.Data`] for extra information on
     /// each parameter.
-    /// @return orderHash The hash of the CoW Swap order that is created to settle the new ETH order.
+    /// @return orderUid The hash of the CoW Swap order that is created to settle the new ETH order.
     function createOrder(EthFlowOrder.Data calldata order)
         external
         payable
-        returns (bytes32 orderHash);
+        returns (bytes memory orderUid);
 }

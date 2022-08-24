@@ -26,7 +26,7 @@ contract CoWSwapOnchainOrdersExposed is CoWSwapOnchainOrders {
         GPv2Order.Data memory order,
         OnchainSignature memory signature,
         bytes memory data
-    ) public returns (bytes32) {
+    ) public returns (bytes memory) {
         return broadcastOrder(sender, order, signature, data);
     }
 }

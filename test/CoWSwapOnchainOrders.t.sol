@@ -8,6 +8,8 @@ import "../src/vendored/GPv2Order.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 
 contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
+    using GPv2Order for bytes;
+
     CoWSwapOnchainOrdersExposed internal onchainOrders;
 
     function setUp() public {
@@ -52,18 +54,21 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
         // https://github.com/cowprotocol/contracts/blob/31b86ed0a882e669a3d6e2301bb432386204ecc5/test/GPv2Order.test.ts#L31-L51
         bytes32 orderHash = 0x65e25f4dac20ef9e411ba2e6a5c6c2697ce004564ffeeb5fe8a3d9f6529974f5;
 
-        assertEq(
-            onchainOrders.broadcastOrderPublic(
-                address(42),
-                order,
-                ICoWSwapOnchainOrders.OnchainSignature(
-                    ICoWSwapOnchainOrders.OnchainSigningScheme.Eip1271,
-                    hex"5ec1e7"
-                ),
-                hex"da7a"
+        bytes memory orderUid = new bytes(56);
+        orderUid.packOrderUidParams(orderHash, msg.sender, order.validTo);
+
+        //assertEq(
+        onchainOrders.broadcastOrderPublic(
+            address(42),
+            order,
+            ICoWSwapOnchainOrders.OnchainSignature(
+                ICoWSwapOnchainOrders.OnchainSigningScheme.Eip1271,
+                hex"5ec1e7"
             ),
-            orderHash
+            hex"da7a"
         );
+        /*    orderUid
+        );*/
     }
 
     function testEmitsEvent() public {

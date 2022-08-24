@@ -4,11 +4,13 @@ pragma solidity ^0.8;
 import "./libraries/EthFlowOrder.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
+import "./vendored/GPv2Order.sol";
 
 /// @title CoW Swap ETH Flow
 /// @author CoW Swap Developers
 contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     using EthFlowOrder for EthFlowOrder.Data;
+    using GPv2Order for bytes;
 
     /// @dev An order that is owned by this address is an order that has not yet been assigned.
     address public constant NO_OWNER = address(0);
@@ -36,7 +38,7 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     function createOrder(EthFlowOrder.Data calldata order)
         external
         payable
-        returns (bytes32 orderHash)
+        returns (bytes memory orderUid)
     {
         if (msg.value != order.sellAmount) {
             revert IncorrectEthAmount();
@@ -58,15 +60,16 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
             order.quoteId
         );
 
-        orderHash = broadcastOrder(
+        orderUid = broadcastOrder(
             onchainData.owner,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
             data
         );
+        bytes32 orderHash = abi.decode(orderUid, (bytes32));
 
         if (orders[orderHash].owner != NO_OWNER) {
-            revert OrderIsAlreadyOwned(orderHash);
+            revert OrderIsAlreadyOwned(orderUid);
         }
 
         orders[orderHash] = onchainData;

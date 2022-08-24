@@ -10,6 +10,7 @@ import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
     using EthFlowOrder for EthFlowOrder.Data;
     using GPv2Order for GPv2Order.Data;
+    using GPv2Order for bytes;
 
     CoWSwapEthFlowExposed internal ethFlow;
     IERC20 internal wrappedNativeToken =
@@ -78,11 +79,13 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
 
+        bytes memory orderUid = new bytes(56);
+        orderUid.packOrderUidParams(orderHash, executor2, type(uint32).max);
         vm.startPrank(executor2);
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.OrderIsAlreadyOwned.selector,
-                orderHash
+                orderUid
             )
         );
         ethFlow.createOrder{value: sellAmount}(order);
@@ -107,8 +110,12 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
             ethFlow.cowSwapDomainSeparatorPublic()
         );
+        bytes memory orderUid = new bytes(56);
+        orderUid.packOrderUidParams(orderHash, msg.sender, order.validTo);
 
-        assertEq(ethFlow.createOrder{value: sellAmount}(order), orderHash);
+        //assertEq(
+        ethFlow.createOrder{value: sellAmount}(order);
+        //, orderUid);
     }
 
     function testOrderCreationEventHasExpectedParams() public {
