@@ -47,7 +47,7 @@ library EthFlowOrder {
         returns (GPv2Order.Data memory)
     {
         if (order.receiver == GPv2Order.RECEIVER_SAME_AS_OWNER) {
-            // The receiver field specified which address is going to receive the proceeds from the oders. If using
+            // The receiver field specified which address is going to receive the proceeds from the orders. If using
             // `RECEIVER_SAME_AS_OWNER`, then the receiver is implicitly assumed by the CoW Swap Protocol to be the
             // same as the order owner.
             // However, the owner of an ETH flow order is always the ETH flow smart contract, and any ERC20 tokens sent
