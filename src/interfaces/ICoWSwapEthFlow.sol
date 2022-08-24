@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 pragma solidity ^0.8;
 
-import "../vendored/GPv2Order.sol";
-
 /// @title CoW Swap ETH Flow Interface
 /// @author CoW Swap Developers
 interface ICoWSwapEthFlow {
