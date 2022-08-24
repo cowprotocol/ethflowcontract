@@ -31,7 +31,7 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
             GPv2Order.Data(
                 IERC20(address(0x0101010101010101010101010101010101010101)), // IERC20 sellToken
                 IERC20(address(0x0202020202020202020202020202020202020202)), // IERC20 buyToken
-                address(address(0x0303030303030303030303030303030303030303)), // address receiver
+                address(0x0303030303030303030303030303030303030303), // address receiver
                 42 ether, // uint256 sellAmount
                 1337e16, // uint256 buyAmount
                 0xffffffff, // uint32 validTo
