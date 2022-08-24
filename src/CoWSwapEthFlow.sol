@@ -9,7 +9,6 @@ import "./mixins/CoWSwapOnchainOrders.sol";
 /// @author CoW Swap Developers
 contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     using EthFlowOrder for EthFlowOrder.Data;
-    using EthFlowOrder for EthFlowOrder.OnchainData;
 
     /// @dev An order that is owned by this address is an order that has not yet been assigned.
     address public constant NO_OWNER = address(0);
@@ -57,11 +56,14 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
             abi.encodePacked(address(this))
         );
 
+        // The data event field includes extra information needed to settle orders with the CoW Swap API.
+        bytes memory data = abi.encodePacked(onchainData.validTo);
+
         orderHash = broadcastOrder(
             onchainData.owner,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            onchainData.pack()
+            data
         );
 
         if (orders[orderHash].owner != NO_OWNER) {

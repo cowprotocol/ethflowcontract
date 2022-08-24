@@ -43,18 +43,6 @@ library EthFlowOrder {
     /// @dev Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`).
     error ReceiverMustBeSet();
 
-    /// @dev Encodes onchain order information for offchain fruition.
-    ///
-    /// @param onchainData The data describing the order to be created.
-    /// @return The encoded order information.
-    function pack(EthFlowOrder.OnchainData memory onchainData)
-        internal
-        pure
-        returns (bytes memory)
-    {
-        return abi.encodePacked(onchainData.owner, onchainData.validTo);
-    }
-
     /// @dev Transforms an ETH flow order into the CoW Swap order that can be settled by the ETH flow contract.
     ///
     /// @param order The ETH flow order to be converted.

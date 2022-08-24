@@ -138,7 +138,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(address(executor), validTo)
+            abi.encodePacked(validTo)
         );
         ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
