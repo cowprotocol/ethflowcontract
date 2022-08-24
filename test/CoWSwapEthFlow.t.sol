@@ -46,7 +46,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
 
         vm.expectRevert(ICoWSwapEthFlow.IncorrectEthAmount.selector);
-        ethFlow.createOrder{value: sellAmount - 1}(order);
+        ethFlow.createOrder{value: sellAmount - 1}(order, 42);
     }
 
     function testRevertIfCreatingTheSameOrderTwice() public {
@@ -73,7 +73,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         vm.deal(executor2, sellAmount);
 
         vm.startPrank(executor1);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount}(order, 42);
         vm.stopPrank();
 
         vm.startPrank(executor2);
@@ -83,7 +83,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
                 orderHash
             )
         );
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount}(order, 42);
         vm.stopPrank();
     }
 
@@ -105,7 +105,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             ethFlow.cowSwapDomainSeparatorPublic()
         );
 
-        assertEq(ethFlow.createOrder{value: sellAmount}(order), orderHash);
+        assertEq(ethFlow.createOrder{value: sellAmount}(order, 42), orderHash);
     }
 
     function testOrderCreationEventHasExpectedParams() public {
@@ -131,6 +131,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             );
 
         address executor = address(0x1337);
+        uint64 orderUid = 42;
         vm.deal(executor, sellAmount);
         vm.startPrank(executor);
         vm.expectEmit(true, true, true, true, address(ethFlow));
@@ -138,9 +139,9 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(validTo)
+            abi.encodePacked(validTo, orderUid)
         );
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount}(order, orderUid);
         vm.stopPrank();
     }
 
@@ -167,7 +168,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         address executor = address(0x1337);
         vm.deal(executor, sellAmount);
         vm.startPrank(executor);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount}(order, 42);
         vm.stopPrank();
 
         (address ethFlowOwner, uint32 ethFlowValidTo) = ethFlow.orders(

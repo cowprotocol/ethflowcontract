@@ -36,8 +36,10 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     /// the caller sends out the transaction. The caller takes ownership of the new order.
     ///
     /// @param order The data describing the order to be created.
+    /// @param quoteId The quote id obtained from the CoW Swap API to lock in the current price. It is included in the
+    /// extra information in the order creation event.
     /// @return orderHash The hash of the CoW Swap order that is created to settle the new ETH order.
-    function createOrder(EthFlowOrder.Data calldata order)
+    function createOrder(EthFlowOrder.Data calldata order, uint64 quoteId)
         external
         payable
         returns (bytes32 orderHash)
@@ -57,7 +59,7 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
         );
 
         // The data event field includes extra information needed to settle orders with the CoW Swap API.
-        bytes memory data = abi.encodePacked(onchainData.validTo);
+        bytes memory data = abi.encodePacked(onchainData.validTo, quoteId);
 
         orderHash = broadcastOrder(
             onchainData.owner,
