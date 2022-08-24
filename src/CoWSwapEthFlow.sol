@@ -32,11 +32,7 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
         wrappedNativeToken = _wrappedNativeToken;
     }
 
-    /// @dev Function that creates and broadcasts an ETH flow order that sells native ETH. The order is paid for when
-    /// the caller sends out the transaction. The caller takes ownership of the new order.
-    ///
-    /// @param order The data describing the order to be created.
-    /// @return orderHash The hash of the CoW Swap order that is created to settle the new ETH order.
+    /// @inheritdoc ICoWSwapEthFlow
     function createOrder(EthFlowOrder.Data calldata order)
         external
         payable
