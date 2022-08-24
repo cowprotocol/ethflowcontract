@@ -20,7 +20,8 @@ contract TestCoWSwapOnchainOrders is Test {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
-            true
+            true,
+            FillWithSameByte.toUint64(0x08)
         );
         IERC20 wrappedNativeToken = IERC20(FillWithSameByte.toAddress(0x42));
 
@@ -57,7 +58,8 @@ contract TestCoWSwapOnchainOrders is Test {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
-            true
+            true,
+            FillWithSameByte.toUint32(0x08)
         );
         assertEq(ethFlowOrder.receiver, GPv2Order.RECEIVER_SAME_AS_OWNER);
 

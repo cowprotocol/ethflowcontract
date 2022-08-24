@@ -41,15 +41,16 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             bytes32(0),
             0,
             0,
-            false
+            false,
+            0
         );
         assertEq(order.sellAmount, sellAmount);
 
         vm.expectRevert(ICoWSwapEthFlow.IncorrectEthAmount.selector);
-        ethFlow.createOrder{value: sellAmount - 1}(order, 42);
+        ethFlow.createOrder{value: sellAmount - 1}(order);
     }
 
-    function testRevertIfCreatingTheSameOrderTwice() public {
+    function testRevertIfCreatingAnOrderWithTheSameHashTwice() public {
         uint256 sellAmount = 42 ether;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
@@ -59,7 +60,8 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
-            true
+            true,
+            FillWithSameByte.toUint64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -73,7 +75,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         vm.deal(executor2, sellAmount);
 
         vm.startPrank(executor1);
-        ethFlow.createOrder{value: sellAmount}(order, 42);
+        ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
 
         vm.startPrank(executor2);
@@ -83,7 +85,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
                 orderHash
             )
         );
-        ethFlow.createOrder{value: sellAmount}(order, 42);
+        ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
     }
 
@@ -97,7 +99,8 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
-            true
+            true,
+            FillWithSameByte.toUint64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -105,12 +108,13 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             ethFlow.cowSwapDomainSeparatorPublic()
         );
 
-        assertEq(ethFlow.createOrder{value: sellAmount}(order, 42), orderHash);
+        assertEq(ethFlow.createOrder{value: sellAmount}(order), orderHash);
     }
 
     function testOrderCreationEventHasExpectedParams() public {
         uint256 sellAmount = 42 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
+        uint64 quoteId = 1337;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x02)),
             FillWithSameByte.toAddress(0x03),
@@ -119,7 +123,8 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             validTo,
-            true
+            true,
+            quoteId
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.validTo, validTo);
@@ -131,7 +136,6 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             );
 
         address executor = address(0x1337);
-        uint64 orderUid = 42;
         vm.deal(executor, sellAmount);
         vm.startPrank(executor);
         vm.expectEmit(true, true, true, true, address(ethFlow));
@@ -139,9 +143,9 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(validTo, orderUid)
+            abi.encodePacked(validTo, quoteId)
         );
-        ethFlow.createOrder{value: sellAmount}(order, orderUid);
+        ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
     }
 
@@ -156,7 +160,8 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toBytes32(0x05),
             FillWithSameByte.toUint256(0x06),
             validTo,
-            true
+            true,
+            FillWithSameByte.toUint64(0x07)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.validTo, validTo);
@@ -168,7 +173,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
         address executor = address(0x1337);
         vm.deal(executor, sellAmount);
         vm.startPrank(executor);
-        ethFlow.createOrder{value: sellAmount}(order, 42);
+        ethFlow.createOrder{value: sellAmount}(order);
         vm.stopPrank();
 
         (address ethFlowOwner, uint32 ethFlowValidTo) = ethFlow.orders(

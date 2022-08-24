@@ -38,6 +38,10 @@ library EthFlowOrder {
         uint32 validTo;
         /// @dev Flag indicating whether the order is fill-or-kill or can be filled partially.
         bool partiallyFillable;
+        /// @dev quoteId The quote id obtained from the CoW Swap API to lock in the current price. It is not directly
+        /// used by any onchain component but is part of the information emitted onchain on order creation and may be
+        /// required for an order to be automatically picked up by the CoW Swap orderbook.
+        uint64 quoteId;
     }
 
     /// @dev Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`).
@@ -63,6 +67,8 @@ library EthFlowOrder {
             revert ReceiverMustBeSet();
         }
 
+        // Note that not all fields from `order` are used in creating the corresponding CoW Swap order.
+        // For example, validTo and quoteId are ignored.
         return
             GPv2Order.Data(
                 wrappedNativeToken, // IERC20 sellToken
