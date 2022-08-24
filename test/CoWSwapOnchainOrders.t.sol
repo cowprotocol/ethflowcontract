@@ -7,8 +7,6 @@ import "./Constants.sol";
 import "../src/vendored/GPv2Order.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 
-// Note: inheriting the interface ICoWSwapOnchainOrders allows us to emit the event without redefining it again in this
-// contract.
 contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
     CoWSwapOnchainOrdersExposed internal onchainOrders;
 
@@ -31,7 +29,7 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
             GPv2Order.Data(
                 IERC20(address(0x0101010101010101010101010101010101010101)), // IERC20 sellToken
                 IERC20(address(0x0202020202020202020202020202020202020202)), // IERC20 buyToken
-                address(0x0303030303030303030303030303030303030303), // address receiver
+                address(address(0x0303030303030303030303030303030303030303)), // address receiver
                 42 ether, // uint256 sellAmount
                 1337e16, // uint256 buyAmount
                 0xffffffff, // uint32 validTo
