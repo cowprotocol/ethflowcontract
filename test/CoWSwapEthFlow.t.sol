@@ -276,7 +276,6 @@ contract OrderDeletion is EthFlowTestSetup {
     function testCanDeleteValidOrdersIfOwner() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
-        assertGt(ethFlowOrder.validTo, block.timestamp);
         OrderDetails memory order = orderDetails(ethFlowOrder);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
