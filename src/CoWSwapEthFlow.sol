@@ -10,9 +10,6 @@ import "./mixins/CoWSwapOnchainOrders.sol";
 contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     using EthFlowOrder for EthFlowOrder.Data;
 
-    /// @dev An order that is owned by this address is an order that has not yet been assigned.
-    address public constant NO_OWNER = address(0);
-
     /// @dev The address of the contract representing the default native token in the current chain (e.g., WETH for
     /// Ethereum mainnet).
     IERC20 public immutable wrappedNativeToken;
@@ -65,7 +62,7 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
             data
         );
 
-        if (orders[orderHash].owner != NO_OWNER) {
+        if (orders[orderHash].owner != EthFlowOrder.NO_OWNER) {
             revert OrderIsAlreadyOwned(orderHash);
         }
 

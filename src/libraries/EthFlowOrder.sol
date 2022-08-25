@@ -44,6 +44,9 @@ library EthFlowOrder {
         uint64 quoteId;
     }
 
+    /// @dev An order that is owned by this address is an order that has not yet been assigned.
+    address public constant NO_OWNER = address(0);
+
     /// @dev Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`).
     error ReceiverMustBeSet();
 
