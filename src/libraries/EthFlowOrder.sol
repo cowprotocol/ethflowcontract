@@ -7,6 +7,14 @@ import "../vendored/IERC20.sol";
 /// @title CoW Swap ETH Flow Order Library
 /// @author CoW Swap Developers
 library EthFlowOrder {
+    /// @dev Struct collecting all parameters of an ETH flow order that need to be stored onchain.
+    struct OnchainData {
+        /// @dev The address of the user whom the order belongs to.
+        address owner;
+        /// @dev The latest timestamp in seconds when the order can be settled.
+        uint32 validTo;
+    }
+
     /// @dev Data describing all parameters of an ETH flow order.
     struct Data {
         /// @dev The address of the token that should be bought for ETH. It follows the same format as in the CoW Swap
@@ -30,7 +38,14 @@ library EthFlowOrder {
         uint32 validTo;
         /// @dev Flag indicating whether the order is fill-or-kill or can be filled partially.
         bool partiallyFillable;
+        /// @dev quoteId The quote id obtained from the CoW Swap API to lock in the current price. It is not directly
+        /// used by any onchain component but is part of the information emitted onchain on order creation and may be
+        /// required for an order to be automatically picked up by the CoW Swap orderbook.
+        uint64 quoteId;
     }
+
+    /// @dev An order that is owned by this address is an order that has not yet been assigned.
+    address public constant NO_OWNER = address(0);
 
     /// @dev Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`).
     error ReceiverMustBeSet();
@@ -55,6 +70,8 @@ library EthFlowOrder {
             revert ReceiverMustBeSet();
         }
 
+        // Note that not all fields from `order` are used in creating the corresponding CoW Swap order.
+        // For example, validTo and quoteId are ignored.
         return
             GPv2Order.Data(
                 wrappedNativeToken, // IERC20 sellToken
