@@ -5,10 +5,15 @@ import "./libraries/EthFlowOrder.sol";
 import "./interfaces/ICoWSwapSettlement.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
+import "./vendored/ReentrancyGuard.sol";
 
 /// @title CoW Swap ETH Flow
 /// @author CoW Swap Developers
-contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
+contract CoWSwapEthFlow is
+    CoWSwapOnchainOrders,
+    ReentrancyGuard,
+    ICoWSwapEthFlow
+{
     using EthFlowOrder for EthFlowOrder.Data;
     using GPv2Order for GPv2Order.Data;
     using GPv2Order for bytes;
@@ -42,6 +47,7 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     function createOrder(EthFlowOrder.Data calldata order)
         external
         payable
+        nonReentrant
         returns (bytes32 orderHash)
     {
         if (msg.value != order.sellAmount) {
@@ -79,7 +85,10 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrder(EthFlowOrder.Data calldata order) external {
+    function deleteOrder(EthFlowOrder.Data calldata order)
+        external
+        nonReentrant
+    {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
