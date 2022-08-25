@@ -22,17 +22,6 @@ contract EthFlowTestSetup is Test {
         ethFlow = new CoWSwapEthFlowExposed(cowSwap, wrappedNativeToken);
     }
 
-    function testDeploymentParams() public {
-        assertEq(
-            address(ethFlow.wrappedNativeToken()),
-            address(wrappedNativeToken)
-        );
-        assertEq(
-            ethFlow.cowSwapDomainSeparatorPublic(),
-            Constants.COWSWAP_TEST_DOMAIN_SEPARATOR
-        );
-    }
-
     // Unfortunately, even if the order mapping takes a bytes32 and returns a struct, Solidity interprets the output
     // struct as a tuple instead. This wrapping function puts back the ouput into the same struct.
     function ordersMapping(bytes32 orderHash)
@@ -54,6 +43,19 @@ contract EthFlowTestSetup is Test {
                 orderUid
             ),
             abi.encode(amount)
+        );
+    }
+}
+
+contract TestDeployment is EthFlowTestSetup {
+    function testDeploymentParams() public {
+        assertEq(
+            address(ethFlow.wrappedNativeToken()),
+            address(wrappedNativeToken)
+        );
+        assertEq(
+            ethFlow.cowSwapDomainSeparatorPublic(),
+            Constants.COWSWAP_TEST_DOMAIN_SEPARATOR
         );
     }
 }
