@@ -2,10 +2,11 @@
 pragma solidity ^0.8;
 
 import "../../src/CoWSwapEthFlow.sol";
+import "../../src/interfaces/ICoWSwapSettlement.sol";
 
 /// @dev Wrapper that exposes internal funcions of CoWSwapEthFlow.
 contract CoWSwapEthFlowExposed is CoWSwapEthFlow {
-    constructor(address settlementContractAddress, IERC20 weth)
+    constructor(ICoWSwapSettlement settlementContractAddress, IERC20 weth)
         CoWSwapEthFlow(settlementContractAddress, weth)
     // solhint-disable-next-line no-empty-blocks
     {

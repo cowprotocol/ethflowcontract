@@ -13,6 +13,12 @@ interface ICoWSwapEthFlow {
     /// @dev Error thrown when trying to create an order without sending the expected amount of ETH to this contract.
     error IncorrectEthAmount();
 
+    /// @dev Error thrown if trying to delete an order while not allowed.
+    error NotAllowedToDeleteOrder(bytes32 orderHash);
+
+    /// @dev Error thrown when unsuccessfully sending ETH to an address.
+    error EthTransferFailed();
+
     /// @dev Function that creates and broadcasts an ETH flow order that sells native ETH. The order is paid for when
     /// the caller sends out the transaction. The caller takes ownership of the new order.
     ///
@@ -23,4 +29,10 @@ interface ICoWSwapEthFlow {
         external
         payable
         returns (bytes32 orderHash);
+
+    /// @dev Marks an existing ETH flow order as invalid and refunds the trader of all ETH that hasn't been traded yet.
+    /// Note that some parameters of the order are ignored, as for example the order expiration date and the quote id.
+    ///
+    /// @param order The order to be deleted.
+    function deleteOrder(EthFlowOrder.Data calldata order) external;
 }

@@ -2,6 +2,7 @@
 pragma solidity ^0.8;
 
 import "./libraries/EthFlowOrder.sol";
+import "./interfaces/ICoWSwapSettlement.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
 
@@ -9,6 +10,12 @@ import "./mixins/CoWSwapOnchainOrders.sol";
 /// @author CoW Swap Developers
 contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     using EthFlowOrder for EthFlowOrder.Data;
+    using GPv2Order for GPv2Order.Data;
+    using GPv2Order for bytes;
+
+    /// @dev The address of the CoW Swap settlement contract that will be used to settle orders created by this
+    /// contract.
+    ICoWSwapSettlement public immutable cowSwapSettlement;
 
     /// @dev The address of the contract representing the default native token in the current chain (e.g., WETH for
     /// Ethereum mainnet).
@@ -21,11 +28,13 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
     /// onchain data.
     mapping(bytes32 => EthFlowOrder.OnchainData) public orders;
 
-    /// @param _cowSwapSettlementContract The address of the CoW Swap settlement contract.
+    /// @param _cowSwapSettlement The address of the CoW Swap settlement contract.
     /// @param _wrappedNativeToken The address of the default native token in the current chain (e.g., WETH on mainnet).
-    constructor(address _cowSwapSettlementContract, IERC20 _wrappedNativeToken)
-        CoWSwapOnchainOrders(_cowSwapSettlementContract)
-    {
+    constructor(
+        ICoWSwapSettlement _cowSwapSettlement,
+        IERC20 _wrappedNativeToken
+    ) CoWSwapOnchainOrders(address(_cowSwapSettlement)) {
+        cowSwapSettlement = _cowSwapSettlement;
         wrappedNativeToken = _wrappedNativeToken;
     }
 
@@ -67,5 +76,48 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
         }
 
         orders[orderHash] = onchainData;
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function deleteOrder(EthFlowOrder.Data calldata order) external {
+        GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
+            wrappedNativeToken
+        );
+        bytes32 orderHash = cowSwapOrder.hash(cowSwapDomainSeparator);
+
+        EthFlowOrder.OnchainData memory orderData = orders[orderHash];
+
+        if (
+            orderData.owner == EthFlowOrder.INVALIDATED_OWNER ||
+            orderData.owner == EthFlowOrder.NO_OWNER ||
+            (// solhint-disable-next-line not-rely-on-time
+            orderData.validTo >= block.timestamp &&
+                orderData.owner != msg.sender)
+        ) {
+            revert NotAllowedToDeleteOrder(orderHash);
+        }
+
+        orders[orderHash].owner = EthFlowOrder.INVALIDATED_OWNER;
+
+        bytes memory orderUid = new bytes(GPv2Order.UID_LENGTH);
+        orderUid.packOrderUidParams(
+            orderHash,
+            address(this),
+            cowSwapOrder.validTo
+        );
+        uint256 freedAmount = cowSwapOrder.sellAmount -
+            cowSwapSettlement.filledAmount(orderUid);
+
+        // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
+        // call. The drawback is allowing reentrancy from this point in the contract. Note that the current order was
+        // already invalidated and cannot be claimed again. TODO: ensure that this is robust under order updates when
+        // implemented.
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, ) = payable(orderData.owner).call{value: freedAmount}(
+            ""
+        );
+        if (!success) {
+            revert EthTransferFailed();
+        }
     }
 }
