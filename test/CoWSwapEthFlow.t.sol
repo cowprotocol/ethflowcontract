@@ -107,19 +107,17 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         vm.deal(executor1, sellAmount);
         vm.deal(executor2, sellAmount);
 
-        vm.startPrank(executor1);
+        vm.prank(executor1);
         ethFlow.createOrder{value: sellAmount}(order);
-        vm.stopPrank();
 
-        vm.startPrank(executor2);
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.OrderIsAlreadyOwned.selector,
                 orderHash
             )
         );
+        vm.prank(executor2);
         ethFlow.createOrder{value: sellAmount}(order);
-        vm.stopPrank();
     }
 
     function testOrderCreationReturnsOrderHash() public {
@@ -170,7 +168,6 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
 
         address executor = address(0x1337);
         vm.deal(executor, sellAmount);
-        vm.startPrank(executor);
         vm.expectEmit(true, true, true, true, address(ethFlow));
         emit ICoWSwapOnchainOrders.OrderPlacement(
             executor,
@@ -178,8 +175,8 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             signature,
             abi.encodePacked(validTo, quoteId)
         );
+        vm.prank(executor);
         ethFlow.createOrder{value: sellAmount}(order);
-        vm.stopPrank();
     }
 
     function testOrderCreationSetsExpectedOnchainOrderInformation() public {
@@ -205,9 +202,8 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
 
         address executor = address(0x1337);
         vm.deal(executor, sellAmount);
-        vm.startPrank(executor);
+        vm.prank(executor);
         ethFlow.createOrder{value: sellAmount}(order);
-        vm.stopPrank();
 
         (address ethFlowOwner, uint32 ethFlowValidTo) = ethFlow.orders(
             orderHash
@@ -268,9 +264,8 @@ contract OrderDeletion is EthFlowTestSetup {
         public
     {
         vm.deal(owner, order.data.sellAmount);
-        vm.startPrank(owner);
+        vm.prank(owner);
         ethFlow.createOrder{value: order.data.sellAmount}(order.data);
-        vm.stopPrank();
     }
 
     function testCanDeleteValidOrdersIfOwner() public {
@@ -282,7 +277,6 @@ contract OrderDeletion is EthFlowTestSetup {
 
         vm.prank(owner);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
     }
 
     function testCanDeleteExpiredOrdersIfNotOwner() public {
@@ -296,7 +290,6 @@ contract OrderDeletion is EthFlowTestSetup {
 
         vm.prank(executor);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
     }
 
     function testCannotDeleteValidOrdersIfNotOwner() public {
@@ -316,7 +309,6 @@ contract OrderDeletion is EthFlowTestSetup {
         );
         vm.prank(executor);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
     }
 
     function testOrderDeletionSetsOrderAsInvalidated() public {
@@ -328,7 +320,6 @@ contract OrderDeletion is EthFlowTestSetup {
         assertEq(ordersMapping(order.hash).owner, owner);
         vm.prank(owner);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
         assertEq(
             ordersMapping(order.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -345,10 +336,9 @@ contract OrderDeletion is EthFlowTestSetup {
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
-        vm.prank(executor);
         assertEq(owner.balance, 0);
+        vm.prank(executor);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
         assertEq(owner.balance, order.data.sellAmount);
     }
 
@@ -370,9 +360,9 @@ contract OrderDeletion is EthFlowTestSetup {
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
-        vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        vm.startPrank(owner);
 
+        ethFlow.deleteOrder(order.data);
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.NotAllowedToDeleteOrder.selector,
@@ -380,6 +370,7 @@ contract OrderDeletion is EthFlowTestSetup {
             )
         );
         ethFlow.deleteOrder(order.data);
+
         vm.stopPrank();
     }
 
@@ -390,11 +381,10 @@ contract OrderDeletion is EthFlowTestSetup {
         uint256 filledAmount = 1337;
         mockOrderFilledAmount(order.orderUid, filledAmount);
 
-        vm.prank(owner);
         assertEq(owner.balance, 0);
+        vm.prank(owner);
         ethFlow.deleteOrder(order.data);
         assertEq(owner.balance, order.data.sellAmount - filledAmount);
-        vm.stopPrank();
     }
 
     function testOrderDeletionRevertsIfSendingEthFails() public {
@@ -403,10 +393,9 @@ contract OrderDeletion is EthFlowTestSetup {
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
-        vm.prank(owner);
         vm.expectRevert(ICoWSwapEthFlow.EthTransferFailed.selector);
+        vm.prank(owner);
         ethFlow.deleteOrder(order.data);
-        vm.stopPrank();
     }
 
     function testCannotCreateSameOrderOnceDeleted() public {
