@@ -5,10 +5,15 @@ import "./libraries/EthFlowOrder.sol";
 import "./interfaces/ICoWSwapSettlement.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
+import "./vendored/GPv2EIP1271.sol";
 
 /// @title CoW Swap ETH Flow
 /// @author CoW Swap Developers
-contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
+contract CoWSwapEthFlow is
+    CoWSwapOnchainOrders,
+    EIP1271Verifier,
+    ICoWSwapEthFlow
+{
     using EthFlowOrder for EthFlowOrder.Data;
     using GPv2Order for GPv2Order.Data;
     using GPv2Order for bytes;
@@ -118,6 +123,28 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
         );
         if (!success) {
             revert EthTransferFailed();
+        }
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function isValidSignature(bytes32 orderHash, bytes memory)
+        external
+        view
+        override(EIP1271Verifier, ICoWSwapEthFlow)
+        returns (bytes4)
+    {
+        // Note: the signature parameter is ignored since all information needed to verify the validity of the order is
+        // already available onchain.
+        EthFlowOrder.OnchainData memory orderData = orders[orderHash];
+        if (
+            (orderData.owner != EthFlowOrder.NO_OWNER) &&
+            (orderData.owner != EthFlowOrder.INVALIDATED_OWNER) &&
+            // solhint-disable-next-line not-rely-on-time
+            (orderData.validTo >= block.timestamp)
+        ) {
+            return GPv2EIP1271.MAGICVALUE;
+        } else {
+            return bytes4(type(uint32).max);
         }
     }
 }

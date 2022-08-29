@@ -35,4 +35,20 @@ interface ICoWSwapEthFlow {
     ///
     /// @param order The order to be deleted.
     function deleteOrder(EthFlowOrder.Data calldata order) external;
+
+    /// @dev EIP1271-compliant onchain signature verification function.
+    /// This function is used by the CoW Swap settlement contract to determine if an order that is signed with an
+    /// EIP1271 signature is valid. As this contract has approved the vault relayer contract, a valid signature for an
+    /// order means that the order can be traded on CoW Swap.
+    ///
+    /// @param orderHash Hash of the order to be signed. This is the EIP-712 signing hash for the specified order as
+    /// defined in the CoW Swap settlement contract.
+    /// @param signature Signature byte array. This parameter is unused since as all information needed to verify if an
+    /// order is already available onchain.
+    /// @return magicValue Either the EIP-1271 "magic value" indicating success (0x1626ba7e) or a different value
+    /// indicating failure (0xffffffff).
+    function isValidSignature(bytes32 orderHash, bytes memory signature)
+        external
+        view
+        returns (bytes4 magicValue);
 }
