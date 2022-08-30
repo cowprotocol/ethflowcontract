@@ -41,7 +41,7 @@ library EthFlowOrder {
         /// @dev quoteId The quote id obtained from the CoW Swap API to lock in the current price. It is not directly
         /// used by any onchain component but is part of the information emitted onchain on order creation and may be
         /// required for an order to be automatically picked up by the CoW Swap orderbook.
-        uint64 quoteId;
+        int64 quoteId;
     }
 
     /// @dev An order that is owned by this address is an order that has not yet been assigned.

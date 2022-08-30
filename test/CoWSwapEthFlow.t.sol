@@ -61,7 +61,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -100,7 +100,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -114,7 +114,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
     function testOrderCreationEventHasExpectedParams() public {
         uint256 sellAmount = 42 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
-        uint64 quoteId = 1337;
+        int64 quoteId = 1337;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x02)),
             FillWithSameByte.toAddress(0x03),
@@ -161,7 +161,7 @@ contract TestCoWSwapEthFlow is Test, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             validTo,
             true,
-            FillWithSameByte.toUint64(0x07)
+            FillWithSameByte.toInt64(0x07)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.validTo, validTo);
