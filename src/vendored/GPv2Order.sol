@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-// Vendored from GPv2 contracts v1.1.2, see:
+// Vendored from GPv2 contracts v1.0.0, see:
 // <https://raw.githubusercontent.com/cowprotocol/contracts/v1.0.0/src/contracts/libraries/GPv2Order.sol>
 // The following changes were made:
 // - Bumped up Solidity version.

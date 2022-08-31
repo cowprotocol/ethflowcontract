@@ -10,8 +10,19 @@ import "./CoWSwapEthFlow/CoWSwapEthFlowExposed.sol";
 import "./FillWithSameByte.sol";
 import "./Reverter.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
+import "../src/vendored/GPv2EIP1271.sol";
 
 contract EthFlowTestSetup is Test {
+    using EthFlowOrder for EthFlowOrder.Data;
+    using GPv2Order for GPv2Order.Data;
+    using GPv2Order for bytes;
+
+    struct OrderDetails {
+        EthFlowOrder.Data data;
+        bytes32 hash;
+        bytes orderUid;
+    }
+
     CoWSwapEthFlowExposed internal ethFlow;
     IERC20 internal wrappedNativeToken =
         IERC20(0x1234567890123456789012345678901234567890);
@@ -44,6 +55,23 @@ contract EthFlowTestSetup is Test {
             ),
             abi.encode(amount)
         );
+    }
+
+    function orderDetails(EthFlowOrder.Data memory order)
+        internal
+        view
+        returns (OrderDetails memory)
+    {
+        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
+            ethFlow.cowSwapDomainSeparatorPublic()
+        );
+        bytes memory orderUid = new bytes(GPv2Order.UID_LENGTH);
+        orderUid.packOrderUidParams(
+            orderHash,
+            address(ethFlow),
+            type(uint32).max
+        );
+        return OrderDetails(order, orderHash, orderUid);
     }
 }
 
@@ -214,33 +242,6 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
 }
 
 contract OrderDeletion is EthFlowTestSetup {
-    using EthFlowOrder for EthFlowOrder.Data;
-    using GPv2Order for GPv2Order.Data;
-    using GPv2Order for bytes;
-
-    struct OrderDetails {
-        EthFlowOrder.Data data;
-        bytes32 hash;
-        bytes orderUid;
-    }
-
-    function orderDetails(EthFlowOrder.Data memory order)
-        internal
-        view
-        returns (OrderDetails memory)
-    {
-        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
-            ethFlow.cowSwapDomainSeparatorPublic()
-        );
-        bytes memory orderUid = new bytes(GPv2Order.UID_LENGTH);
-        orderUid.packOrderUidParams(
-            orderHash,
-            address(ethFlow),
-            type(uint32).max
-        );
-        return OrderDetails(order, orderHash, orderUid);
-    }
-
     function dummyOrder() internal view returns (EthFlowOrder.Data memory) {
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
@@ -419,5 +420,81 @@ contract OrderDeletion is EthFlowTestSetup {
         ethFlow.createOrder{value: order.data.sellAmount}(order.data);
 
         vm.stopPrank();
+    }
+}
+
+contract SignatureVerification is EthFlowTestSetup {
+    bytes4 internal constant BAD_SIGNATURE = 0xffffffff;
+
+    function dummyOrder() internal view returns (EthFlowOrder.Data memory) {
+        EthFlowOrder.Data memory order = EthFlowOrder.Data(
+            IERC20(FillWithSameByte.toAddress(0x11)),
+            FillWithSameByte.toAddress(0x12),
+            FillWithSameByte.toUint256(0x13),
+            FillWithSameByte.toUint256(0x14),
+            FillWithSameByte.toBytes32(0x15),
+            FillWithSameByte.toUint256(0x16),
+            FillWithSameByte.toUint32(0x17),
+            true,
+            FillWithSameByte.toInt64(0x18)
+        );
+        require(
+            order.validTo > block.timestamp,
+            "Dummy order is already expired, please update dummy expiration value"
+        );
+        return order;
+    }
+
+    function testBadSignatureIfOrderWasNotCreatedYet() public {
+        OrderDetails memory order = orderDetails(dummyOrder());
+
+        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+    }
+
+    function testGoodSignatureIfOrderIsValid() public {
+        address owner = address(0x424242);
+        OrderDetails memory order = orderDetails(dummyOrder());
+        assertGt(order.data.validTo, block.timestamp);
+
+        vm.deal(owner, order.data.sellAmount);
+        vm.prank(owner);
+        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+
+        assertEq(
+            ethFlow.isValidSignature(order.hash, ""),
+            GPv2EIP1271.MAGICVALUE
+        );
+    }
+
+    function testBadSignatureIfOrderIsExpired() public {
+        address owner = address(0x424242);
+        OrderDetails memory order = orderDetails(dummyOrder());
+        assertGt(order.data.validTo, block.timestamp);
+
+        vm.deal(owner, order.data.sellAmount);
+        vm.prank(owner);
+        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+
+        vm.warp(order.data.validTo + 1);
+        assertLt(order.data.validTo, block.timestamp);
+
+        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+    }
+
+    function testBadSignatureIfOrderWasDeleted() public {
+        address owner = address(0x424242);
+        OrderDetails memory order = orderDetails(dummyOrder());
+
+        vm.deal(owner, order.data.sellAmount);
+        vm.startPrank(owner);
+
+        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        mockOrderFilledAmount(order.orderUid, 0);
+        ethFlow.deleteOrder(order.data);
+
+        vm.stopPrank();
+
+        assertGt(order.data.validTo, block.timestamp); // Ascertain that failure is not caused by an expired order.
+        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
     }
 }
