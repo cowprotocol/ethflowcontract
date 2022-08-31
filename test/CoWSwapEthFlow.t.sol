@@ -251,7 +251,7 @@ contract OrderDeletion is EthFlowTestSetup {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         require(
             order.validTo > block.timestamp,
