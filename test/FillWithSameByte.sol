@@ -10,12 +10,12 @@ library FillWithSameByte {
         return bytes32(repeatByte(b, 32));
     }
 
-    function toUint32(uint8 b) public pure returns (uint32) {
-        return uint32(repeatByte(b, 4));
+    function toInt64(uint8 b) public pure returns (int64) {
+        return int64(int256(repeatByte(b, 8)));
     }
 
-    function toUint64(uint8 b) public pure returns (uint64) {
-        return uint64(repeatByte(b, 8));
+    function toUint32(uint8 b) public pure returns (uint32) {
+        return uint32(repeatByte(b, 4));
     }
 
     function toUint256(uint8 b) public pure returns (uint256) {

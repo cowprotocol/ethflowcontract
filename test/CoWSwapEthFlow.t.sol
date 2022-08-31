@@ -122,7 +122,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -159,7 +159,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -173,7 +173,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
     function testOrderCreationEventHasExpectedParams() public {
         uint256 sellAmount = 42 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
-        uint64 quoteId = 1337;
+        int64 quoteId = 1337;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x02)),
             FillWithSameByte.toAddress(0x03),
@@ -201,7 +201,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(validTo, quoteId)
+            abi.encodePacked(quoteId, validTo)
         );
         vm.prank(executor);
         ethFlow.createOrder{value: sellAmount}(order);
@@ -219,7 +219,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             FillWithSameByte.toUint256(0x06),
             validTo,
             true,
-            FillWithSameByte.toUint64(0x07)
+            FillWithSameByte.toInt64(0x07)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.validTo, validTo);
@@ -252,7 +252,7 @@ contract OrderDeletion is EthFlowTestSetup {
             FillWithSameByte.toUint256(0x06),
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toUint64(0x08)
+            FillWithSameByte.toInt64(0x08)
         );
         require(
             order.validTo > block.timestamp,
@@ -436,7 +436,7 @@ contract SignatureVerification is EthFlowTestSetup {
             FillWithSameByte.toUint256(0x16),
             FillWithSameByte.toUint32(0x17),
             true,
-            FillWithSameByte.toUint64(0x18)
+            FillWithSameByte.toInt64(0x18)
         );
         require(
             order.validTo > block.timestamp,

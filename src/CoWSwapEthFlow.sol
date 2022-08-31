@@ -65,8 +65,8 @@ contract CoWSwapEthFlow is
 
         // The data event field includes extra information needed to settle orders with the CoW Swap API.
         bytes memory data = abi.encodePacked(
-            onchainData.validTo,
-            order.quoteId
+            order.quoteId,
+            onchainData.validTo
         );
 
         orderHash = broadcastOrder(
@@ -113,15 +113,7 @@ contract CoWSwapEthFlow is
         uint256 freedAmount = cowSwapOrder.sellAmount -
             cowSwapSettlement.filledAmount(orderUid);
 
-        // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
-        // call. The drawback is allowing reentrancy from this point in the contract. Note that the current order was
-        // already invalidated and cannot be claimed again. TODO: ensure that this is robust under order updates when
-        // implemented.
-        // solhint-disable-next-line avoid-low-level-calls
-        (bool success, ) = payable(orderData.owner).call{value: freedAmount}(
-            ""
-        );
-        if (!success) {
+        if (!payable(orderData.owner).send(freedAmount)) {
             revert EthTransferFailed();
         }
     }
