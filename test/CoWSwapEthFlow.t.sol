@@ -173,7 +173,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(validTo, quoteId)
+            abi.encodePacked(quoteId, validTo)
         );
         vm.prank(executor);
         ethFlow.createOrder{value: sellAmount}(order);

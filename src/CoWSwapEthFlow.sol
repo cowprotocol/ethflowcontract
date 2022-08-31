@@ -60,8 +60,8 @@ contract CoWSwapEthFlow is CoWSwapOnchainOrders, ICoWSwapEthFlow {
 
         // The data event field includes extra information needed to settle orders with the CoW Swap API.
         bytes memory data = abi.encodePacked(
-            onchainData.validTo,
-            order.quoteId
+            order.quoteId,
+            onchainData.validTo
         );
 
         orderHash = broadcastOrder(
