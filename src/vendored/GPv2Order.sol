@@ -5,7 +5,6 @@
 // The following changes were made:
 // - Bumped up Solidity version.
 // - Vendored imports.
-// - Made some constants publicly available.
 
 pragma solidity ^0.8;
 
@@ -52,7 +51,7 @@ library GPv2Order {
     ///     ")"
     /// )
     /// ```
-    bytes32 public constant TYPE_HASH =
+    bytes32 internal constant TYPE_HASH =
         hex"d5a25ba2e97094ad7d83dc28a6572da797d6b3e7fc6663bd93efb789fc17e489";
 
     /// @dev The marker value for a sell order for computing the order struct
@@ -63,7 +62,7 @@ library GPv2Order {
     /// ```
     /// keccak256("sell")
     /// ```
-    bytes32 public constant KIND_SELL =
+    bytes32 internal constant KIND_SELL =
         hex"f3b277728b3fee749481eb3e0b3b48980dbbab78658fc419025cb16eee346775";
 
     /// @dev The OrderKind marker value for a buy order for computing the order
@@ -73,7 +72,7 @@ library GPv2Order {
     /// ```
     /// keccak256("buy")
     /// ```
-    bytes32 public constant KIND_BUY =
+    bytes32 internal constant KIND_BUY =
         hex"6ed88e868af0a1983e3886d5f3e95a2fafbd6c3450bc229e27342283dc429ccc";
 
     /// @dev The TokenBalance marker value for using direct ERC20 balances for
@@ -83,7 +82,7 @@ library GPv2Order {
     /// ```
     /// keccak256("erc20")
     /// ```
-    bytes32 public constant BALANCE_ERC20 =
+    bytes32 internal constant BALANCE_ERC20 =
         hex"5a28e9363bb942b639270062aa6bb295f434bcdfc42c97267bf003f272060dc9";
 
     /// @dev The TokenBalance marker value for using Balancer Vault external
@@ -94,7 +93,7 @@ library GPv2Order {
     /// ```
     /// keccak256("external")
     /// ```
-    bytes32 public constant BALANCE_EXTERNAL =
+    bytes32 internal constant BALANCE_EXTERNAL =
         hex"abee3b73373acd583a130924aad6dc38cfdc44ba0555ba94ce2ff63980ea0632";
 
     /// @dev The TokenBalance marker value for using Balancer Vault internal
@@ -104,7 +103,7 @@ library GPv2Order {
     /// ```
     /// keccak256("internal")
     /// ```
-    bytes32 public constant BALANCE_INTERNAL =
+    bytes32 internal constant BALANCE_INTERNAL =
         hex"4ac99ace14ee0a5ef932dc609df0943ab7ac16b7583634612f8dc35a4289a6ce";
 
     /// @dev Marker address used to indicate that the receiver of the trade
@@ -112,10 +111,10 @@ library GPv2Order {
     ///
     /// This is chosen to be `address(0)` for gas efficiency as it is expected
     /// to be the most common case.
-    address public constant RECEIVER_SAME_AS_OWNER = address(0);
+    address internal constant RECEIVER_SAME_AS_OWNER = address(0);
 
     /// @dev The byte length of an order unique identifier.
-    uint256 public constant UID_LENGTH = 56;
+    uint256 internal constant UID_LENGTH = 56;
 
     /// @dev Returns the actual receiver for an order. This function checks
     /// whether or not the [`receiver`] field uses the marker value to indicate
