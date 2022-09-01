@@ -1,0 +1,28 @@
+name: artifacts
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - "**"
+      - "!**-artifacts"
+
+env:
+  FOUNDRY_PROFILE: ci
+
+jobs:
+  artifacts:
+    name: Artifacts generation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Generate artifacts and push as new tag
+        run: bash .github/scripts/artifacts.sh "$GITHUB_REF"
