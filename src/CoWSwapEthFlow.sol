@@ -6,11 +6,13 @@ import "./interfaces/ICoWSwapSettlement.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
 import "./vendored/GPv2EIP1271.sol";
+import "./vendored/ReentrancyGuard.sol";
 
 /// @title CoW Swap ETH Flow
 /// @author CoW Swap Developers
 contract CoWSwapEthFlow is
     CoWSwapOnchainOrders,
+    ReentrancyGuard,
     EIP1271Verifier,
     ICoWSwapEthFlow
 {
@@ -47,6 +49,7 @@ contract CoWSwapEthFlow is
     function createOrder(EthFlowOrder.Data calldata order)
         external
         payable
+        nonReentrant
         returns (bytes32 orderHash)
     {
         if (msg.value != order.sellAmount) {
@@ -84,7 +87,10 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrder(EthFlowOrder.Data calldata order) external {
+    function deleteOrder(EthFlowOrder.Data calldata order)
+        external
+        nonReentrant
+    {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
@@ -113,7 +119,13 @@ contract CoWSwapEthFlow is
         uint256 freedAmount = cowSwapOrder.sellAmount -
             cowSwapSettlement.filledAmount(orderUid);
 
-        if (!payable(orderData.owner).send(freedAmount)) {
+        // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
+        // call. Reentrancy is avoided thanks to the `nonReentrant` function modifier.
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, ) = payable(orderData.owner).call{value: freedAmount}(
+            ""
+        );
+        if (!success) {
             revert EthTransferFailed();
         }
     }
