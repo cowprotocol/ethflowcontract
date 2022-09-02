@@ -6,8 +6,11 @@ import "../../src/interfaces/ICoWSwapSettlement.sol";
 
 /// @dev Wrapper that exposes internal funcions of CoWSwapEthFlow.
 contract CoWSwapEthFlowExposed is CoWSwapEthFlow {
-    constructor(ICoWSwapSettlement settlementContractAddress, IERC20 weth)
-        CoWSwapEthFlow(settlementContractAddress, weth)
+    constructor(
+        ICoWSwapSettlement settlementContractAddress,
+        IWrappedNativeToken wrappedNativeToken
+    )
+        CoWSwapEthFlow(settlementContractAddress, wrappedNativeToken)
     // solhint-disable-next-line no-empty-blocks
     {
 

@@ -25,13 +25,47 @@ contract EthFlowTestSetup is Test {
     }
 
     CoWSwapEthFlowExposed internal ethFlow;
-    IERC20 internal wrappedNativeToken =
-        IERC20(0x1234567890123456789012345678901234567890);
+    IWrappedNativeToken internal wrappedNativeToken =
+        IWrappedNativeToken(0x1234567890123456789012345678901234567890);
     ICoWSwapSettlement internal cowSwap =
         ICoWSwapSettlement(Constants.COWSWAP_ADDRESS);
+    address internal vaultRelayer = 0x0987654321098765432109876543210987654321;
 
     function setUp() public {
+        vm.mockCall(
+            address(cowSwap),
+            abi.encodeWithSelector(ICoWSwapSettlement.vaultRelayer.selector),
+            abi.encode(vaultRelayer)
+        );
+        vm.mockCall(
+            address(wrappedNativeToken),
+            abi.encodeWithSelector(
+                IERC20.approve.selector,
+                vaultRelayer,
+                type(uint256).max
+            ),
+            abi.encode(true)
+        );
         ethFlow = new CoWSwapEthFlowExposed(cowSwap, wrappedNativeToken);
+        vm.clearMockedCalls();
+    }
+
+    function mockAndExpectCall(
+        address to,
+        uint256 value,
+        bytes memory data,
+        bytes memory output
+    ) internal {
+        vm.mockCall(to, value, data, output);
+        vm.expectCall(to, value, data);
+    }
+
+    function mockAndExpectCall(
+        address to,
+        bytes memory data,
+        bytes memory output
+    ) internal {
+        mockAndExpectCall(to, 0, data, output);
     }
 
     // Unfortunately, even if the order mapping takes a bytes32 and returns a struct, Solidity interprets the output
@@ -86,6 +120,33 @@ contract TestDeployment is EthFlowTestSetup {
             ethFlow.cowSwapDomainSeparatorPublic(),
             Constants.COWSWAP_TEST_DOMAIN_SEPARATOR
         );
+    }
+
+    function testSetsWrappedTokenAllowance() public {
+        mockAndExpectCall(
+            address(cowSwap),
+            abi.encodeWithSelector(ICoWSwapSettlement.vaultRelayer.selector),
+            abi.encode(vaultRelayer)
+        );
+        mockAndExpectCall(
+            address(wrappedNativeToken),
+            abi.encodeWithSelector(
+                IERC20.approve.selector,
+                vaultRelayer,
+                type(uint256).max
+            ),
+            abi.encode(true)
+        );
+        ethFlow = new CoWSwapEthFlowExposed(cowSwap, wrappedNativeToken);
+        vm.clearMockedCalls();
+    }
+
+    function testCanReceiveNativeToken() public {
+        uint256 amount = 42 ether;
+        address sender = address(1337);
+        vm.deal(sender, amount);
+        vm.prank(sender);
+        payable(address(ethFlow)).transfer(amount);
     }
 }
 
@@ -515,6 +576,40 @@ contract OrderDeletion is EthFlowTestSetup {
         );
         assertEq(owner.lastFallbackCallReturnData(), reentrancyRevertData);
     }
+
+    function testWethUnwrappingIfContractDoesNotHaveEnoughEth() public {
+        address owner = address(0x424242);
+        OrderDetails memory order = orderDetails(dummyOrder());
+        mockOrderFilledAmount(order.orderUid, 0);
+
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
+        vm.prank(owner);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
+
+        // Burn some eth
+        uint256 burntAmount = 42 ether;
+        vm.prank(address(ethFlow));
+        payable(address(0)).transfer(burntAmount);
+
+        assertEq(
+            address(ethFlow).balance,
+            order.data.sellAmount + order.data.feeAmount - burntAmount
+        );
+        mockAndExpectCall(
+            address(wrappedNativeToken),
+            abi.encodeCall(IWrappedNativeToken.withdraw, burntAmount),
+            ""
+        );
+
+        vm.prank(owner);
+        // It still reverts because the mock doesn't send ETH to the contract.
+        vm.expectRevert(
+            abi.encodeWithSelector(ICoWSwapEthFlow.EthTransferFailed.selector)
+        );
+        ethFlow.deleteOrder(order.data);
+    }
 }
 
 contract SignatureVerification is EthFlowTestSetup {
@@ -596,5 +691,18 @@ contract SignatureVerification is EthFlowTestSetup {
 
         assertGt(order.data.validTo, block.timestamp); // Ascertain that failure is not caused by an expired order.
         assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+    }
+}
+
+contract Wrapping is EthFlowTestSetup {
+    function testWrappingCallsWrappedToken() public {
+        uint256 wrapAmount = 1337 ether;
+        mockAndExpectCall(
+            address(wrappedNativeToken),
+            wrapAmount,
+            abi.encodeWithSelector(IWrappedNativeToken.deposit.selector),
+            hex""
+        );
+        ethFlow.wrap(wrapAmount);
     }
 }
