@@ -83,19 +83,8 @@ contract TradingWithCowSwap is DeploymentSetUp {
             memory trades = new ICoWSwapSettlementExtended.TradeData[](1);
         trades[0] = trade;
 
-        ICoWSwapSettlementExtended.InteractionData
-            memory wrap = ICoWSwapSettlementExtended.InteractionData(
-                address(ethFlow),
-                0,
-                abi.encodeCall(ICoWSwapEthFlow.wrap, sellAmount + feeAmount)
-            );
-        ICoWSwapSettlementExtended.InteractionData[]
-            memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](
-                1
-            );
-        preInteractions[0] = wrap;
         ICoWSwapSettlementExtended.InteractionData[][3] memory interactions = [
-            preInteractions,
+            new ICoWSwapSettlementExtended.InteractionData[](0),
             new ICoWSwapSettlementExtended.InteractionData[](0),
             new ICoWSwapSettlementExtended.InteractionData[](0)
         ];

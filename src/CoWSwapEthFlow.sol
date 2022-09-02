@@ -70,6 +70,7 @@ contract CoWSwapEthFlow is
         if (msg.value != order.sellAmount + order.feeAmount) {
             revert IncorrectEthAmount();
         }
+        wrappedNativeToken.deposit{value: msg.value}();
 
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
             msg.sender,
