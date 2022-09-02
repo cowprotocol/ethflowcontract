@@ -28,7 +28,7 @@ contract EthFlowTestSetup is Test {
     IWrappedNativeToken internal wrappedNativeToken =
         IWrappedNativeToken(0x1234567890123456789012345678901234567890);
     ICoWSwapSettlement internal cowSwap =
-        ICoWSwapSettlement(Constants.COWSWAP_ADDRESS);
+        ICoWSwapSettlement(Constants.COWSWAP_SETTLEMENT);
     address internal vaultRelayer = 0x0987654321098765432109876543210987654321;
 
     function setUp() public {

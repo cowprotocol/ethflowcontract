@@ -8,7 +8,7 @@ import "./Constants.sol";
 contract TestCoWSwapEip712 is Test {
     function testDomainSeparator() public {
         assertEq(
-            CoWSwapEip712.domainSeparator(Constants.COWSWAP_ADDRESS),
+            CoWSwapEip712.domainSeparator(Constants.COWSWAP_SETTLEMENT),
             Constants.COWSWAP_TEST_DOMAIN_SEPARATOR
         );
     }
@@ -19,7 +19,7 @@ contract TestCoWSwapEip712 is Test {
 
         vm.chainId(1);
         assertEq(
-            CoWSwapEip712.domainSeparator(Constants.COWSWAP_ADDRESS),
+            CoWSwapEip712.domainSeparator(Constants.COWSWAP_SETTLEMENT),
             mainnetDomainSeparator
         );
     }
@@ -30,7 +30,7 @@ contract TestCoWSwapEip712 is Test {
 
         vm.chainId(5);
         assertEq(
-            CoWSwapEip712.domainSeparator(Constants.COWSWAP_ADDRESS),
+            CoWSwapEip712.domainSeparator(Constants.COWSWAP_SETTLEMENT),
             goerliDomainSeparator
         );
     }
