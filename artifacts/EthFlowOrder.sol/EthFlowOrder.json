@@ -1,0 +1,1514 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "ReceiverMustBeSet",
+      "type": "error"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ac184eabbcddd1c8c9c8e777abb11b057cc702ad543113b046c110ee963e6e3a64736f6c63430008100033",
+    "sourceMap": "214:5504:11:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;214:5504:11;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ac184eabbcddd1c8c9c8e777abb11b057cc702ad543113b046c110ee963e6e3a64736f6c63430008100033",
+    "sourceMap": "214:5504:11:-:0;;;;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"ReceiverMustBeSet\",\"type\":\"error\"}],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"errors\":{\"ReceiverMustBeSet()\":[{\"details\":\"Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`).\"}]},\"kind\":\"dev\",\"methods\":{},\"stateVariables\":{\"INVALIDATED_OWNER\":{\"details\":\"An order that is owned by this address is an order that has been invalidated. Note that this address cannot be directly used to create orders.\"},\"NO_OWNER\":{\"details\":\"An order that is owned by this address is an order that has not yet been assigned.\"}},\"title\":\"CoW Swap ETH Flow Order Library\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/libraries/EthFlowOrder.sol\":\"EthFlowOrder\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\"]},\"sources\":{\"src/libraries/EthFlowOrder.sol\":{\"keccak256\":\"0x18b62c81df935c3e2214d982ddfb362382611c4375d4e59e0d3b33dad85e3756\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://5ff06800a491f09428351cbf64394d90ee3537262484d7bcd501df44cc74e525\",\"dweb:/ipfs/Qmeuo6ewhbAKfY1mpZfXt4vx1FW67htrAZqQVFnDWknsQy\"]},\"src/vendored/GPv2Order.sol\":{\"keccak256\":\"0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4\",\"dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR\"]},\"src/vendored/IERC20.sol\":{\"keccak256\":\"0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738\",\"dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "ReceiverMustBeSet"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/libraries/EthFlowOrder.sol": "EthFlowOrder"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/libraries/EthFlowOrder.sol": {
+        "keccak256": "0x18b62c81df935c3e2214d982ddfb362382611c4375d4e59e0d3b33dad85e3756",
+        "urls": [
+          "bzz-raw://5ff06800a491f09428351cbf64394d90ee3537262484d7bcd501df44cc74e525",
+          "dweb:/ipfs/Qmeuo6ewhbAKfY1mpZfXt4vx1FW67htrAZqQVFnDWknsQy"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/GPv2Order.sol": {
+        "keccak256": "0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2",
+        "urls": [
+          "bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4",
+          "dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/IERC20.sol": {
+        "keccak256": "0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c",
+        "urls": [
+          "bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738",
+          "dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/libraries/EthFlowOrder.sol",
+    "id": 21628,
+    "exportedSymbols": {
+      "EthFlowOrder": [
+        21627
+      ],
+      "GPv2Order": [
+        21864
+      ],
+      "IERC20": [
+        21942
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:5673:11",
+    "nodes": [
+      {
+        "id": 21512,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:11",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 21513,
+        "nodeType": "ImportDirective",
+        "src": "69:35:11",
+        "absolutePath": "src/vendored/GPv2Order.sol",
+        "file": "../vendored/GPv2Order.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21628,
+        "sourceUnit": 21865,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21514,
+        "nodeType": "ImportDirective",
+        "src": "105:32:11",
+        "absolutePath": "src/vendored/IERC20.sol",
+        "file": "../vendored/IERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21628,
+        "sourceUnit": 21943,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21627,
+        "nodeType": "ContractDefinition",
+        "src": "214:5504:11",
+        "nodes": [
+          {
+            "id": 21522,
+            "nodeType": "StructDefinition",
+            "src": "340:221:11",
+            "canonicalName": "EthFlowOrder.OnchainData",
+            "members": [
+              {
+                "constant": false,
+                "id": 21518,
+                "mutability": "mutable",
+                "name": "owner",
+                "nameLocation": "445:5:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21522,
+                "src": "437:13:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 21517,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "437:7:11",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21521,
+                "mutability": "mutable",
+                "name": "validTo",
+                "nameLocation": "547:7:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21522,
+                "src": "540:14:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 21520,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "540:6:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "OnchainData",
+            "nameLocation": "347:11:11",
+            "scope": 21627,
+            "visibility": "public"
+          },
+          {
+            "id": 21551,
+            "nodeType": "StructDefinition",
+            "src": "633:1790:11",
+            "canonicalName": "EthFlowOrder.Data",
+            "members": [
+              {
+                "constant": false,
+                "id": 21526,
+                "mutability": "mutable",
+                "name": "buyToken",
+                "nameLocation": "989:8:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "982:15:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_contract$_IERC20_$21942",
+                  "typeString": "contract IERC20"
+                },
+                "typeName": {
+                  "id": 21525,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 21524,
+                    "name": "IERC20",
+                    "nameLocations": [
+                      "982:6:11"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 21942,
+                    "src": "982:6:11"
+                  },
+                  "referencedDeclaration": 21942,
+                  "src": "982:6:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$21942",
+                    "typeString": "contract IERC20"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21529,
+                "mutability": "mutable",
+                "name": "receiver",
+                "nameLocation": "1223:8:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1215:16:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 21528,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1215:7:11",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21532,
+                "mutability": "mutable",
+                "name": "sellAmount",
+                "nameLocation": "1325:10:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1317:18:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 21531,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1317:7:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21535,
+                "mutability": "mutable",
+                "name": "buyAmount",
+                "nameLocation": "1447:9:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1439:17:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 21534,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1439:7:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21538,
+                "mutability": "mutable",
+                "name": "appData",
+                "nameLocation": "1663:7:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1655:15:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 21537,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1655:7:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21541,
+                "mutability": "mutable",
+                "name": "feeAmount",
+                "nameLocation": "1826:9:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1818:17:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 21540,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1818:7:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21544,
+                "mutability": "mutable",
+                "name": "validTo",
+                "nameLocation": "1932:7:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "1925:14:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 21543,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1925:6:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21547,
+                "mutability": "mutable",
+                "name": "partiallyFillable",
+                "nameLocation": "2049:17:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "2044:22:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 21546,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2044:4:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21550,
+                "mutability": "mutable",
+                "name": "quoteId",
+                "nameLocation": "2409:7:11",
+                "nodeType": "VariableDeclaration",
+                "scope": 21551,
+                "src": "2403:13:11",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_int64",
+                  "typeString": "int64"
+                },
+                "typeName": {
+                  "id": 21549,
+                  "name": "int64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2403:5:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_int64",
+                    "typeString": "int64"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Data",
+            "nameLocation": "640:4:11",
+            "scope": 21627,
+            "visibility": "public"
+          },
+          {
+            "id": 21558,
+            "nodeType": "VariableDeclaration",
+            "src": "2525:47:11",
+            "constant": true,
+            "documentation": {
+              "id": 21552,
+              "nodeType": "StructuredDocumentation",
+              "src": "2429:91:11",
+              "text": "@dev An order that is owned by this address is an order that has not yet been assigned."
+            },
+            "mutability": "constant",
+            "name": "NO_OWNER",
+            "nameLocation": "2551:8:11",
+            "scope": 21627,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 21553,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "2525:7:11",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "hexValue": "30",
+                  "id": 21556,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "number",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "2570:1:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  },
+                  "value": "0"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_rational_0_by_1",
+                    "typeString": "int_const 0"
+                  }
+                ],
+                "id": 21555,
+                "isConstant": false,
+                "isLValue": false,
+                "isPure": true,
+                "lValueRequested": false,
+                "nodeType": "ElementaryTypeNameExpression",
+                "src": "2562:7:11",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_address_$",
+                  "typeString": "type(address)"
+                },
+                "typeName": {
+                  "id": 21554,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2562:7:11",
+                  "typeDescriptions": {}
+                }
+              },
+              "id": 21557,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "typeConversion",
+              "lValueRequested": false,
+              "nameLocations": [],
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "2562:10:11",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21569,
+            "nodeType": "VariableDeclaration",
+            "src": "2743:72:11",
+            "constant": true,
+            "documentation": {
+              "id": 21559,
+              "nodeType": "StructuredDocumentation",
+              "src": "2579:159:11",
+              "text": "@dev An order that is owned by this address is an order that has been invalidated. Note that this address cannot\n be directly used to create orders."
+            },
+            "mutability": "constant",
+            "name": "INVALIDATED_OWNER",
+            "nameLocation": "2769:17:11",
+            "scope": 21627,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 21560,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "2743:7:11",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 21565,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "ElementaryTypeNameExpression",
+                        "src": "2802:7:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_uint160_$",
+                          "typeString": "type(uint160)"
+                        },
+                        "typeName": {
+                          "id": 21564,
+                          "name": "uint160",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "2802:7:11",
+                          "typeDescriptions": {}
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_type$_t_uint160_$",
+                          "typeString": "type(uint160)"
+                        }
+                      ],
+                      "id": 21563,
+                      "name": "type",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": -27,
+                      "src": "2797:4:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_metatype_pure$__$returns$__$",
+                        "typeString": "function () pure"
+                      }
+                    },
+                    "id": 21566,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2797:13:11",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_magic_meta_type_t_uint160",
+                      "typeString": "type(uint160)"
+                    }
+                  },
+                  "id": 21567,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "memberLocation": "2811:3:11",
+                  "memberName": "max",
+                  "nodeType": "MemberAccess",
+                  "src": "2797:17:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint160",
+                    "typeString": "uint160"
+                  }
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_uint160",
+                    "typeString": "uint160"
+                  }
+                ],
+                "id": 21562,
+                "isConstant": false,
+                "isLValue": false,
+                "isPure": true,
+                "lValueRequested": false,
+                "nodeType": "ElementaryTypeNameExpression",
+                "src": "2789:7:11",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_type$_t_address_$",
+                  "typeString": "type(address)"
+                },
+                "typeName": {
+                  "id": 21561,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2789:7:11",
+                  "typeDescriptions": {}
+                }
+              },
+              "id": 21568,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "typeConversion",
+              "lValueRequested": false,
+              "nameLocations": [],
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "2789:26:11",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 21572,
+            "nodeType": "ErrorDefinition",
+            "src": "2941:26:11",
+            "documentation": {
+              "id": 21570,
+              "nodeType": "StructuredDocumentation",
+              "src": "2822:114:11",
+              "text": "@dev Error returned if the receiver of the ETH flow order is unspecified (`GPv2Order.RECEIVER_SAME_AS_OWNER`)."
+            },
+            "errorSelector": "efc9ccdf",
+            "name": "ReceiverMustBeSet",
+            "nameLocation": "2947:17:11",
+            "parameters": {
+              "id": 21571,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2964:2:11"
+            }
+          },
+          {
+            "id": 21626,
+            "nodeType": "FunctionDefinition",
+            "src": "3387:2329:11",
+            "body": {
+              "id": 21625,
+              "nodeType": "Block",
+              "src": "3531:2185:11",
+              "statements": [
+                {
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    },
+                    "id": 21589,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 21585,
+                        "name": "order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21576,
+                        "src": "3545:5:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                          "typeString": "struct EthFlowOrder.Data memory"
+                        }
+                      },
+                      "id": 21586,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "3551:8:11",
+                      "memberName": "receiver",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21529,
+                      "src": "3545:14:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 21587,
+                        "name": "GPv2Order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21864,
+                        "src": "3563:9:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_GPv2Order_$21864_$",
+                          "typeString": "type(library GPv2Order)"
+                        }
+                      },
+                      "id": 21588,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberLocation": "3573:22:11",
+                      "memberName": "RECEIVER_SAME_AS_OWNER",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21770,
+                      "src": "3563:32:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "3545:50:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 21594,
+                  "nodeType": "IfStatement",
+                  "src": "3541:547:11",
+                  "trueBody": {
+                    "id": 21593,
+                    "nodeType": "Block",
+                    "src": "3597:491:11",
+                    "statements": [
+                      {
+                        "errorCall": {
+                          "arguments": [],
+                          "expression": {
+                            "argumentTypes": [],
+                            "id": 21590,
+                            "name": "ReceiverMustBeSet",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 21572,
+                            "src": "4058:17:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 21591,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "4058:19:11",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 21592,
+                        "nodeType": "RevertStatement",
+                        "src": "4051:26:11"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 21597,
+                        "name": "wrappedNativeToken",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21579,
+                        "src": "4310:18:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IERC20_$21942",
+                          "typeString": "contract IERC20"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21598,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "4366:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21599,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "4372:8:11",
+                        "memberName": "buyToken",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21526,
+                        "src": "4366:14:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IERC20_$21942",
+                          "typeString": "contract IERC20"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21600,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "4417:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21601,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "4423:8:11",
+                        "memberName": "receiver",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21529,
+                        "src": "4417:14:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21602,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "4469:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21603,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "4475:10:11",
+                        "memberName": "sellAmount",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21532,
+                        "src": "4469:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21604,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "4525:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21605,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "4531:9:11",
+                        "memberName": "buyAmount",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21535,
+                        "src": "4525:15:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "id": 21608,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "nodeType": "ElementaryTypeNameExpression",
+                              "src": "4994:6:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_uint32_$",
+                                "typeString": "type(uint32)"
+                              },
+                              "typeName": {
+                                "id": 21607,
+                                "name": "uint32",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "4994:6:11",
+                                "typeDescriptions": {}
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_type$_t_uint32_$",
+                                "typeString": "type(uint32)"
+                              }
+                            ],
+                            "id": 21606,
+                            "name": "type",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -27,
+                            "src": "4989:4:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_metatype_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 21609,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "4989:12:11",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_meta_type_t_uint32",
+                            "typeString": "type(uint32)"
+                          }
+                        },
+                        "id": 21610,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "memberLocation": "5002:3:11",
+                        "memberName": "max",
+                        "nodeType": "MemberAccess",
+                        "src": "4989:16:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21611,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "5041:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21612,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "5047:7:11",
+                        "memberName": "appData",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21538,
+                        "src": "5041:13:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21613,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "5091:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21614,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "5097:9:11",
+                        "memberName": "feeAmount",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21541,
+                        "src": "5091:15:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21615,
+                          "name": "GPv2Order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21864,
+                          "src": "5372:9:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_GPv2Order_$21864_$",
+                            "typeString": "type(library GPv2Order)"
+                          }
+                        },
+                        "id": 21616,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "memberLocation": "5382:9:11",
+                        "memberName": "KIND_SELL",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21747,
+                        "src": "5372:19:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21617,
+                          "name": "order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21576,
+                          "src": "5425:5:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                            "typeString": "struct EthFlowOrder.Data memory"
+                          }
+                        },
+                        "id": 21618,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "5431:17:11",
+                        "memberName": "partiallyFillable",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21547,
+                        "src": "5425:23:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21619,
+                          "name": "GPv2Order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21864,
+                          "src": "5576:9:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_GPv2Order_$21864_$",
+                            "typeString": "type(library GPv2Order)"
+                          }
+                        },
+                        "id": 21620,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "memberLocation": "5586:13:11",
+                        "memberName": "BALANCE_ERC20",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21755,
+                        "src": "5576:23:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 21621,
+                          "name": "GPv2Order",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 21864,
+                          "src": "5645:9:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_GPv2Order_$21864_$",
+                            "typeString": "type(library GPv2Order)"
+                          }
+                        },
+                        "id": 21622,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "memberLocation": "5655:13:11",
+                        "memberName": "BALANCE_ERC20",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 21755,
+                        "src": "5645:23:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_contract$_IERC20_$21942",
+                          "typeString": "contract IERC20"
+                        },
+                        {
+                          "typeIdentifier": "t_contract$_IERC20_$21942",
+                          "typeString": "contract IERC20"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "id": 21595,
+                        "name": "GPv2Order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 21864,
+                        "src": "4278:9:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_GPv2Order_$21864_$",
+                          "typeString": "type(library GPv2Order)"
+                        }
+                      },
+                      "id": 21596,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "4288:4:11",
+                      "memberName": "Data",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 21739,
+                      "src": "4278:14:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_struct$_Data_$21739_storage_ptr_$",
+                        "typeString": "type(struct GPv2Order.Data storage pointer)"
+                      }
+                    },
+                    "id": 21623,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "structConstructorCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "4278:1431:11",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21739_memory_ptr",
+                      "typeString": "struct GPv2Order.Data memory"
+                    }
+                  },
+                  "functionReturnParameters": 21584,
+                  "id": 21624,
+                  "nodeType": "Return",
+                  "src": "4259:1450:11"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 21573,
+              "nodeType": "StructuredDocumentation",
+              "src": "2973:409:11",
+              "text": "@dev Transforms an ETH flow order into the CoW Swap order that can be settled by the ETH flow contract.\n @param order The ETH flow order to be converted.\n @param wrappedNativeToken The address of the wrapped native token for the current network (e.g., WETH for\n Ethereum mainet).\n @return The CoW Swap order data that represents the user order in the ETH flow contract."
+            },
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "toCoWSwapOrder",
+            "nameLocation": "3396:14:11",
+            "parameters": {
+              "id": 21580,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21576,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "3423:5:11",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21626,
+                  "src": "3411:17:11",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21551_memory_ptr",
+                    "typeString": "struct EthFlowOrder.Data"
+                  },
+                  "typeName": {
+                    "id": 21575,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21574,
+                      "name": "Data",
+                      "nameLocations": [
+                        "3411:4:11"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21551,
+                      "src": "3411:4:11"
+                    },
+                    "referencedDeclaration": 21551,
+                    "src": "3411:4:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21551_storage_ptr",
+                      "typeString": "struct EthFlowOrder.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21579,
+                  "mutability": "mutable",
+                  "name": "wrappedNativeToken",
+                  "nameLocation": "3437:18:11",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21626,
+                  "src": "3430:25:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$21942",
+                    "typeString": "contract IERC20"
+                  },
+                  "typeName": {
+                    "id": 21578,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21577,
+                      "name": "IERC20",
+                      "nameLocations": [
+                        "3430:6:11"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21942,
+                      "src": "3430:6:11"
+                    },
+                    "referencedDeclaration": 21942,
+                    "src": "3430:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IERC20_$21942",
+                      "typeString": "contract IERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3410:46:11"
+            },
+            "returnParameters": {
+              "id": 21584,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21583,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21626,
+                  "src": "3504:21:11",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21739_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 21582,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21581,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": [
+                        "3504:9:11",
+                        "3514:4:11"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21739,
+                      "src": "3504:14:11"
+                    },
+                    "referencedDeclaration": 21739,
+                    "src": "3504:14:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21739_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3503:23:11"
+            },
+            "scope": 21627,
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "EthFlowOrder",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": {
+          "id": 21515,
+          "nodeType": "StructuredDocumentation",
+          "src": "139:75:11",
+          "text": "@title CoW Swap ETH Flow Order Library\n @author CoW Swap Developers"
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          21627
+        ],
+        "name": "EthFlowOrder",
+        "nameLocation": "222:12:11",
+        "scope": 21628,
+        "usedErrors": [
+          21572
+        ]
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 11
+}

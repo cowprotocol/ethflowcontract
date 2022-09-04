@@ -1,0 +1,982 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "EthTransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IncorrectEthAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "NotAllowedToDeleteOrder",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "OrderIsAlreadyOwned",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "int64",
+              "name": "quoteId",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct EthFlowOrder.Data",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "createOrder",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "int64",
+              "name": "quoteId",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct EthFlowOrder.Data",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "deleteOrder",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "magicValue",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "createOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))": "322bba21",
+    "deleteOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))": "b52e0d64",
+    "isValidSignature(bytes32,bytes)": "1626ba7e"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"EthTransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"IncorrectEthAmount\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderHash\",\"type\":\"bytes32\"}],\"name\":\"NotAllowedToDeleteOrder\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderHash\",\"type\":\"bytes32\"}],\"name\":\"OrderIsAlreadyOwned\",\"type\":\"error\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contract IERC20\",\"name\":\"buyToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"appData\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"feeAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint32\",\"name\":\"validTo\",\"type\":\"uint32\"},{\"internalType\":\"bool\",\"name\":\"partiallyFillable\",\"type\":\"bool\"},{\"internalType\":\"int64\",\"name\":\"quoteId\",\"type\":\"int64\"}],\"internalType\":\"struct EthFlowOrder.Data\",\"name\":\"order\",\"type\":\"tuple\"}],\"name\":\"createOrder\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderHash\",\"type\":\"bytes32\"}],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"contract IERC20\",\"name\":\"buyToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"appData\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"feeAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint32\",\"name\":\"validTo\",\"type\":\"uint32\"},{\"internalType\":\"bool\",\"name\":\"partiallyFillable\",\"type\":\"bool\"},{\"internalType\":\"int64\",\"name\":\"quoteId\",\"type\":\"int64\"}],\"internalType\":\"struct EthFlowOrder.Data\",\"name\":\"order\",\"type\":\"tuple\"}],\"name\":\"deleteOrder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"orderHash\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"}],\"name\":\"isValidSignature\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"magicValue\",\"type\":\"bytes4\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"errors\":{\"EthTransferFailed()\":[{\"details\":\"Error thrown when unsuccessfully sending ETH to an address.\"}],\"IncorrectEthAmount()\":[{\"details\":\"Error thrown when trying to create an order without sending the expected amount of ETH to this contract.\"}],\"NotAllowedToDeleteOrder(bytes32)\":[{\"details\":\"Error thrown if trying to delete an order while not allowed.\"}],\"OrderIsAlreadyOwned(bytes32)\":[{\"details\":\"Error thrown when trying to create a new order whose order hash is the same as an order hash that was already assigned.\"}]},\"kind\":\"dev\",\"methods\":{\"createOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))\":{\"details\":\"Function that creates and broadcasts an ETH flow order that sells native ETH. The order is paid for when the caller sends out the transaction. The caller takes ownership of the new order.\",\"params\":{\"order\":\"The data describing the order to be created. See [`EthFlowOrder.Data`] for extra information on each parameter.\"},\"returns\":{\"orderHash\":\"The hash of the CoW Swap order that is created to settle the new ETH order.\"}},\"deleteOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))\":{\"details\":\"Marks an existing ETH flow order as invalid and refunds the trader of all ETH that hasn't been traded yet. Note that some parameters of the order are ignored, as for example the order expiration date and the quote id.\",\"params\":{\"order\":\"The order to be deleted.\"}},\"isValidSignature(bytes32,bytes)\":{\"details\":\"EIP1271-compliant onchain signature verification function. This function is used by the CoW Swap settlement contract to determine if an order that is signed with an EIP1271 signature is valid. As this contract has approved the vault relayer contract, a valid signature for an order means that the order can be traded on CoW Swap.\",\"params\":{\"orderHash\":\"Hash of the order to be signed. This is the EIP-712 signing hash for the specified order as defined in the CoW Swap settlement contract.\",\"signature\":\"Signature byte array. This parameter is unused since as all information needed to verify if an order is already available onchain.\"},\"returns\":{\"magicValue\":\"Either the EIP-1271 \\\"magic value\\\" indicating success (0x1626ba7e) or a different value indicating failure (0xffffffff).\"}}},\"title\":\"CoW Swap ETH Flow Interface\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/interfaces/ICoWSwapEthFlow.sol\":\"ICoWSwapEthFlow\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\"]},\"sources\":{\"src/interfaces/ICoWSwapEthFlow.sol\":{\"keccak256\":\"0x0829efa797141cc9a6f9bb76fe0c5c8bd7a6730c45ad1d9fe284668e90c8ed49\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://7ef10ef1199d00cb40eac1faf2306e85efb5612f16a1499eb0fa6d87ef356ef2\",\"dweb:/ipfs/QmSmGrdvtyvawrU97964pdEQq2Yksz81aHcasncbTqPL1W\"]},\"src/libraries/EthFlowOrder.sol\":{\"keccak256\":\"0x18b62c81df935c3e2214d982ddfb362382611c4375d4e59e0d3b33dad85e3756\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://5ff06800a491f09428351cbf64394d90ee3537262484d7bcd501df44cc74e525\",\"dweb:/ipfs/Qmeuo6ewhbAKfY1mpZfXt4vx1FW67htrAZqQVFnDWknsQy\"]},\"src/vendored/GPv2Order.sol\":{\"keccak256\":\"0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4\",\"dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR\"]},\"src/vendored/IERC20.sol\":{\"keccak256\":\"0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738\",\"dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "EthTransferFailed"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "IncorrectEthAmount"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "orderHash",
+              "type": "bytes32"
+            }
+          ],
+          "type": "error",
+          "name": "NotAllowedToDeleteOrder"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "orderHash",
+              "type": "bytes32"
+            }
+          ],
+          "type": "error",
+          "name": "OrderIsAlreadyOwned"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "struct EthFlowOrder.Data",
+              "name": "order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "contract IERC20",
+                  "name": "buyToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sellAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "appData",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "feeAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "validTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "partiallyFillable",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "quoteId",
+                  "type": "int64"
+                }
+              ]
+            }
+          ],
+          "stateMutability": "payable",
+          "type": "function",
+          "name": "createOrder",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "orderHash",
+              "type": "bytes32"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "struct EthFlowOrder.Data",
+              "name": "order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "contract IERC20",
+                  "name": "buyToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sellAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "appData",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "feeAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "validTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "partiallyFillable",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "quoteId",
+                  "type": "int64"
+                }
+              ]
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "deleteOrder"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "orderHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "isValidSignature",
+          "outputs": [
+            {
+              "internalType": "bytes4",
+              "name": "magicValue",
+              "type": "bytes4"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "createOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))": {
+            "details": "Function that creates and broadcasts an ETH flow order that sells native ETH. The order is paid for when the caller sends out the transaction. The caller takes ownership of the new order.",
+            "params": {
+              "order": "The data describing the order to be created. See [`EthFlowOrder.Data`] for extra information on each parameter."
+            },
+            "returns": {
+              "orderHash": "The hash of the CoW Swap order that is created to settle the new ETH order."
+            }
+          },
+          "deleteOrder((address,address,uint256,uint256,bytes32,uint256,uint32,bool,int64))": {
+            "details": "Marks an existing ETH flow order as invalid and refunds the trader of all ETH that hasn't been traded yet. Note that some parameters of the order are ignored, as for example the order expiration date and the quote id.",
+            "params": {
+              "order": "The order to be deleted."
+            }
+          },
+          "isValidSignature(bytes32,bytes)": {
+            "details": "EIP1271-compliant onchain signature verification function. This function is used by the CoW Swap settlement contract to determine if an order that is signed with an EIP1271 signature is valid. As this contract has approved the vault relayer contract, a valid signature for an order means that the order can be traded on CoW Swap.",
+            "params": {
+              "orderHash": "Hash of the order to be signed. This is the EIP-712 signing hash for the specified order as defined in the CoW Swap settlement contract.",
+              "signature": "Signature byte array. This parameter is unused since as all information needed to verify if an order is already available onchain."
+            },
+            "returns": {
+              "magicValue": "Either the EIP-1271 \"magic value\" indicating success (0x1626ba7e) or a different value indicating failure (0xffffffff)."
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/interfaces/ICoWSwapEthFlow.sol": "ICoWSwapEthFlow"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/interfaces/ICoWSwapEthFlow.sol": {
+        "keccak256": "0x0829efa797141cc9a6f9bb76fe0c5c8bd7a6730c45ad1d9fe284668e90c8ed49",
+        "urls": [
+          "bzz-raw://7ef10ef1199d00cb40eac1faf2306e85efb5612f16a1499eb0fa6d87ef356ef2",
+          "dweb:/ipfs/QmSmGrdvtyvawrU97964pdEQq2Yksz81aHcasncbTqPL1W"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/libraries/EthFlowOrder.sol": {
+        "keccak256": "0x18b62c81df935c3e2214d982ddfb362382611c4375d4e59e0d3b33dad85e3756",
+        "urls": [
+          "bzz-raw://5ff06800a491f09428351cbf64394d90ee3537262484d7bcd501df44cc74e525",
+          "dweb:/ipfs/Qmeuo6ewhbAKfY1mpZfXt4vx1FW67htrAZqQVFnDWknsQy"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/GPv2Order.sol": {
+        "keccak256": "0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2",
+        "urls": [
+          "bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4",
+          "dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/IERC20.sol": {
+        "keccak256": "0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c",
+        "urls": [
+          "bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738",
+          "dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/interfaces/ICoWSwapEthFlow.sol",
+    "id": 21424,
+    "exportedSymbols": {
+      "EthFlowOrder": [
+        21627
+      ],
+      "GPv2Order": [
+        21864
+      ],
+      "ICoWSwapEthFlow": [
+        21423
+      ],
+      "IERC20": [
+        21942
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:2699:7",
+    "nodes": [
+      {
+        "id": 21378,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:7",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 21379,
+        "nodeType": "ImportDirective",
+        "src": "69:39:7",
+        "absolutePath": "src/libraries/EthFlowOrder.sol",
+        "file": "../libraries/EthFlowOrder.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 21424,
+        "sourceUnit": 21628,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 21423,
+        "nodeType": "ContractDefinition",
+        "src": "181:2563:7",
+        "nodes": [
+          {
+            "id": 21385,
+            "nodeType": "ErrorDefinition",
+            "src": "354:45:7",
+            "documentation": {
+              "id": 21381,
+              "nodeType": "StructuredDocumentation",
+              "src": "213:136:7",
+              "text": "@dev Error thrown when trying to create a new order whose order hash is the same as an order hash that was\n already assigned."
+            },
+            "errorSelector": "56a1d2b2",
+            "name": "OrderIsAlreadyOwned",
+            "nameLocation": "360:19:7",
+            "parameters": {
+              "id": 21384,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21383,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nameLocation": "388:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21385,
+                  "src": "380:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21382,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "380:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "379:19:7"
+            }
+          },
+          {
+            "id": 21388,
+            "nodeType": "ErrorDefinition",
+            "src": "523:27:7",
+            "documentation": {
+              "id": 21386,
+              "nodeType": "StructuredDocumentation",
+              "src": "405:113:7",
+              "text": "@dev Error thrown when trying to create an order without sending the expected amount of ETH to this contract."
+            },
+            "errorSelector": "8b6ebb4d",
+            "name": "IncorrectEthAmount",
+            "nameLocation": "529:18:7",
+            "parameters": {
+              "id": 21387,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "547:2:7"
+            }
+          },
+          {
+            "id": 21393,
+            "nodeType": "ErrorDefinition",
+            "src": "630:49:7",
+            "documentation": {
+              "id": 21389,
+              "nodeType": "StructuredDocumentation",
+              "src": "556:69:7",
+              "text": "@dev Error thrown if trying to delete an order while not allowed."
+            },
+            "errorSelector": "96d4fcee",
+            "name": "NotAllowedToDeleteOrder",
+            "nameLocation": "636:23:7",
+            "parameters": {
+              "id": 21392,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21391,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nameLocation": "668:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21393,
+                  "src": "660:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21390,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "660:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "659:19:7"
+            }
+          },
+          {
+            "id": 21396,
+            "nodeType": "ErrorDefinition",
+            "src": "758:26:7",
+            "documentation": {
+              "id": 21394,
+              "nodeType": "StructuredDocumentation",
+              "src": "685:68:7",
+              "text": "@dev Error thrown when unsuccessfully sending ETH to an address."
+            },
+            "errorSelector": "6d963f88",
+            "name": "EthTransferFailed",
+            "nameLocation": "764:17:7",
+            "parameters": {
+              "id": 21395,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "781:2:7"
+            }
+          },
+          {
+            "id": 21405,
+            "nodeType": "FunctionDefinition",
+            "src": "1250:124:7",
+            "documentation": {
+              "id": 21397,
+              "nodeType": "StructuredDocumentation",
+              "src": "790:455:7",
+              "text": "@dev Function that creates and broadcasts an ETH flow order that sells native ETH. The order is paid for when\n the caller sends out the transaction. The caller takes ownership of the new order.\n @param order The data describing the order to be created. See [`EthFlowOrder.Data`] for extra information on\n each parameter.\n @return orderHash The hash of the CoW Swap order that is created to settle the new ETH order."
+            },
+            "functionSelector": "322bba21",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "createOrder",
+            "nameLocation": "1259:11:7",
+            "parameters": {
+              "id": 21401,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21400,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "1298:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21405,
+                  "src": "1271:32:7",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21551_calldata_ptr",
+                    "typeString": "struct EthFlowOrder.Data"
+                  },
+                  "typeName": {
+                    "id": 21399,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21398,
+                      "name": "EthFlowOrder.Data",
+                      "nameLocations": [
+                        "1271:12:7",
+                        "1284:4:7"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21551,
+                      "src": "1271:17:7"
+                    },
+                    "referencedDeclaration": 21551,
+                    "src": "1271:17:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21551_storage_ptr",
+                      "typeString": "struct EthFlowOrder.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1270:34:7"
+            },
+            "returnParameters": {
+              "id": 21404,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21403,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nameLocation": "1363:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21405,
+                  "src": "1355:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21402,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1355:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1354:19:7"
+            },
+            "scope": 21423,
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 21412,
+            "nodeType": "FunctionDefinition",
+            "src": "1673:64:7",
+            "documentation": {
+              "id": 21406,
+              "nodeType": "StructuredDocumentation",
+              "src": "1380:288:7",
+              "text": "@dev Marks an existing ETH flow order as invalid and refunds the trader of all ETH that hasn't been traded yet.\n Note that some parameters of the order are ignored, as for example the order expiration date and the quote id.\n @param order The order to be deleted."
+            },
+            "functionSelector": "b52e0d64",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deleteOrder",
+            "nameLocation": "1682:11:7",
+            "parameters": {
+              "id": 21410,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21409,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "1721:5:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21412,
+                  "src": "1694:32:7",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$21551_calldata_ptr",
+                    "typeString": "struct EthFlowOrder.Data"
+                  },
+                  "typeName": {
+                    "id": 21408,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 21407,
+                      "name": "EthFlowOrder.Data",
+                      "nameLocations": [
+                        "1694:12:7",
+                        "1707:4:7"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 21551,
+                      "src": "1694:17:7"
+                    },
+                    "referencedDeclaration": 21551,
+                    "src": "1694:17:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$21551_storage_ptr",
+                      "typeString": "struct EthFlowOrder.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1693:34:7"
+            },
+            "returnParameters": {
+              "id": 21411,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1736:0:7"
+            },
+            "scope": 21423,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 21422,
+            "nodeType": "FunctionDefinition",
+            "src": "2607:135:7",
+            "documentation": {
+              "id": 21413,
+              "nodeType": "StructuredDocumentation",
+              "src": "1743:859:7",
+              "text": "@dev EIP1271-compliant onchain signature verification function.\n This function is used by the CoW Swap settlement contract to determine if an order that is signed with an\n EIP1271 signature is valid. As this contract has approved the vault relayer contract, a valid signature for an\n order means that the order can be traded on CoW Swap.\n @param orderHash Hash of the order to be signed. This is the EIP-712 signing hash for the specified order as\n defined in the CoW Swap settlement contract.\n @param signature Signature byte array. This parameter is unused since as all information needed to verify if an\n order is already available onchain.\n @return magicValue Either the EIP-1271 \"magic value\" indicating success (0x1626ba7e) or a different value\n indicating failure (0xffffffff)."
+            },
+            "functionSelector": "1626ba7e",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isValidSignature",
+            "nameLocation": "2616:16:7",
+            "parameters": {
+              "id": 21418,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21415,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nameLocation": "2641:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21422,
+                  "src": "2633:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 21414,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2633:7:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 21417,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "2665:9:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21422,
+                  "src": "2652:22:7",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 21416,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2652:5:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2632:43:7"
+            },
+            "returnParameters": {
+              "id": 21421,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 21420,
+                  "mutability": "mutable",
+                  "name": "magicValue",
+                  "nameLocation": "2730:10:7",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21422,
+                  "src": "2723:17:7",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 21419,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2723:6:7",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2722:19:7"
+            },
+            "scope": 21423,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICoWSwapEthFlow",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 21380,
+          "nodeType": "StructuredDocumentation",
+          "src": "110:71:7",
+          "text": "@title CoW Swap ETH Flow Interface\n @author CoW Swap Developers"
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          21423
+        ],
+        "name": "ICoWSwapEthFlow",
+        "nameLocation": "191:15:7",
+        "scope": 21424,
+        "usedErrors": [
+          21385,
+          21388,
+          21393,
+          21396
+        ]
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 7
+}
