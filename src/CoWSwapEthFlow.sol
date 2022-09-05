@@ -169,11 +169,11 @@ contract CoWSwapEthFlow is
 
         // If not enough native token is available in the contract, unwrap the needed amount.
         if (address(this).balance < refundAmount) {
-            uint256 withdrawnAmount;
+            uint256 withdrawAmount;
             unchecked {
-                withdrawnAmount = refundAmount - address(this).balance;
+                withdrawAmount = refundAmount - address(this).balance;
             }
-            wrappedNativeToken.withdraw(withdrawnAmount);
+            wrappedNativeToken.withdraw(withdrawAmount);
         }
 
         // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
