@@ -125,7 +125,9 @@ contract CoWSwapEthFlow is
         // A CoW Swap trader is always charged exactly the amount of fees that is proportional to the filled amount
         // rounded down to the smaller integer. The code is here:
         // https://github.com/cowprotocol/contracts/blob/d4e0fcd58367907bf1aff54d182222eeaee793dd/src/contracts/GPv2Settlement.sol#L385-L387
-        // Our original statement is equivalent to `floor(a/c) + floor(b/c) ≤ floor((a+b)/c)`. Writing a and b in terms
+        // We show that a trader pays less in fee to CoW Swap when settiling a partially fillable order in two
+        // executions rather than a single one for the combined amount; by induction this proves our original statement.
+        // Our previous statement is equivalent to `floor(a/c) + floor(b/c) ≤ floor((a+b)/c)`. Writing a and b in terms
         // of reminders (`a = ad*c+ar`, `b = bd*c+br`) the equation becomes `ad + bd ≤ ad + bd + floor((ar+br)/c)`,
         // which is immediately true.
         uint256 refundAmount;
