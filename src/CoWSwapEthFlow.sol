@@ -120,7 +120,7 @@ contract CoWSwapEthFlow is
 
         // This comment argues that a CoW Swap trader does not pay more fees if a partially fillable order is
         // (partially) settled in multiple batches rather than in one single batch of the combined size.
-        // This also mean that we can refund the user assuming the worst case of settling the filled amount in a single
+        // This also means that we can refund the user assuming the worst case of settling the filled amount in a single
         // batch without risking giving out more funds than available in the contract because of rounding issues.
         // A CoW Swap trader is always charged exactly the amount of fees that is proportional to the filled amount
         // rounded down to the smaller integer. The code is here:
