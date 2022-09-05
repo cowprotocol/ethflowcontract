@@ -693,15 +693,25 @@ contract SignatureVerification is EthFlowTestSetup {
     }
 }
 
-contract Wrapping is EthFlowTestSetup {
+contract WrapUnwrap is EthFlowTestSetup {
     function testWrappingCallsWrappedToken() public {
         uint256 wrapAmount = 1337 ether;
         mockAndExpectCall(
             address(wrappedNativeToken),
             wrapAmount,
-            abi.encodeWithSelector(IWrappedNativeToken.deposit.selector),
+            abi.encodeCall(IWrappedNativeToken.deposit, ()),
             hex""
         );
         ethFlow.wrap(wrapAmount);
+    }
+
+    function testUnwrappingCallsWrappedToken() public {
+        uint256 unwrapAmount = 1337 ether;
+        mockAndExpectCall(
+            address(wrappedNativeToken),
+            abi.encodeCall(IWrappedNativeToken.withdraw, unwrapAmount),
+            hex""
+        );
+        ethFlow.unwrap(unwrapAmount);
     }
 }

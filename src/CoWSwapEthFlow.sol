@@ -56,6 +56,11 @@ contract CoWSwapEthFlow is
         wrappedNativeToken.deposit{value: amount}();
     }
 
+    /// @inheritdoc ICoWSwapEthFlow
+    function unwrap(uint256 amount) external {
+        wrappedNativeToken.withdraw(amount);
+    }
+
     // The contract needs to be able to receive native tokens when unwrapping.
     // solhint-disable-next-line no-empty-blocks
     receive() external payable {}
