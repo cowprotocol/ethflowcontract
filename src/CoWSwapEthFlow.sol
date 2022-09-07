@@ -67,9 +67,11 @@ contract CoWSwapEthFlow is
         nonReentrant
         returns (bytes32 orderHash)
     {
-        if (msg.value != order.sellAmount + order.feeAmount) {
+        uint256 wrapAmount = order.sellAmount + order.feeAmount;
+        if (msg.value != wrapAmount) {
             revert IncorrectEthAmount();
         }
+        wrappedNativeToken.deposit{value: wrapAmount}();
 
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
             msg.sender,

@@ -107,7 +107,7 @@ contract GasBenchmark is Script {
             ICoWSwapSettlementExtended.InteractionData[][3] memory interactions
         )
     {
-        ICoWSwapSettlementExtended.InteractionData
+        /*ICoWSwapSettlementExtended.InteractionData
             memory wrap = ICoWSwapSettlementExtended.InteractionData(
                 address(ethFlow),
                 0,
@@ -117,9 +117,9 @@ contract GasBenchmark is Script {
             memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](
                 1
             );
-        preInteractions[0] = wrap;
+        preInteractions[0] = wrap;*/
         interactions = [
-            preInteractions,
+            new ICoWSwapSettlementExtended.InteractionData[](0),
             new ICoWSwapSettlementExtended.InteractionData[](0),
             new ICoWSwapSettlementExtended.InteractionData[](0)
         ];
