@@ -21,6 +21,25 @@ yarn install
 forge build
 ```
 
+### Deploy
+
+The ETH flow contract has a dedicated deployment script. To simulate a deployment, run:
+
+```sh
+forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv
+```
+
+You can find a list of supported RPC URLs in `foundry.toml` under `[rpc_endpoints]`.
+
+To broadcast the deployment onchain you must also add the private key of the deployer and the broadcast flag: `--private-key "$PK" --broadcast`.
+
+You can verify a contract you deployed with the deployment script on the block explorer of the current chain with:
+
+```sh
+export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed if the default chain explorer is Etherscan
+forge script script/Deploy.sol --rpc-url "$RPC_URL" ---vvvv
+```
+
 ### Code formatting
 
 ```sh
