@@ -80,7 +80,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
             memory wrap = ICoWSwapSettlementExtended.InteractionData(
                 address(ethFlow),
                 0,
-                abi.encodeCall(ICoWSwapEthFlow.wrap, sellAmount + feeAmount)
+                abi.encodeCall(ICoWSwapEthFlow.wrapAll, ())
             );
         ICoWSwapSettlementExtended.InteractionData[]
             memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](

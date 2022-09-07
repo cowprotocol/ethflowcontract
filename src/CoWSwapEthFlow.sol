@@ -52,8 +52,8 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function wrap(uint256 amount) external {
-        wrappedNativeToken.deposit{value: amount}();
+    function wrapAll() external {
+        wrappedNativeToken.deposit{value: address(this).balance}();
     }
 
     // The contract needs to be able to receive native tokens when unwrapping.
@@ -67,11 +67,9 @@ contract CoWSwapEthFlow is
         nonReentrant
         returns (bytes32 orderHash)
     {
-        uint256 wrapAmount = order.sellAmount + order.feeAmount;
-        if (msg.value != wrapAmount) {
+        if (msg.value != order.sellAmount + order.feeAmount) {
             revert IncorrectEthAmount();
         }
-        wrappedNativeToken.deposit{value: wrapAmount}();
 
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
             msg.sender,

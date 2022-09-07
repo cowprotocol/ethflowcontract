@@ -703,6 +703,6 @@ contract Wrapping is EthFlowTestSetup {
             abi.encodeWithSelector(IWrappedNativeToken.deposit.selector),
             hex""
         );
-        ethFlow.wrap(wrapAmount);
+        ethFlow.wrapAll();
     }
 }

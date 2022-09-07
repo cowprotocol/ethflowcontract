@@ -57,8 +57,8 @@ contract GasBenchmark is Script {
             vm.broadcast(0x70997970C51812dc3A010C7d01b50e0d17dc79C8);
             ethFlow.createOrder{value: sellAmount + feeAmount}(order);
             // Sent from an actual mainnet solver
-            //vm.broadcast(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
-            //ethFlow.wrap(1); // Any nonzero amount works for this purpose.
+            vm.broadcast(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+            ethFlow.wrapAll(); // Any nonzero amount works for this purpose.
 
             // Sligtly change the order to create another one.
             order.appData = FillWithSameByte.toBytes32(0xbb);
@@ -107,19 +107,19 @@ contract GasBenchmark is Script {
             ICoWSwapSettlementExtended.InteractionData[][3] memory interactions
         )
     {
-        /*ICoWSwapSettlementExtended.InteractionData
+        ICoWSwapSettlementExtended.InteractionData
             memory wrap = ICoWSwapSettlementExtended.InteractionData(
                 address(ethFlow),
                 0,
-                abi.encodeCall(ICoWSwapEthFlow.wrap, amount)
+                abi.encodeCall(ICoWSwapEthFlow.wrapAll, ())
             );
         ICoWSwapSettlementExtended.InteractionData[]
             memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](
                 1
             );
-        preInteractions[0] = wrap;*/
+        preInteractions[0] = wrap;
         interactions = [
-            new ICoWSwapSettlementExtended.InteractionData[](0),
+            preInteractions,
             new ICoWSwapSettlementExtended.InteractionData[](0),
             new ICoWSwapSettlementExtended.InteractionData[](0)
         ];
