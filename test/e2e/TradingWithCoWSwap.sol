@@ -210,7 +210,15 @@ contract TradingWithCowSwap is DeploymentSetUp {
         // Note: because of rounding some dust is left from the settlement.
         assertGt(
             weth.balanceOf(address(ethFlow)),
-            ((sellAmount + feeAmount) * 5) / 100
+            ((sellAmount + feeAmount) * filledAmounts.length) / 100
+        );
+        // Still, there can be at most 1 wei of discrepancy for each call to `settle`.
+        assertLt(
+            weth.balanceOf(address(ethFlow)),
+            ((sellAmount + feeAmount) * filledAmounts.length) /
+                100 +
+                filledAmounts.length +
+                1
         );
         assertEq(
             address(ethFlow).balance,
