@@ -187,16 +187,14 @@ contract TradingWithCowSwap is DeploymentSetUp {
                 memory trades = new ICoWSwapSettlementExtended.TradeData[](1);
             trades[0] = trade;
 
-            // Noop interactions
-            ICoWSwapSettlementExtended.InteractionData[][3]
-                memory interactions = [
-                    new ICoWSwapSettlementExtended.InteractionData[](0),
-                    new ICoWSwapSettlementExtended.InteractionData[](0),
-                    new ICoWSwapSettlementExtended.InteractionData[](0)
-                ];
+            ICoWSwapSettlementExtended.InteractionData[][3] memory noop = [
+                new ICoWSwapSettlementExtended.InteractionData[](0),
+                new ICoWSwapSettlementExtended.InteractionData[](0),
+                new ICoWSwapSettlementExtended.InteractionData[](0)
+            ];
 
             uint256 ethFlowBalanceBefore = weth.balanceOf(address(ethFlow));
-            settlement.settle(tokens, clearingPrices, trades, interactions);
+            settlement.settle(tokens, clearingPrices, trades, noop);
             assertGt(
                 ethFlowBalanceBefore - weth.balanceOf(address(ethFlow)),
                 filledAmount
