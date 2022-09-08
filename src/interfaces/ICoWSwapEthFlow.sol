@@ -56,6 +56,12 @@ interface ICoWSwapEthFlow {
     // the entire amount to its wrapped version (e.g., WETH).
     function wrapAll() external;
 
+    /// @dev This function takes the specified amount of the chain's native token (e.g., ETH for mainnet) stored by this
+    /// contract and converts it to its wrapped version (e.g., WETH).
+    ///
+    /// @param amount The amount of native tokens to convert to wrapped native tokens.
+    function wrap(uint256 amount) external;
+
     /// @dev This function takes the specified amount of the chain's wrapped native token (e.g., WETH for mainnet)
     /// and converts it to its unwrapped version (e.g., ETH).
     ///
