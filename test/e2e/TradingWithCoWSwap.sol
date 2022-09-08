@@ -33,7 +33,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
         uint256 feeAmount = 0.01 ether;
 
         // Fill buffer with enough funds in buffer to settle the order
-        cowToken.mint(address(settlement), buyAmount + feeAmount);
+        cowToken.mint(address(settlement), buyAmount);
         // Give user enough funds to create the order
         vm.deal(user, sellAmount + feeAmount);
 
