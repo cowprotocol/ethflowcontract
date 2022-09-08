@@ -94,14 +94,15 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
     using GPv2Order for GPv2Order.Data;
 
     function testRevertOrderCreationIfNotEnoughEthSent() public {
-        uint256 sellAmount = 1 ether;
+        uint256 sellAmount = 41 ether;
+        uint256 feeAmount = 1 ether;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(address(0)),
             address(0),
             sellAmount,
             0,
             bytes32(0),
-            0,
+            feeAmount,
             0,
             false,
             0
@@ -109,23 +110,25 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
 
         vm.expectRevert(ICoWSwapEthFlow.IncorrectEthAmount.selector);
-        ethFlow.createOrder{value: sellAmount - 1}(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount - 1}(order);
     }
 
     function testRevertIfCreatingAnOrderWithTheSameHashTwice() public {
-        uint256 sellAmount = 42 ether;
+        uint256 sellAmount = 41 ether;
+        uint256 feeAmount = 1 ether;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
             FillWithSameByte.toAddress(0x02),
             sellAmount,
             FillWithSameByte.toUint256(0x04),
             FillWithSameByte.toBytes32(0x05),
-            FillWithSameByte.toUint256(0x06),
+            feeAmount,
             FillWithSameByte.toUint32(0x07),
             true,
             FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
+        assertEq(order.feeAmount, feeAmount);
 
         bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
             ethFlow.cowSwapDomainSeparatorPublic()
@@ -133,11 +136,11 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
 
         address executor1 = address(0x42);
         address executor2 = address(0x1337);
-        vm.deal(executor1, sellAmount);
-        vm.deal(executor2, sellAmount);
+        vm.deal(executor1, sellAmount + feeAmount);
+        vm.deal(executor2, sellAmount + feeAmount);
 
         vm.prank(executor1);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
 
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -146,33 +149,39 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             )
         );
         vm.prank(executor2);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
     }
 
     function testOrderCreationReturnsOrderHash() public {
-        uint256 sellAmount = 42 ether;
+        uint256 sellAmount = 41 ether;
+        uint256 feeAmount = 1 ether;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
             FillWithSameByte.toAddress(0x02),
             sellAmount,
             FillWithSameByte.toUint256(0x04),
             FillWithSameByte.toBytes32(0x05),
-            FillWithSameByte.toUint256(0x06),
+            feeAmount,
             FillWithSameByte.toUint32(0x07),
             true,
             FillWithSameByte.toInt64(0x08)
         );
         assertEq(order.sellAmount, sellAmount);
+        assertEq(order.feeAmount, feeAmount);
 
         bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
             ethFlow.cowSwapDomainSeparatorPublic()
         );
 
-        assertEq(ethFlow.createOrder{value: sellAmount}(order), orderHash);
+        assertEq(
+            ethFlow.createOrder{value: sellAmount + feeAmount}(order),
+            orderHash
+        );
     }
 
     function testOrderCreationEventHasExpectedParams() public {
-        uint256 sellAmount = 42 ether;
+        uint256 sellAmount = 41 ether;
+        uint256 feeAmount = 1 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
         int64 quoteId = 1337;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
@@ -181,12 +190,13 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             sellAmount,
             FillWithSameByte.toUint256(0x04),
             FillWithSameByte.toBytes32(0x05),
-            FillWithSameByte.toUint256(0x06),
+            feeAmount,
             validTo,
             true,
             quoteId
         );
         assertEq(order.sellAmount, sellAmount);
+        assertEq(order.feeAmount, feeAmount);
         assertEq(order.validTo, validTo);
 
         ICoWSwapOnchainOrders.OnchainSignature
@@ -196,7 +206,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             );
 
         address executor = address(0x1337);
-        vm.deal(executor, sellAmount);
+        vm.deal(executor, sellAmount + feeAmount);
         vm.expectEmit(true, true, true, true, address(ethFlow));
         emit ICoWSwapOnchainOrders.OrderPlacement(
             executor,
@@ -205,11 +215,12 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             abi.encodePacked(quoteId, validTo)
         );
         vm.prank(executor);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
     }
 
     function testOrderCreationSetsExpectedOnchainOrderInformation() public {
-        uint256 sellAmount = 42 ether;
+        uint256 sellAmount = 41 ether;
+        uint256 feeAmount = 1 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x02)),
@@ -217,12 +228,13 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             sellAmount,
             FillWithSameByte.toUint256(0x04),
             FillWithSameByte.toBytes32(0x05),
-            FillWithSameByte.toUint256(0x06),
+            feeAmount,
             validTo,
             true,
             FillWithSameByte.toInt64(0x07)
         );
         assertEq(order.sellAmount, sellAmount);
+        assertEq(order.feeAmount, feeAmount);
         assertEq(order.validTo, validTo);
 
         bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
@@ -230,15 +242,36 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         );
 
         address executor = address(0x1337);
-        vm.deal(executor, sellAmount);
+        vm.deal(executor, sellAmount + feeAmount);
         vm.prank(executor);
-        ethFlow.createOrder{value: sellAmount}(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
 
         (address ethFlowOwner, uint32 ethFlowValidTo) = ethFlow.orders(
             orderHash
         );
         assertEq(ethFlowOwner, executor);
         assertEq(ethFlowValidTo, validTo);
+    }
+
+    function testRevertsOnAdditionOverflow() public {
+        uint256 sellAmount = type(uint256).max;
+        uint256 feeAmount = 1;
+        EthFlowOrder.Data memory order = EthFlowOrder.Data(
+            IERC20(FillWithSameByte.toAddress(0x01)),
+            FillWithSameByte.toAddress(0x02),
+            sellAmount,
+            FillWithSameByte.toUint256(0x03),
+            FillWithSameByte.toBytes32(0x04),
+            feeAmount,
+            FillWithSameByte.toUint32(0x05),
+            false,
+            FillWithSameByte.toInt64(0x06)
+        );
+        assertEq(order.sellAmount, sellAmount);
+        assertEq(order.feeAmount, feeAmount);
+
+        vm.expectRevert();
+        ethFlow.createOrder{value: sellAmount}(order);
     }
 }
 
@@ -247,10 +280,10 @@ contract OrderDeletion is EthFlowTestSetup {
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
             FillWithSameByte.toAddress(0x02),
-            FillWithSameByte.toUint256(0x03),
+            FillWithSameByte.toUint128(0x03), // using uint128 to avoid triggering multiplication overflow
             FillWithSameByte.toUint256(0x04),
             FillWithSameByte.toBytes32(0x05),
-            FillWithSameByte.toUint256(0x06),
+            FillWithSameByte.toUint128(0x06), // using uint128 to avoid triggering multiplication overflow
             FillWithSameByte.toUint32(0x07),
             true,
             FillWithSameByte.toInt64(0x08)
@@ -265,9 +298,16 @@ contract OrderDeletion is EthFlowTestSetup {
     function createOrderWithOwner(OrderDetails memory order, address owner)
         public
     {
-        vm.deal(owner, order.data.sellAmount);
+        require(
+            (order.data.sellAmount < (1 << 128)) &&
+                (order.data.feeAmount < (1 << 128)),
+            "The code currently assumes that the sell and fee amounts are not too high. Otherwise, deleting orders causes multiplication overflows."
+        );
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.prank(owner);
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
     }
 
     function testCanDeleteValidOrdersIfOwner() public {
@@ -341,7 +381,7 @@ contract OrderDeletion is EthFlowTestSetup {
         assertEq(owner.balance, 0);
         vm.prank(executor);
         ethFlow.deleteOrder(order.data);
-        assertEq(owner.balance, order.data.sellAmount);
+        assertEq(owner.balance, order.data.sellAmount + order.data.feeAmount);
     }
 
     function testOrderDeletionRevertsIfDeletingUninitializedOrder() public {
@@ -378,15 +418,21 @@ contract OrderDeletion is EthFlowTestSetup {
 
     function testOrderDeletionForPartiallyFilledOrders() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
-        createOrderWithOwner(order, owner);
-        uint256 filledAmount = 1337;
-        mockOrderFilledAmount(order.orderUid, filledAmount);
+        EthFlowOrder.Data memory order = dummyOrder();
+        order.sellAmount = 10 ether;
+        order.feeAmount = 1 ether;
+        OrderDetails memory orderDetails = orderDetails(order);
+
+        createOrderWithOwner(orderDetails, owner);
+        uint256 filledAmount = 2 ether + 1; // does not divide sellAmount to test rounding
+        uint256 remainingSellAmount = 8 ether - 1;
+        uint256 remainingFeeAmount = 0.8 ether;
+        mockOrderFilledAmount(orderDetails.orderUid, filledAmount);
 
         assertEq(owner.balance, 0);
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
-        assertEq(owner.balance, order.data.sellAmount - filledAmount);
+        ethFlow.deleteOrder(order);
+        assertEq(owner.balance, remainingSellAmount + remainingFeeAmount);
     }
 
     function testOrderDeletionRevertsIfSendingEthFails() public {
@@ -407,10 +453,12 @@ contract OrderDeletion is EthFlowTestSetup {
         OrderDetails memory order = orderDetails(ethFlowOrder);
         mockOrderFilledAmount(order.orderUid, 0);
 
-        vm.deal(owner, order.data.sellAmount);
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.startPrank(owner);
 
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
         ethFlow.deleteOrder(order.data);
         vm.expectRevert(
             abi.encodeWithSelector(
@@ -418,7 +466,9 @@ contract OrderDeletion is EthFlowTestSetup {
                 order.hash
             )
         );
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
 
         vm.stopPrank();
     }
@@ -431,10 +481,13 @@ contract OrderDeletion is EthFlowTestSetup {
         OrderDetails memory orderDetails1 = orderDetails(ethFlowOrder1);
 
         // Create first order
-        vm.deal(address(owner), ethFlowOrder1.sellAmount);
+        vm.deal(
+            address(owner),
+            ethFlowOrder1.sellAmount + ethFlowOrder1.feeAmount
+        );
         owner.execCall(
             payable(address(ethFlow)),
-            ethFlowOrder1.sellAmount,
+            ethFlowOrder1.sellAmount + ethFlowOrder1.feeAmount,
             abi.encodeCall(ethFlow.createOrder, ethFlowOrder1)
         );
 
@@ -443,7 +496,7 @@ contract OrderDeletion is EthFlowTestSetup {
         vm.deal(address(owner), ethFlowOrder2.sellAmount);
         owner.setCallOnReceive(
             payable(address(ethFlow)),
-            ethFlowOrder2.sellAmount,
+            ethFlowOrder2.sellAmount + ethFlowOrder2.feeAmount,
             abi.encodeCall(ethFlow.createOrder, ethFlowOrder2)
         );
 
@@ -497,9 +550,11 @@ contract SignatureVerification is EthFlowTestSetup {
         OrderDetails memory order = orderDetails(dummyOrder());
         assertGt(order.data.validTo, block.timestamp);
 
-        vm.deal(owner, order.data.sellAmount);
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.prank(owner);
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
 
         assertEq(
             ethFlow.isValidSignature(order.hash, ""),
@@ -512,9 +567,11 @@ contract SignatureVerification is EthFlowTestSetup {
         OrderDetails memory order = orderDetails(dummyOrder());
         assertGt(order.data.validTo, block.timestamp);
 
-        vm.deal(owner, order.data.sellAmount);
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.prank(owner);
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
 
         vm.warp(order.data.validTo + 1);
         assertLt(order.data.validTo, block.timestamp);
@@ -526,10 +583,12 @@ contract SignatureVerification is EthFlowTestSetup {
         address owner = address(0x424242);
         OrderDetails memory order = orderDetails(dummyOrder());
 
-        vm.deal(owner, order.data.sellAmount);
+        vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.startPrank(owner);
 
-        ethFlow.createOrder{value: order.data.sellAmount}(order.data);
+        ethFlow.createOrder{
+            value: order.data.sellAmount + order.data.feeAmount
+        }(order.data);
         mockOrderFilledAmount(order.orderUid, 0);
         ethFlow.deleteOrder(order.data);
 

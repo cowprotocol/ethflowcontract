@@ -52,7 +52,7 @@ contract CoWSwapEthFlow is
         nonReentrant
         returns (bytes32 orderHash)
     {
-        if (msg.value != order.sellAmount) {
+        if (msg.value != order.sellAmount + order.feeAmount) {
             revert IncorrectEthAmount();
         }
 
@@ -116,13 +116,46 @@ contract CoWSwapEthFlow is
             address(this),
             cowSwapOrder.validTo
         );
-        uint256 freedAmount = cowSwapOrder.sellAmount -
-            cowSwapSettlement.filledAmount(orderUid);
+        uint256 filledAmount = cowSwapSettlement.filledAmount(orderUid);
+
+        // This comment argues that a CoW Swap trader does not pay more fees if a partially fillable order is
+        // (partially) settled in multiple batches rather than in one single batch of the combined size.
+        // This also means that we can refund the user assuming the worst case of settling the filled amount in a single
+        // batch without risking giving out more funds than available in the contract because of rounding issues.
+        // A CoW Swap trader is always charged exactly the amount of fees that is proportional to the filled amount
+        // rounded down to the smaller integer. The code is here:
+        // https://github.com/cowprotocol/contracts/blob/d4e0fcd58367907bf1aff54d182222eeaee793dd/src/contracts/GPv2Settlement.sol#L385-L387
+        // We show that a trader pays less in fee to CoW Swap when settiling a partially fillable order in two
+        // executions rather than a single one for the combined amount; by induction this proves our original statement.
+        // Our previous statement is equivalent to `floor(a/c) + floor(b/c) ≤ floor((a+b)/c)`. Writing a and b in terms
+        // of reminders (`a = ad*c+ar`, `b = bd*c+br`) the equation becomes `ad + bd ≤ ad + bd + floor((ar+br)/c)`,
+        // which is immediately true.
+        uint256 refundAmount;
+        unchecked {
+            // - Multiplication overflow: since this smart contract never invalidates orders on CoW Swap,
+            //   `filledAmount <= sellAmount`. Also, `feeAmount + sellAmount` is an amount of native tokens that was
+            //   originally sent by the user. As such, it cannot be larger than the amount of native tokens available,
+            //   which is smaller than 2¹²⁸/10¹⁸ ≈ 10²⁰ in all networks supported by CoW Swap so far. Since both values
+            //    are smaller than 2¹²⁸, their product does not overflow a uint256.
+            // - Subtraction underflow: again `filledAmount ≤ sellAmount`, meaning:
+            //   feeAmount * filledAmount / sellAmount ≤ feeAmount
+            uint256 feeRefundAmount = cowSwapOrder.feeAmount -
+                ((cowSwapOrder.feeAmount * filledAmount) /
+                    cowSwapOrder.sellAmount);
+
+            // - Subtraction underflow: as noted before, filledAmount ≤ sellAmount.
+            // - Addition overflow: as noted before, the user already sent feeAmount + sellAmount native tokens, which
+            //   did not overflow.
+            refundAmount =
+                cowSwapOrder.sellAmount -
+                filledAmount +
+                feeRefundAmount;
+        }
 
         // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
         // call. Reentrancy is avoided thanks to the `nonReentrant` function modifier.
         // solhint-disable-next-line avoid-low-level-calls
-        (bool success, ) = payable(orderData.owner).call{value: freedAmount}(
+        (bool success, ) = payable(orderData.owner).call{value: refundAmount}(
             ""
         );
         if (!success) {
