@@ -128,13 +128,12 @@ contract TradingWithCowSwap is DeploymentSetUp {
         vm.prank(user);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
 
-        // Wrap more than enough ETH to settle everything in advance
-        uint256 wrapAmount = ((sellAmount + feeAmount) * 85) / 100;
+        // Wrap ETH in advance
         ICoWSwapSettlementExtended.InteractionData
             memory wrap = ICoWSwapSettlementExtended.InteractionData(
                 address(ethFlow),
                 0,
-                abi.encodeCall(ICoWSwapEthFlow.wrap, wrapAmount)
+                abi.encodeCall(ICoWSwapEthFlow.wrapAll, ())
             );
         ICoWSwapSettlementExtended.InteractionData[]
             memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](
@@ -154,8 +153,8 @@ contract TradingWithCowSwap is DeploymentSetUp {
             new ICoWSwapSettlementExtended.TradeData[](0),
             interactions
         );
-        assertEq(address(ethFlow).balance, sellAmount + feeAmount - wrapAmount);
-        assertEq(weth.balanceOf(address(ethFlow)), wrapAmount);
+        assertEq(address(ethFlow).balance, 0);
+        assertEq(weth.balanceOf(address(ethFlow)), sellAmount + feeAmount);
 
         uint256[] memory filledAmounts = new uint256[](5);
         filledAmounts[0] = 10 ether;
@@ -201,6 +200,8 @@ contract TradingWithCowSwap is DeploymentSetUp {
             );
         }
 
+        uint256 unusedSellAmount = sellAmount - sum(filledAmounts);
+        uint256 returnedFeeAmount = (feeAmount * unusedSellAmount) / sellAmount;
         assertEq(
             cowToken.balanceOf(order.receiver),
             (order.buyAmount * 8) / 10
@@ -208,28 +209,19 @@ contract TradingWithCowSwap is DeploymentSetUp {
         // Note: because of rounding some dust is left from the settlement.
         assertGt(
             weth.balanceOf(address(ethFlow)),
-            ((sellAmount + feeAmount) * filledAmounts.length) / 100
+            unusedSellAmount + returnedFeeAmount
         );
         // Still, there can be at most 1 wei of discrepancy for each call to `settle`.
         assertLt(
             weth.balanceOf(address(ethFlow)),
-            ((sellAmount + feeAmount) * filledAmounts.length) /
-                100 +
-                filledAmounts.length +
-                1
+            unusedSellAmount + returnedFeeAmount + filledAmounts.length + 1
         );
-        assertEq(
-            address(ethFlow).balance,
-            ((sellAmount + feeAmount) * 15) / 100
-        );
+        assertEq(address(ethFlow).balance, 0);
 
         // Delete what remains of the order
         vm.prank(user);
         ethFlow.deleteOrder(order);
-        uint256 returnedSellAmount = sellAmount - sum(filledAmounts);
-        uint256 returnedFeeAmount = (feeAmount * returnedSellAmount) /
-            sellAmount;
-        assertEq(user.balance, returnedSellAmount + returnedFeeAmount);
+        assertEq(user.balance, unusedSellAmount + returnedFeeAmount);
     }
 
     function deriveTrade(
