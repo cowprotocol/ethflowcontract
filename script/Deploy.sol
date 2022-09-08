@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 import "./ValidatedAddress.sol";
 import "../src/CoWSwapEthFlow.sol";
 
-/// @title Deployer Sscript for the ETH Flow Contract
+/// @title Deployer Script for the ETH Flow Contract
 /// @author CoW Swap Developers.
 contract Deploy is Script {
     function run() external {
