@@ -51,14 +51,19 @@ contract CoWSwapEthFlow is
         );
     }
 
-    /// @inheritdoc ICoWSwapEthFlow
-    function wrap(uint256 amount) external {
-        wrappedNativeToken.deposit{value: amount}();
-    }
-
     // The contract needs to be able to receive native tokens when unwrapping.
     // solhint-disable-next-line no-empty-blocks
     receive() external payable {}
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function wrapAll() external {
+        wrappedNativeToken.deposit{value: address(this).balance}();
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function unwrap(uint256 amount) external {
+        wrappedNativeToken.withdraw(amount);
+    }
 
     /// @inheritdoc ICoWSwapEthFlow
     function createOrder(EthFlowOrder.Data calldata order)
@@ -135,12 +140,14 @@ contract CoWSwapEthFlow is
 
         // This comment argues that a CoW Swap trader does not pay more fees if a partially fillable order is
         // (partially) settled in multiple batches rather than in one single batch of the combined size.
-        // This also mean that we can refund the user assuming the worst case of settling the filled amount in a single
+        // This also means that we can refund the user assuming the worst case of settling the filled amount in a single
         // batch without risking giving out more funds than available in the contract because of rounding issues.
         // A CoW Swap trader is always charged exactly the amount of fees that is proportional to the filled amount
         // rounded down to the smaller integer. The code is here:
         // https://github.com/cowprotocol/contracts/blob/d4e0fcd58367907bf1aff54d182222eeaee793dd/src/contracts/GPv2Settlement.sol#L385-L387
-        // Our original statement is equivalent to `floor(a/c) + floor(b/c) ≤ floor((a+b)/c)`. Writing a and b in terms
+        // We show that a trader pays less in fee to CoW Swap when settiling a partially fillable order in two
+        // executions rather than a single one for the combined amount; by induction this proves our original statement.
+        // Our previous statement is equivalent to `floor(a/c) + floor(b/c) ≤ floor((a+b)/c)`. Writing a and b in terms
         // of reminders (`a = ad*c+ar`, `b = bd*c+br`) the equation becomes `ad + bd ≤ ad + bd + floor((ar+br)/c)`,
         // which is immediately true.
         uint256 refundAmount;
@@ -167,11 +174,11 @@ contract CoWSwapEthFlow is
 
         // If not enough native token is available in the contract, unwrap the needed amount.
         if (address(this).balance < refundAmount) {
-            uint256 withdrawnAmount;
+            uint256 withdrawAmount;
             unchecked {
-                withdrawnAmount = refundAmount - address(this).balance;
+                withdrawAmount = refundAmount - address(this).balance;
             }
-            wrappedNativeToken.withdraw(withdrawnAmount);
+            wrappedNativeToken.withdraw(withdrawAmount);
         }
 
         // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
