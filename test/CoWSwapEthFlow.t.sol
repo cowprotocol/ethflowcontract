@@ -5,11 +5,12 @@ pragma solidity ^0.8;
 // solhint-disable not-rely-on-time
 
 import "forge-std/Test.sol";
+import "./CallOnReceive.sol";
 import "./Constants.sol";
 import "./CoWSwapEthFlow/CoWSwapEthFlowExposed.sol";
 import "./FillWithSameByte.sol";
-import "./CallOnReceive.sol";
 import "./Reverter.sol";
+import "./SendOnUnwrap.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 import "../src/vendored/GPv2EIP1271.sol";
 
@@ -597,17 +598,15 @@ contract OrderDeletion is EthFlowTestSetup {
             address(ethFlow).balance,
             order.data.sellAmount + order.data.feeAmount - burntAmount
         );
-        mockAndExpectCall(
+        vm.expectCall(
             address(wrappedNativeToken),
-            abi.encodeCall(IWrappedNativeToken.withdraw, burntAmount),
-            ""
+            abi.encodeCall(IWrappedNativeToken.withdraw, burntAmount)
         );
+        // SendOnUnwrap transfers ETH to the sender on `.unwrap()`.
+        vm.deal(address(wrappedNativeToken), burntAmount);
+        vm.etch(address(wrappedNativeToken), type(SendOnUnwrap).runtimeCode);
 
         vm.prank(owner);
-        // It still reverts because the mock doesn't send ETH to the contract.
-        vm.expectRevert(
-            abi.encodeWithSelector(ICoWSwapEthFlow.EthTransferFailed.selector)
-        );
         ethFlow.deleteOrder(order.data);
     }
 }
@@ -694,15 +693,28 @@ contract SignatureVerification is EthFlowTestSetup {
     }
 }
 
-contract Wrapping is EthFlowTestSetup {
+contract WrapUnwrap is EthFlowTestSetup {
     function testWrappingCallsWrappedToken() public {
         uint256 wrapAmount = 1337 ether;
+        vm.deal(address(ethFlow), wrapAmount);
+        assertEq(address(ethFlow).balance, wrapAmount);
+
         mockAndExpectCall(
             address(wrappedNativeToken),
             wrapAmount,
-            abi.encodeWithSelector(IWrappedNativeToken.deposit.selector),
+            abi.encodeCall(IWrappedNativeToken.deposit, ()),
             hex""
         );
-        ethFlow.wrap(wrapAmount);
+        ethFlow.wrapAll();
+    }
+
+    function testUnwrappingCallsWrappedToken() public {
+        uint256 unwrapAmount = 1337 ether;
+        mockAndExpectCall(
+            address(wrappedNativeToken),
+            abi.encodeCall(IWrappedNativeToken.withdraw, unwrapAmount),
+            hex""
+        );
+        ethFlow.unwrap(unwrapAmount);
     }
 }
