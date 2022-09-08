@@ -696,13 +696,16 @@ contract SignatureVerification is EthFlowTestSetup {
 contract WrapUnwrap is EthFlowTestSetup {
     function testWrappingCallsWrappedToken() public {
         uint256 wrapAmount = 1337 ether;
+        vm.deal(address(ethFlow), wrapAmount);
+        assertEq(address(ethFlow).balance, wrapAmount);
+
         mockAndExpectCall(
             address(wrappedNativeToken),
             wrapAmount,
             abi.encodeCall(IWrappedNativeToken.deposit, ()),
             hex""
         );
-        ethFlow.wrap(wrapAmount);
+        ethFlow.wrapAll();
     }
 
     function testUnwrappingCallsWrappedToken() public {
