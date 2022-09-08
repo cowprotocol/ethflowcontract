@@ -157,13 +157,12 @@ contract TradingWithCowSwap is DeploymentSetUp {
         assertEq(address(ethFlow).balance, sellAmount + feeAmount - wrapAmount);
         assertEq(weth.balanceOf(address(ethFlow)), wrapAmount);
 
-        uint256[5] memory filledAmounts = [
-            uint256(10 ether),
-            5 ether - 1,
-            25 ether - 2,
-            10 ether + 3,
-            30 ether
-        ];
+        uint256[] memory filledAmounts = new uint256[](5);
+        filledAmounts[0] = 10 ether;
+        filledAmounts[1] = 5 ether - 1;
+        filledAmounts[2] = 25 ether - 2;
+        filledAmounts[3] = 10 ether + 3;
+        filledAmounts[4] = 30 ether;
         for (uint256 i = 0; i < filledAmounts.length; i++) {
             uint256 filledAmount = filledAmounts[i];
 
@@ -221,8 +220,10 @@ contract TradingWithCowSwap is DeploymentSetUp {
         // Delete what remains of the order
         vm.prank(user);
         ethFlow.deleteOrder(order);
-        uint256 returnedFeeAmount = 0.2 ether;
-        assertEq(user.balance, 20 ether + returnedFeeAmount);
+        uint256 returnedSellAmount = sellAmount - sum(filledAmounts);
+        uint256 returnedFeeAmount = (feeAmount * returnedSellAmount) /
+            sellAmount;
+        assertEq(user.balance, returnedSellAmount + returnedFeeAmount);
     }
 
     function deriveTrade(
@@ -262,5 +263,11 @@ contract TradingWithCowSwap is DeploymentSetUp {
             internalSellTokenBalanceFlag |
             internalBuyTokenBalanceFlag |
             eip1271SignatureFlag;
+    }
+
+    function sum(uint256[] memory values) internal pure returns (uint256 _sum) {
+        for (uint256 i = 0; i < values.length; i++) {
+            _sum += values[i];
+        }
     }
 }
