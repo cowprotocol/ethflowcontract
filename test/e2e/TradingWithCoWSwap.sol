@@ -98,7 +98,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
         assertEq(cowToken.balanceOf(order.receiver), order.buyAmount);
     }
 
-    function testPartiallyFillable() public {
+    function testPartiallyFillableOrder() public {
         // Sell 100 ETH for 2M COW (plus 1 ETH fees) in a partially fillable order matching multiple times against the
         // internal buffer of the settlement contract.
         // When the order is 80% filled, delete it.
