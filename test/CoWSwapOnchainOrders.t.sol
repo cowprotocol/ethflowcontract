@@ -12,7 +12,7 @@ contract TestCoWSwapOnchainOrders is Test, ICoWSwapOnchainOrders {
 
     function setUp() public {
         onchainOrders = new CoWSwapOnchainOrdersExposed(
-            Constants.COWSWAP_ADDRESS
+            Constants.COWSWAP_SETTLEMENT
         );
     }
 
