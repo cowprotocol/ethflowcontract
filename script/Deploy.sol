@@ -13,7 +13,7 @@ contract Deploy is Script {
 
         new CoWSwapEthFlow(
             ICoWSwapSettlement(ValidatedAddress.cowSwapSettlement()),
-            IERC20(ValidatedAddress.wrappedNativeToken())
+            IWrappedNativeToken(ValidatedAddress.wrappedNativeToken())
         );
 
         vm.stopBroadcast();
