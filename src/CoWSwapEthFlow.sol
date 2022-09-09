@@ -57,7 +57,12 @@ contract CoWSwapEthFlow is
 
     /// @inheritdoc ICoWSwapEthFlow
     function wrapAll() external {
-        wrappedNativeToken.deposit{value: address(this).balance}();
+        wrap(address(this).balance);
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function wrap(uint256 amount) public {
+        wrappedNativeToken.deposit{value: amount}();
     }
 
     /// @inheritdoc ICoWSwapEthFlow
