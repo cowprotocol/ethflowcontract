@@ -9,5 +9,6 @@
   "scripts": {
     "fmt": "prettier 'src/**/*.sol' -w && prettier 'test/**/*.sol' -w",
     "lint": "solhint 'src/**/*.sol' 'test/**/*.sol'"
-  }
+  },
+  "version": "0.0.0-rc.0"
 }
