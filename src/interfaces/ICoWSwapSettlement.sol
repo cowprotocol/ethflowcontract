@@ -12,5 +12,10 @@ interface ICoWSwapSettlement {
     /// the order cannot be traded anymore. If the order is fill or kill, then
     /// this value is only used to determine whether the order has already been
     /// executed.
+    /// @param orderUid The uinique identifier to use to retrieve the filled amount.
     function filledAmount(bytes memory orderUid) external returns (uint256);
+
+    /// @dev The address of the vault relayer: the contract that handles withdrawing tokens from the user to the
+    /// settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token.
+    function vaultRelayer() external returns (address);
 }

@@ -4,6 +4,7 @@ pragma solidity ^0.8;
 import "./libraries/EthFlowOrder.sol";
 import "./interfaces/ICoWSwapSettlement.sol";
 import "./interfaces/ICoWSwapEthFlow.sol";
+import "./interfaces/IWrappedNativeToken.sol";
 import "./mixins/CoWSwapOnchainOrders.sol";
 import "./vendored/GPv2EIP1271.sol";
 import "./vendored/ReentrancyGuard.sol";
@@ -26,7 +27,7 @@ contract CoWSwapEthFlow is
 
     /// @dev The address of the contract representing the default native token in the current chain (e.g., WETH for
     /// Ethereum mainnet).
-    IERC20 public immutable wrappedNativeToken;
+    IWrappedNativeToken public immutable wrappedNativeToken;
 
     /// @dev Each ETH flow order as described in [`EthFlowOrder.Data`] can be converted to a CoW Swap order. Distinct
     /// CoW Swap orders have non-colliding order hashes. This mapping associates some extra data to a specific CoW Swap
@@ -35,14 +36,38 @@ contract CoWSwapEthFlow is
     /// onchain data.
     mapping(bytes32 => EthFlowOrder.OnchainData) public orders;
 
-    /// @param _cowSwapSettlement The address of the CoW Swap settlement contract.
-    /// @param _wrappedNativeToken The address of the default native token in the current chain (e.g., WETH on mainnet).
+    /// @param _cowSwapSettlement The CoW Swap settlement contract.
+    /// @param _wrappedNativeToken The default native token in the current chain (e.g., WETH on mainnet).
     constructor(
         ICoWSwapSettlement _cowSwapSettlement,
-        IERC20 _wrappedNativeToken
+        IWrappedNativeToken _wrappedNativeToken
     ) CoWSwapOnchainOrders(address(_cowSwapSettlement)) {
         cowSwapSettlement = _cowSwapSettlement;
         wrappedNativeToken = _wrappedNativeToken;
+
+        _wrappedNativeToken.approve(
+            cowSwapSettlement.vaultRelayer(),
+            type(uint256).max
+        );
+    }
+
+    // The contract needs to be able to receive native tokens when unwrapping.
+    // solhint-disable-next-line no-empty-blocks
+    receive() external payable {}
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function wrapAll() external {
+        wrap(address(this).balance);
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function wrap(uint256 amount) public {
+        wrappedNativeToken.deposit{value: amount}();
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function unwrap(uint256 amount) external {
+        wrappedNativeToken.withdraw(amount);
     }
 
     /// @inheritdoc ICoWSwapEthFlow
@@ -150,6 +175,15 @@ contract CoWSwapEthFlow is
                 cowSwapOrder.sellAmount -
                 filledAmount +
                 feeRefundAmount;
+        }
+
+        // If not enough native token is available in the contract, unwrap the needed amount.
+        if (address(this).balance < refundAmount) {
+            uint256 withdrawAmount;
+            unchecked {
+                withdrawAmount = refundAmount - address(this).balance;
+            }
+            wrappedNativeToken.withdraw(withdrawAmount);
         }
 
         // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
