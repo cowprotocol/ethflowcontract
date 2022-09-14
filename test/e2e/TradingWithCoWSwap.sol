@@ -46,7 +46,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
             feeAmount,
             31337, //validTo
             false, //partiallyFillable
-            424242 //quoteId
+            hex"424242" //extraData
         );
         assertLt(block.timestamp, order.validTo);
 
@@ -121,7 +121,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
             feeAmount,
             31337, //validTo
             true, //partiallyFillable
-            424242 //quoteId
+            hex"424242" //extraData
         );
         assertLt(block.timestamp, order.validTo);
 

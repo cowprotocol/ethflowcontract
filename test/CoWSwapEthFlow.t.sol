@@ -167,7 +167,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             0,
             false,
-            0
+            hex""
         );
         assertEq(order.sellAmount, sellAmount);
 
@@ -187,7 +187,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toInt64(0x08)
+            FillWithSameByte.toVector(0x08, 42)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
@@ -226,7 +226,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toInt64(0x08)
+            FillWithSameByte.toVector(0x08, 42)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
@@ -245,7 +245,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         uint256 sellAmount = 41 ether;
         uint256 feeAmount = 1 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
-        int64 quoteId = 1337;
+        bytes memory extraData = hex"1337";
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x02)),
             FillWithSameByte.toAddress(0x03),
@@ -255,7 +255,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             validTo,
             true,
-            quoteId
+            extraData
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
@@ -274,7 +274,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             executor,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
-            abi.encodePacked(quoteId, validTo)
+            abi.encodePacked(validTo, extraData)
         );
         vm.prank(executor);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
@@ -293,7 +293,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             validTo,
             true,
-            FillWithSameByte.toInt64(0x07)
+            FillWithSameByte.toVector(0x07, 42)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
@@ -327,7 +327,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
             feeAmount,
             FillWithSameByte.toUint32(0x05),
             false,
-            FillWithSameByte.toInt64(0x06)
+            FillWithSameByte.toVector(0x06, 42)
         );
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
@@ -348,7 +348,7 @@ contract OrderDeletion is EthFlowTestSetup {
             FillWithSameByte.toUint128(0x06), // using uint128 to avoid triggering multiplication overflow
             FillWithSameByte.toUint32(0x07),
             true,
-            FillWithSameByte.toInt64(0x08)
+            FillWithSameByte.toVector(0x08, 42)
         );
         require(
             order.validTo > block.timestamp,
@@ -624,7 +624,7 @@ contract SignatureVerification is EthFlowTestSetup {
             FillWithSameByte.toUint256(0x16),
             FillWithSameByte.toUint32(0x17),
             true,
-            FillWithSameByte.toInt64(0x18)
+            FillWithSameByte.toVector(0x18, 42)
         );
         require(
             order.validTo > block.timestamp,
