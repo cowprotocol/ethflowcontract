@@ -38,10 +38,11 @@ library EthFlowOrder {
         uint32 validTo;
         /// @dev Flag indicating whether the order is fill-or-kill or can be filled partially.
         bool partiallyFillable;
-        /// @dev quoteId The quote id obtained from the CoW Swap API to lock in the current price. It is not directly
-        /// used by any onchain component but is part of the information emitted onchain on order creation and may be
-        /// required for an order to be automatically picked up by the CoW Swap orderbook.
-        int64 quoteId;
+        /// @dev extraData The extra data that is not directly used by any onchain component but is part of the
+        /// information emitted onchain on order creation and may be required for an order to be automatically picked up
+        /// by the CoW Swap orderbook. An example of this may be the quote id obtained from the CoW Swap API in order to
+        /// lock in the current price.
+        bytes extraData;
     }
 
     /// @dev An order that is owned by this address is an order that has not yet been assigned.
@@ -75,7 +76,7 @@ library EthFlowOrder {
         }
 
         // Note that not all fields from `order` are used in creating the corresponding CoW Swap order.
-        // For example, validTo and quoteId are ignored.
+        // For example, validTo and extraData are ignored.
         return
             GPv2Order.Data(
                 wrappedNativeToken, // IERC20 sellToken

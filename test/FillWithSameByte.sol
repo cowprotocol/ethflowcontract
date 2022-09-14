@@ -10,10 +10,6 @@ library FillWithSameByte {
         return bytes32(repeatByte(b, 32));
     }
 
-    function toInt64(uint8 b) public pure returns (int64) {
-        return int64(int256(repeatByte(b, 8)));
-    }
-
     function toUint32(uint8 b) public pure returns (uint32) {
         return uint32(repeatByte(b, 4));
     }
@@ -24,6 +20,17 @@ library FillWithSameByte {
 
     function toUint256(uint8 b) public pure returns (uint256) {
         return repeatByte(b, 32);
+    }
+
+    function toVector(uint8 b, uint256 times)
+        public
+        pure
+        returns (bytes memory result)
+    {
+        result = new bytes(times);
+        for (uint256 i = 0; i < times; i++) {
+            result[i] = bytes1(b);
+        }
     }
 
     function repeatByte(uint8 b, uint8 times) internal pure returns (uint256) {
