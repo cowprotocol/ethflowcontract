@@ -2,7 +2,7 @@
 pragma solidity ^0.8;
 
 import "forge-std/Test.sol";
-import "./FillWithSameByte.sol";
+import "./lib/FillWithSameByte.sol";
 import "../src/vendored/GPv2Order.sol";
 import "../src/libraries/EthFlowOrder.sol";
 
