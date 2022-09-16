@@ -3,7 +3,7 @@ pragma solidity ^0.8;
 
 import "forge-std/Test.sol";
 import "../src/libraries/CoWSwapEip712.sol";
-import "./Constants.sol";
+import "./lib/Constants.sol";
 
 contract TestCoWSwapEip712 is Test {
     function testDomainSeparator() public {

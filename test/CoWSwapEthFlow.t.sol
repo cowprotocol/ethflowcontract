@@ -5,12 +5,12 @@ pragma solidity ^0.8;
 // solhint-disable not-rely-on-time
 
 import "forge-std/Test.sol";
-import "./CallOnReceive.sol";
-import "./Constants.sol";
-import "./CoWSwapEthFlow/CoWSwapEthFlowExposed.sol";
-import "./FillWithSameByte.sol";
-import "./Reverter.sol";
-import "./SendOnUnwrap.sol";
+import "./lib/CallOnReceive.sol";
+import "./lib/Constants.sol";
+import "./lib/CoWSwapEthFlow/CoWSwapEthFlowExposed.sol";
+import "./lib/FillWithSameByte.sol";
+import "./lib/Reverter.sol";
+import "./lib/SendOnUnwrap.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 import "../src/vendored/GPv2EIP1271.sol";
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 pragma solidity ^0.8;
 
-import "../../src/mixins/CoWSwapOnchainOrders.sol";
+import "../../../src/mixins/CoWSwapOnchainOrders.sol";
 
 /// @dev Wrapper that exposes internal funcions of CoWSwapOnchainOrders.
 contract CoWSwapOnchainOrdersExposed is CoWSwapOnchainOrders {
