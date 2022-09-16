@@ -702,7 +702,7 @@ contract WrapUnwrap is EthFlowTestSetup {
         mockAndExpectCall(
             address(wrappedNativeToken),
             wrapAmount,
-            abi.encodeCall(IWrappedNativeToken.deposit, ()),
+            hex"",
             hex""
         );
         ethFlow.wrapAll();
@@ -714,7 +714,7 @@ contract WrapUnwrap is EthFlowTestSetup {
         mockAndExpectCall(
             address(wrappedNativeToken),
             wrapAmount,
-            abi.encodeCall(IWrappedNativeToken.deposit, ()),
+            hex"",
             hex""
         );
         ethFlow.wrap(wrapAmount);
