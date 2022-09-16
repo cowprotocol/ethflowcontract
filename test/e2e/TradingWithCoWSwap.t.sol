@@ -6,8 +6,8 @@ pragma solidity ^0.8;
 // solhint-disable avoid-low-level-calls
 
 import "openzeppelin-contracts/contracts/token/ERC20/presets/ERC20PresetMinterPauser.sol" as OpenZeppelin;
-import "./DeploymentSetUp.sol";
-import "../FillWithSameByte.sol";
+import "./lib/DeploymentSetUp.sol";
+import "../lib/FillWithSameByte.sol";
 import "../../src/CoWSwapEthFlow.sol";
 import "../../src/vendored/GPv2Order.sol";
 

@@ -2,8 +2,8 @@
 pragma solidity ^0.8;
 
 import "forge-std/Test.sol";
-import "./CoWSwapOnchainOrders/CoWSwapOnchainOrdersExposed.sol";
-import "./Constants.sol";
+import "./lib/Constants.sol";
+import "./lib/CoWSwapOnchainOrders/CoWSwapOnchainOrdersExposed.sol";
 import "../src/vendored/GPv2Order.sol";
 import "../src/interfaces/ICoWSwapOnchainOrders.sol";
 

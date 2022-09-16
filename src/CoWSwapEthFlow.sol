@@ -60,7 +60,15 @@ contract CoWSwapEthFlow is
 
     /// @inheritdoc ICoWSwapEthFlow
     function wrap(uint256 amount) public {
-        wrappedNativeToken.deposit{value: amount}();
+        // The fallback implementation of the standard WETH9 contract just calls `deposit`. Using the fallback instead
+        // of directly calling `deposit` is slightly cheaper in terms of gas.
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, ) = payable(address(wrappedNativeToken)).call{
+            value: amount
+        }("");
+        // The success value is intentionally disregarded because depositing native tokens with the standard WETH9
+        // contract cannot revert.
+        success;
     }
 
     /// @inheritdoc ICoWSwapEthFlow

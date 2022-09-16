@@ -8,8 +8,8 @@ pragma solidity ^0.8;
 import "forge-std/Test.sol";
 import "./DeploymentConstants.sol";
 import "./ICoWSwapSettlementExtended.sol";
-import "../Constants.sol";
-import "../../src/interfaces/IWrappedNativeToken.sol";
+import "../../lib/Constants.sol";
+import "../../../src/interfaces/IWrappedNativeToken.sol";
 
 contract DeploymentSetUp is Test {
     struct Contracts {
