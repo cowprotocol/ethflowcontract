@@ -5,7 +5,6 @@ pragma solidity ^0.8;
 // solhint-disable not-rely-on-time
 
 import "forge-std/Test.sol";
-import "./CallOnReceive.sol";
 import "./Constants.sol";
 import "./CoWSwapEthFlow/CoWSwapEthFlowExposed.sol";
 import "./FillWithSameByte.sol";
@@ -533,49 +532,6 @@ contract OrderDeletion is EthFlowTestSetup {
         }(order.data);
 
         vm.stopPrank();
-    }
-
-    function testNonReentrant() public {
-        CallOnReceive owner = new CallOnReceive();
-        EthFlowOrder.Data memory ethFlowOrder1 = dummyOrder();
-        EthFlowOrder.Data memory ethFlowOrder2 = dummyOrder();
-        ethFlowOrder1.appData ^= bytes32(type(uint256).max); // Change any parameter to get a different order.
-        OrderDetails memory orderDetails1 = orderDetails(ethFlowOrder1);
-
-        // Create first order
-        vm.deal(
-            address(owner),
-            ethFlowOrder1.sellAmount + ethFlowOrder1.feeAmount
-        );
-        owner.execCall(
-            payable(address(ethFlow)),
-            ethFlowOrder1.sellAmount + ethFlowOrder1.feeAmount,
-            abi.encodeCall(ethFlow.createOrder, ethFlowOrder1)
-        );
-
-        // Prepare creating second order on reentrancy. CallOnReceive is configured to execute that call. It does *not*
-        // revert if the call reverts but store the result of the call in storage.
-        vm.deal(address(owner), ethFlowOrder2.sellAmount);
-        owner.setCallOnReceive(
-            payable(address(ethFlow)),
-            ethFlowOrder2.sellAmount + ethFlowOrder2.feeAmount,
-            abi.encodeCall(ethFlow.createOrder, ethFlowOrder2)
-        );
-
-        // Delete order with attempted reentrancy.
-        mockOrderFilledAmount(orderDetails1.orderUid, 0);
-        owner.execCall(
-            payable(address(ethFlow)),
-            0,
-            abi.encodeCall(ethFlow.deleteOrder, ethFlowOrder1)
-        );
-
-        assertFalse(owner.lastFallbackCallSuccess());
-        bytes memory reentrancyRevertData = abi.encodeWithSignature(
-            "Error(string)", // https://docs.soliditylang.org/en/v0.8.16/control-structures.html?highlight=%22Error(string)%22#panic-via-assert-and-error-via-require
-            "ReentrancyGuard: reentrant call"
-        );
-        assertEq(owner.lastFallbackCallReturnData(), reentrancyRevertData);
     }
 
     function testWethUnwrappingIfContractDoesNotHaveEnoughEth() public {
