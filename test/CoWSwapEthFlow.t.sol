@@ -192,7 +192,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
 
         vm.expectRevert(ICoWSwapEthFlow.NotAllowedZeroSellAmount.selector);
-        ethFlow.createOrder{value: sellAmount + feeAmount }(order);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
     }
 
     function testRevertIfCreatingAnOrderWithTheSameHashTwice() public {
