@@ -175,6 +175,26 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         ethFlow.createOrder{value: sellAmount + feeAmount - 1}(order);
     }
 
+    function testRevertOrderCreationIfSellAmountIsZero() public {
+        uint256 sellAmount = 0 ether;
+        uint256 feeAmount = 1 ether;
+        EthFlowOrder.Data memory order = EthFlowOrder.Data(
+            IERC20(address(0)),
+            address(0),
+            sellAmount,
+            0,
+            bytes32(0),
+            feeAmount,
+            0,
+            false,
+            0
+        );
+        assertEq(order.sellAmount, sellAmount);
+
+        vm.expectRevert(ICoWSwapEthFlow.NotAllowedZeroSellAmount.selector);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
+    }
+
     function testRevertIfCreatingAnOrderWithTheSameHashTwice() public {
         uint256 sellAmount = 41 ether;
         uint256 feeAmount = 1 ether;

@@ -13,6 +13,9 @@ interface ICoWSwapEthFlow {
     /// @dev Error thrown when trying to create an order without sending the expected amount of ETH to this contract.
     error IncorrectEthAmount();
 
+    /// @dev Error thrown when trying to create an order with a sell amount == 0
+    error NotAllowedZeroSellAmount();
+
     /// @dev Error thrown if trying to delete an order while not allowed.
     error NotAllowedToDeleteOrder(bytes32 orderHash);
 

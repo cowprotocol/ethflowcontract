@@ -86,6 +86,10 @@ contract CoWSwapEthFlow is
             revert IncorrectEthAmount();
         }
 
+        if (0 == order.sellAmount) {
+            revert NotAllowedZeroSellAmount();
+        }
+
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
             msg.sender,
             order.validTo
