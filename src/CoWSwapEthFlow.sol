@@ -66,8 +66,9 @@ contract CoWSwapEthFlow is
         (bool success, ) = payable(address(wrappedNativeToken)).call{
             value: amount
         }("");
-        // The success value is intentionally disregarded because depositing native tokens with the standard WETH9
-        // contract cannot revert.
+        // The success value is intentionally disregarded. The callback of the standard WETH9 contract has no revert
+        // path in the code, so it could only revert if the internal call runs out of gas. This is not considered a
+        // security risk since a reverting internal call would just mean that calling this function has no effect.
         success;
     }
 
