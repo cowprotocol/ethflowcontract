@@ -422,15 +422,15 @@ contract OrderDeletion is EthFlowTestSetup {
         EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
         orderArray[0] = dummyOrder();
         orderArray[0].validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order_1 = orderDetails(orderArray[0]);
-        mockOrderFilledAmount(order_1.orderUid, 0);
-        createOrderWithOwner(order_1, owner);
+        OrderDetails memory order1 = orderDetails(orderArray[0]);
+        mockOrderFilledAmount(order1.orderUid, 0);
+        createOrderWithOwner(order1, owner);
         orderArray[1] = dummyOrder();
         orderArray[1].validTo = uint32(block.timestamp) - 1;
         orderArray[1].sellAmount = orderArray[1].sellAmount + 1;
-        OrderDetails memory order_2 = orderDetails(orderArray[1]);
-        createOrderWithOwner(order_2, owner);
-        mockOrderFilledAmount(order_2.orderUid, 0);
+        OrderDetails memory order2 = orderDetails(orderArray[1]);
+        createOrderWithOwner(order2, owner);
+        mockOrderFilledAmount(order2.orderUid, 0);
 
         vm.prank(executor);
         ethFlow.deleteManyOrders(orderArray);
