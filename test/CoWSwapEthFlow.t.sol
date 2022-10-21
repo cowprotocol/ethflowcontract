@@ -420,14 +420,14 @@ contract OrderDeletion is EthFlowTestSetup {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
-        orderArray[0]= dummyOrder();
+        orderArray[0] = dummyOrder();
         orderArray[0].validTo = uint32(block.timestamp) - 1;
         OrderDetails memory order_1 = orderDetails(orderArray[0]);
         mockOrderFilledAmount(order_1.orderUid, 0);
         createOrderWithOwner(order_1, owner);
         orderArray[1] = dummyOrder();
-        orderArray[1].validTo = uint32(block.timestamp) -1;
-        orderArray[1].sellAmount = orderArray[1].sellAmount+1;
+        orderArray[1].validTo = uint32(block.timestamp) - 1;
+        orderArray[1].sellAmount = orderArray[1].sellAmount + 1;
         OrderDetails memory order_2 = orderDetails(orderArray[1]);
         createOrderWithOwner(order_2, owner);
         mockOrderFilledAmount(order_2.orderUid, 0);

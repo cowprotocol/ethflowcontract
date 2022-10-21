@@ -122,8 +122,10 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteManyOrders(EthFlowOrder.Data[] calldata orderArray) external {
-        for (uint i=0; i<orderArray.length; i++){
+    function deleteManyOrders(EthFlowOrder.Data[] calldata orderArray)
+        external
+    {
+        for (uint256 i = 0; i < orderArray.length; i++) {
             deleteOrder(orderArray[i]);
         }
     }
