@@ -122,7 +122,7 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteManyOrders(EthFlowOrder.Data[] calldata orderArray)
+    function deleteOrders(EthFlowOrder.Data[] calldata orderArray)
         external
     {
         for (uint256 i = 0; i < orderArray.length; i++) {
@@ -130,10 +130,7 @@ contract CoWSwapEthFlow is
         }
     }
 
-    /// @dev Marks an existing ETH flow order as invalid and refunds the trader of all ETH that hasn't been traded yet.
-    /// Note that some parameters of the order are ignored, as for example the order expiration date and the quote id.
-    ///
-    /// @param order The order to be deleted.
+    /// @inheritdoc ICoWSwapEthFlow
     function deleteOrder(EthFlowOrder.Data calldata order) public {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken

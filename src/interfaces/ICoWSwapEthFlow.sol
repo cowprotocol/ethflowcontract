@@ -33,11 +33,17 @@ interface ICoWSwapEthFlow {
         payable
         returns (bytes32 orderHash);
 
-    /// @dev Marks existing ETH flow orders as invalid and refunds the trader of all ETH that hasn't been traded yet.
+    /// @dev Marks existing ETH-flow orders as invalid and refunds the ETH from the order that hasn't been traded yet.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
     /// @param orderArray Array of orders to be deleted.
-    function deleteManyOrders(EthFlowOrder.Data[] calldata orderArray) external;
+    function deleteOrders(EthFlowOrder.Data[] calldata orderArray) external;
+
+    /// @dev Marks an existing ETH-flow order as invalid and refunds the ETH from the order that hasn't been traded yet.
+    /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
+    ///
+    /// @param order order to be deleted.
+    function deleteOrder(EthFlowOrder.Data calldata order) external ;
 
     /// @dev EIP1271-compliant onchain signature verification function.
     /// This function is used by the CoW Swap settlement contract to determine if an order that is signed with an
