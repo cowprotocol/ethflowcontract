@@ -43,7 +43,7 @@ interface ICoWSwapEthFlow {
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
     /// @param order order to be deleted.
-    function deleteOrder(EthFlowOrder.Data calldata order) external ;
+    function deleteOrder(EthFlowOrder.Data calldata order) external;
 
     /// @dev EIP1271-compliant onchain signature verification function.
     /// This function is used by the CoW Swap settlement contract to determine if an order that is signed with an
