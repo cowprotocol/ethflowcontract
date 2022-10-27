@@ -442,6 +442,22 @@ contract OrderDeletion is EthFlowTestSetup {
             ordersMapping(order2.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
         );
+        EthFlowOrder.Data[] memory orderArray_2 = new EthFlowOrder.Data[](3);
+        orderArray_2[0] = orderArray[0];
+        orderArray_2[1] = orderArray[1];
+        // And we can even delete the order, if some deletions are
+        // already done
+        orderArray_2[2] = dummyOrder();
+        orderArray_2[2].validTo = uint32(block.timestamp) - 1;
+        orderArray_2[2].sellAmount = FillWithSameByte.toUint128(0x11);
+        OrderDetails memory order3 = orderDetails(orderArray_2[2]);
+        createOrderWithOwner(order3, owner);
+        mockOrderFilledAmount(order3.orderUid, 0);
+        ethFlow.deleteOrders(orderArray_2);
+        assertEq(
+            ordersMapping(order3.hash).owner,
+            EthFlowOrder.INVALIDATED_OWNER
+        );
     }
 
     function testCannotDeleteValidOrdersIfNotOwner() public {
