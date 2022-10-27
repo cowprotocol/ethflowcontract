@@ -416,7 +416,7 @@ contract OrderDeletion is EthFlowTestSetup {
         ethFlow.deleteOrder(order.data);
     }
 
-    function testCanDeleteOrders() public {
+    function testCandeleteOrdersIgnoringInvalid() public {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
@@ -433,7 +433,7 @@ contract OrderDeletion is EthFlowTestSetup {
         mockOrderFilledAmount(order2.orderUid, 0);
 
         vm.prank(executor);
-        ethFlow.deleteOrders(orderArray);
+        ethFlow.deleteOrdersIgnoringInvalid(orderArray);
         assertEq(
             ordersMapping(order1.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -453,7 +453,7 @@ contract OrderDeletion is EthFlowTestSetup {
         OrderDetails memory order3 = orderDetails(orderArray2[2]);
         createOrderWithOwner(order3, owner);
         mockOrderFilledAmount(order3.orderUid, 0);
-        ethFlow.deleteOrders(orderArray2);
+        ethFlow.deleteOrdersIgnoringInvalid(orderArray2);
         assertEq(
             ordersMapping(order3.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER

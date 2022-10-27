@@ -122,7 +122,9 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrders(EthFlowOrder.Data[] calldata orderArray) external {
+    function deleteOrdersIgnoringInvalid(
+        EthFlowOrder.Data[] calldata orderArray
+    ) external {
         for (uint256 i = 0; i < orderArray.length; i++) {
             _deleteOrder(orderArray[i], false);
         }
@@ -133,8 +135,9 @@ contract CoWSwapEthFlow is
         _deleteOrder(order, true);
     }
 
-    /// @dev Marks an existing ETH-flow order as invalid and refunds the ETH that hasn't been traded yet.
-    /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
+    /// @dev Performs the same tasks as `deleteOrder` (see documentation in `ICoWSwapEthFlow`), but also allows the
+    /// caller to ignore the revert condition `NotAllowedToDeleteOrder`. Instead of reverting, it stops execution
+    /// without causing any state change.
     ///
     /// @param order order to be deleted.
     /// @param revertOnInvalidDeletion controls whether the function call should revert or just return.
