@@ -416,6 +416,34 @@ contract OrderDeletion is EthFlowTestSetup {
         ethFlow.deleteOrder(order.data);
     }
 
+    function testCanDeleteOrders() public {
+        address owner = address(0x424242);
+        address executor = address(0x1337);
+        EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
+        orderArray[0] = dummyOrder();
+        orderArray[0].validTo = uint32(block.timestamp) - 1;
+        OrderDetails memory order1 = orderDetails(orderArray[0]);
+        mockOrderFilledAmount(order1.orderUid, 0);
+        createOrderWithOwner(order1, owner);
+        orderArray[1] = dummyOrder();
+        orderArray[1].validTo = uint32(block.timestamp) - 1;
+        orderArray[1].sellAmount = orderArray[1].sellAmount + 1;
+        OrderDetails memory order2 = orderDetails(orderArray[1]);
+        createOrderWithOwner(order2, owner);
+        mockOrderFilledAmount(order2.orderUid, 0);
+
+        vm.prank(executor);
+        ethFlow.deleteOrders(orderArray);
+        assertEq(
+            ordersMapping(order1.hash).owner,
+            EthFlowOrder.INVALIDATED_OWNER
+        );
+        assertEq(
+            ordersMapping(order2.hash).owner,
+            EthFlowOrder.INVALIDATED_OWNER
+        );
+    }
+
     function testCannotDeleteValidOrdersIfNotOwner() public {
         address owner = address(0x424242);
         address executor = address(0x1337);

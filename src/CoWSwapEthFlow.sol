@@ -122,7 +122,14 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrder(EthFlowOrder.Data calldata order) external {
+    function deleteOrders(EthFlowOrder.Data[] calldata orderArray) external {
+        for (uint256 i = 0; i < orderArray.length; i++) {
+            deleteOrder(orderArray[i]);
+        }
+    }
+
+    /// @inheritdoc ICoWSwapEthFlow
+    function deleteOrder(EthFlowOrder.Data calldata order) public {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
