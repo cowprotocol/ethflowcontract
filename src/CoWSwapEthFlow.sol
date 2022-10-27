@@ -123,6 +123,13 @@ contract CoWSwapEthFlow is
 
     /// @inheritdoc ICoWSwapEthFlow
     function deleteOrder(EthFlowOrder.Data calldata order) external {
+        deleteOrder(order, true);
+    }
+
+    function deleteOrder(
+        EthFlowOrder.Data calldata order,
+        bool revertOnInvalidDeletion
+    ) internal {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
@@ -137,7 +144,11 @@ contract CoWSwapEthFlow is
             orderData.validTo >= block.timestamp &&
                 orderData.owner != msg.sender)
         ) {
-            revert NotAllowedToDeleteOrder(orderHash);
+            if (revertOnInvalidDeletion) {
+                revert NotAllowedToDeleteOrder(orderHash);
+            } else {
+                return;
+            }
         }
 
         orders[orderHash].owner = EthFlowOrder.INVALIDATED_OWNER;
