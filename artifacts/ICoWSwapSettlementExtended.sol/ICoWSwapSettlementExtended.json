@@ -1,0 +1,1258 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "authenticator",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "domainSeparator",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "orderUid",
+          "type": "bytes"
+        }
+      ],
+      "name": "filledAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IERC20[]",
+          "name": "tokens",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "clearingPrices",
+          "type": "uint256[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "sellTokenIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyTokenIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "flags",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "executedAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "signature",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct ICoWSwapSettlementExtended.TradeData[]",
+          "name": "trades",
+          "type": "tuple[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "value",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "callData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct ICoWSwapSettlementExtended.InteractionData[][3]",
+          "name": "interactions",
+          "type": "tuple[][3]"
+        }
+      ],
+      "name": "settle",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vaultRelayer",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "authenticator()": "2335c76b",
+    "domainSeparator()": "f698da25",
+    "filledAmount(bytes)": "2479fb6e",
+    "settle(address[],uint256[],(uint256,uint256,address,uint256,uint256,uint32,bytes32,uint256,uint256,uint256,bytes)[],(address,uint256,bytes)[][3])": "13d79a0b",
+    "vaultRelayer()": "9b552cc2"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"authenticator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"domainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"orderUid\",\"type\":\"bytes\"}],\"name\":\"filledAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IERC20[]\",\"name\":\"tokens\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"clearingPrices\",\"type\":\"uint256[]\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"sellTokenIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyTokenIndex\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint32\",\"name\":\"validTo\",\"type\":\"uint32\"},{\"internalType\":\"bytes32\",\"name\":\"appData\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"feeAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"flags\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executedAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\"}],\"internalType\":\"struct ICoWSwapSettlementExtended.TradeData[]\",\"name\":\"trades\",\"type\":\"tuple[]\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"callData\",\"type\":\"bytes\"}],\"internalType\":\"struct ICoWSwapSettlementExtended.InteractionData[][3]\",\"name\":\"interactions\",\"type\":\"tuple[][3]\"}],\"name\":\"settle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultRelayer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"filledAmount(bytes)\":{\"details\":\"Map each user order by UID to the amount that has been filled so far. If this amount is larger than or equal to the amount traded in the order (amount sold for sell orders, amount bought for buy orders) then the order cannot be traded anymore. If the order is fill or kill, then this value is only used to determine whether the order has already been executed.\",\"params\":{\"orderUid\":\"The uinique identifier to use to retrieve the filled amount.\"}},\"vaultRelayer()\":{\"details\":\"The address of the vault relayer: the contract that handles withdrawing tokens from the user to the settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"test/e2e/lib/ICoWSwapSettlementExtended.sol\":\"ICoWSwapSettlementExtended\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"src/interfaces/ICoWSwapSettlement.sol\":{\"keccak256\":\"0xcb5007f3259129930d32a273874a955ebf18135294a3a7cbff6e2e03318bb75a\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://dbd6e3f4a8bb893fc562cd44d7ca1d835dd53b7be05091653dfbcdd4f9541451\",\"dweb:/ipfs/Qmdv2KnRjuWB1J1uqVErdUPywGeAuhNwbhz2Reouf9kbi9\"]},\"src/vendored/IERC20.sol\":{\"keccak256\":\"0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738\",\"dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog\"]},\"test/e2e/lib/ICoWSwapSettlementExtended.sol\":{\"keccak256\":\"0x3bb0ccfda08185e83a55dc80dec473bdb06d5ab4d3e6907200818f0505922c94\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://7ff08f24393ace8d851d22b61d61ed811a23ac429ff8b900c000957d41105724\",\"dweb:/ipfs/QmdWarAn75eGeMebV5JrSXdaYQcqnwX7Ubr7jM4cxommx4\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "authenticator",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "domainSeparator",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "orderUid",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "filledAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "contract IERC20[]",
+              "name": "tokens",
+              "type": "address[]"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "clearingPrices",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "struct ICoWSwapSettlementExtended.TradeData[]",
+              "name": "trades",
+              "type": "tuple[]",
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "sellTokenIndex",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyTokenIndex",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sellAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "validTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "appData",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "feeAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "flags",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "executedAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "signature",
+                  "type": "bytes"
+                }
+              ]
+            },
+            {
+              "internalType": "struct ICoWSwapSettlementExtended.InteractionData[][3]",
+              "name": "interactions",
+              "type": "tuple[][3]",
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "target",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "value",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "callData",
+                  "type": "bytes"
+                }
+              ]
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "settle"
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "vaultRelayer",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "filledAmount(bytes)": {
+            "details": "Map each user order by UID to the amount that has been filled so far. If this amount is larger than or equal to the amount traded in the order (amount sold for sell orders, amount bought for buy orders) then the order cannot be traded anymore. If the order is fill or kill, then this value is only used to determine whether the order has already been executed.",
+            "params": {
+              "orderUid": "The uinique identifier to use to retrieve the filled amount."
+            }
+          },
+          "vaultRelayer()": {
+            "details": "The address of the vault relayer: the contract that handles withdrawing tokens from the user to the settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token."
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "test/e2e/lib/ICoWSwapSettlementExtended.sol": "ICoWSwapSettlementExtended"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/interfaces/ICoWSwapSettlement.sol": {
+        "keccak256": "0xcb5007f3259129930d32a273874a955ebf18135294a3a7cbff6e2e03318bb75a",
+        "urls": [
+          "bzz-raw://dbd6e3f4a8bb893fc562cd44d7ca1d835dd53b7be05091653dfbcdd4f9541451",
+          "dweb:/ipfs/Qmdv2KnRjuWB1J1uqVErdUPywGeAuhNwbhz2Reouf9kbi9"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/IERC20.sol": {
+        "keccak256": "0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c",
+        "urls": [
+          "bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738",
+          "dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog"
+        ],
+        "license": "MIT"
+      },
+      "test/e2e/lib/ICoWSwapSettlementExtended.sol": {
+        "keccak256": "0x3bb0ccfda08185e83a55dc80dec473bdb06d5ab4d3e6907200818f0505922c94",
+        "urls": [
+          "bzz-raw://7ff08f24393ace8d851d22b61d61ed811a23ac429ff8b900c000957d41105724",
+          "dweb:/ipfs/QmdWarAn75eGeMebV5JrSXdaYQcqnwX7Ubr7jM4cxommx4"
+        ],
+        "license": "LGPL-3.0-or-later"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "test/e2e/lib/ICoWSwapSettlementExtended.sol",
+    "id": 29635,
+    "exportedSymbols": {
+      "ICoWSwapSettlement": [
+        24496
+      ],
+      "ICoWSwapSettlementExtended": [
+        29634
+      ],
+      "IERC20": [
+        24991
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:1161:42",
+    "nodes": [
+      {
+        "id": 29569,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:42",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 29570,
+        "nodeType": "ImportDirective",
+        "src": "69:56:42",
+        "nodes": [],
+        "absolutePath": "src/interfaces/ICoWSwapSettlement.sol",
+        "file": "../../../src/interfaces/ICoWSwapSettlement.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 29635,
+        "sourceUnit": 24497,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 29571,
+        "nodeType": "ImportDirective",
+        "src": "126:42:42",
+        "nodes": [],
+        "absolutePath": "src/vendored/IERC20.sol",
+        "file": "../../../src/vendored/IERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 29635,
+        "sourceUnit": 24992,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 29634,
+        "nodeType": "ContractDefinition",
+        "src": "170:1036:42",
+        "nodes": [
+          {
+            "id": 29596,
+            "nodeType": "StructDefinition",
+            "src": "341:324:42",
+            "nodes": [],
+            "canonicalName": "ICoWSwapSettlementExtended.TradeData",
+            "members": [
+              {
+                "constant": false,
+                "id": 29575,
+                "mutability": "mutable",
+                "name": "sellTokenIndex",
+                "nameLocation": "376:14:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "368:22:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29574,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "368:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29577,
+                "mutability": "mutable",
+                "name": "buyTokenIndex",
+                "nameLocation": "408:13:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "400:21:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29576,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "400:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29579,
+                "mutability": "mutable",
+                "name": "receiver",
+                "nameLocation": "439:8:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "431:16:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 29578,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "431:7:42",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29581,
+                "mutability": "mutable",
+                "name": "sellAmount",
+                "nameLocation": "465:10:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "457:18:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29580,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "457:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29583,
+                "mutability": "mutable",
+                "name": "buyAmount",
+                "nameLocation": "493:9:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "485:17:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29582,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "485:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29585,
+                "mutability": "mutable",
+                "name": "validTo",
+                "nameLocation": "519:7:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "512:14:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                },
+                "typeName": {
+                  "id": 29584,
+                  "name": "uint32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "512:6:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29587,
+                "mutability": "mutable",
+                "name": "appData",
+                "nameLocation": "544:7:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "536:15:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 29586,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "536:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29589,
+                "mutability": "mutable",
+                "name": "feeAmount",
+                "nameLocation": "569:9:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "561:17:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29588,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "561:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29591,
+                "mutability": "mutable",
+                "name": "flags",
+                "nameLocation": "596:5:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "588:13:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29590,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "588:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29593,
+                "mutability": "mutable",
+                "name": "executedAmount",
+                "nameLocation": "619:14:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "611:22:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29592,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "611:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29595,
+                "mutability": "mutable",
+                "name": "signature",
+                "nameLocation": "649:9:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29596,
+                "src": "643:15:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes_storage_ptr",
+                  "typeString": "bytes"
+                },
+                "typeName": {
+                  "id": 29594,
+                  "name": "bytes",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "643:5:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_storage_ptr",
+                    "typeString": "bytes"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "TradeData",
+            "nameLocation": "348:9:42",
+            "scope": 29634,
+            "visibility": "public"
+          },
+          {
+            "id": 29603,
+            "nodeType": "StructDefinition",
+            "src": "782:101:42",
+            "nodes": [],
+            "canonicalName": "ICoWSwapSettlementExtended.InteractionData",
+            "members": [
+              {
+                "constant": false,
+                "id": 29598,
+                "mutability": "mutable",
+                "name": "target",
+                "nameLocation": "823:6:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29603,
+                "src": "815:14:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 29597,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "815:7:42",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29600,
+                "mutability": "mutable",
+                "name": "value",
+                "nameLocation": "847:5:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29603,
+                "src": "839:13:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29599,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "839:7:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 29602,
+                "mutability": "mutable",
+                "name": "callData",
+                "nameLocation": "868:8:42",
+                "nodeType": "VariableDeclaration",
+                "scope": 29603,
+                "src": "862:14:42",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes_storage_ptr",
+                  "typeString": "bytes"
+                },
+                "typeName": {
+                  "id": 29601,
+                  "name": "bytes",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "862:5:42",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_storage_ptr",
+                    "typeString": "bytes"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "InteractionData",
+            "nameLocation": "789:15:42",
+            "scope": 29634,
+            "visibility": "public"
+          },
+          {
+            "id": 29608,
+            "nodeType": "FunctionDefinition",
+            "src": "889:52:42",
+            "nodes": [],
+            "functionSelector": "2335c76b",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "authenticator",
+            "nameLocation": "898:13:42",
+            "parameters": {
+              "id": 29604,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "911:2:42"
+            },
+            "returnParameters": {
+              "id": 29607,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29606,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29608,
+                  "src": "932:7:42",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 29605,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "932:7:42",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "931:9:42"
+            },
+            "scope": 29634,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29613,
+            "nodeType": "FunctionDefinition",
+            "src": "947:54:42",
+            "nodes": [],
+            "functionSelector": "f698da25",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "domainSeparator",
+            "nameLocation": "956:15:42",
+            "parameters": {
+              "id": 29609,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "971:2:42"
+            },
+            "returnParameters": {
+              "id": 29612,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29611,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29613,
+                  "src": "992:7:42",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 29610,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "992:7:42",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "991:9:42"
+            },
+            "scope": 29634,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 29633,
+            "nodeType": "FunctionDefinition",
+            "src": "1007:197:42",
+            "nodes": [],
+            "functionSelector": "13d79a0b",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "settle",
+            "nameLocation": "1016:6:42",
+            "parameters": {
+              "id": 29631,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 29617,
+                  "mutability": "mutable",
+                  "name": "tokens",
+                  "nameLocation": "1050:6:42",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29633,
+                  "src": "1032:24:42",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_contract$_IERC20_$24991_$dyn_calldata_ptr",
+                    "typeString": "contract IERC20[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29615,
+                      "nodeType": "UserDefinedTypeName",
+                      "pathNode": {
+                        "id": 29614,
+                        "name": "IERC20",
+                        "nameLocations": [
+                          "1032:6:42"
+                        ],
+                        "nodeType": "IdentifierPath",
+                        "referencedDeclaration": 24991,
+                        "src": "1032:6:42"
+                      },
+                      "referencedDeclaration": 24991,
+                      "src": "1032:6:42",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_IERC20_$24991",
+                        "typeString": "contract IERC20"
+                      }
+                    },
+                    "id": 29616,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1032:8:42",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_contract$_IERC20_$24991_$dyn_storage_ptr",
+                      "typeString": "contract IERC20[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29620,
+                  "mutability": "mutable",
+                  "name": "clearingPrices",
+                  "nameLocation": "1085:14:42",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29633,
+                  "src": "1066:33:42",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_calldata_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29618,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "1066:7:42",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 29619,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1066:9:42",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29624,
+                  "mutability": "mutable",
+                  "name": "trades",
+                  "nameLocation": "1130:6:42",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29633,
+                  "src": "1109:27:42",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_TradeData_$29596_calldata_ptr_$dyn_calldata_ptr",
+                    "typeString": "struct ICoWSwapSettlementExtended.TradeData[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 29622,
+                      "nodeType": "UserDefinedTypeName",
+                      "pathNode": {
+                        "id": 29621,
+                        "name": "TradeData",
+                        "nameLocations": [
+                          "1109:9:42"
+                        ],
+                        "nodeType": "IdentifierPath",
+                        "referencedDeclaration": 29596,
+                        "src": "1109:9:42"
+                      },
+                      "referencedDeclaration": 29596,
+                      "src": "1109:9:42",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_TradeData_$29596_storage_ptr",
+                        "typeString": "struct ICoWSwapSettlementExtended.TradeData"
+                      }
+                    },
+                    "id": 29623,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1109:11:42",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_TradeData_$29596_storage_$dyn_storage_ptr",
+                      "typeString": "struct ICoWSwapSettlementExtended.TradeData[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 29630,
+                  "mutability": "mutable",
+                  "name": "interactions",
+                  "nameLocation": "1176:12:42",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29633,
+                  "src": "1146:42:42",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_array$_t_struct$_InteractionData_$29603_calldata_ptr_$dyn_calldata_ptr_$3_calldata_ptr",
+                    "typeString": "struct ICoWSwapSettlementExtended.InteractionData[][3]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "baseType": {
+                        "id": 29626,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 29625,
+                          "name": "InteractionData",
+                          "nameLocations": [
+                            "1146:15:42"
+                          ],
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 29603,
+                          "src": "1146:15:42"
+                        },
+                        "referencedDeclaration": 29603,
+                        "src": "1146:15:42",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_InteractionData_$29603_storage_ptr",
+                          "typeString": "struct ICoWSwapSettlementExtended.InteractionData"
+                        }
+                      },
+                      "id": 29627,
+                      "nodeType": "ArrayTypeName",
+                      "src": "1146:17:42",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_InteractionData_$29603_storage_$dyn_storage_ptr",
+                        "typeString": "struct ICoWSwapSettlementExtended.InteractionData[]"
+                      }
+                    },
+                    "id": 29629,
+                    "length": {
+                      "hexValue": "33",
+                      "id": 29628,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1164:1:42",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_3_by_1",
+                        "typeString": "int_const 3"
+                      },
+                      "value": "3"
+                    },
+                    "nodeType": "ArrayTypeName",
+                    "src": "1146:20:42",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_array$_t_struct$_InteractionData_$29603_storage_$dyn_storage_$3_storage_ptr",
+                      "typeString": "struct ICoWSwapSettlementExtended.InteractionData[][3]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1022:172:42"
+            },
+            "returnParameters": {
+              "id": 29632,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1203:0:42"
+            },
+            "scope": 29634,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 29572,
+              "name": "ICoWSwapSettlement",
+              "nameLocations": [
+                "210:18:42"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 24496,
+              "src": "210:18:42"
+            },
+            "id": 29573,
+            "nodeType": "InheritanceSpecifier",
+            "src": "210:18:42"
+          }
+        ],
+        "canonicalName": "ICoWSwapSettlementExtended",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          29634,
+          24496
+        ],
+        "name": "ICoWSwapSettlementExtended",
+        "nameLocation": "180:26:42",
+        "scope": 29635,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 42
+}

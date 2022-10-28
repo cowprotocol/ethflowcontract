@@ -1,0 +1,724 @@
+{
+  "abi": [],
+  "bytecode": {
+    "object": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220e522e725d5820fb3a01087131f88df06671284c87315eec433af547f91dcda0664736f6c63430008100033",
+    "sourceMap": "311:1694:29:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;311:1694:29;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220e522e725d5820fb3a01087131f88df06671284c87315eec433af547f91dcda0664736f6c63430008100033",
+    "sourceMap": "311:1694:29:-:0;;;;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"details\":\"The code in this contract was largely taken from: <https://raw.githubusercontent.com/cowprotocol/contracts/v1.0.0/src/contracts/mixins/GPv2Signing.sol>\",\"kind\":\"dev\",\"methods\":{},\"stateVariables\":{\"DOMAIN_NAME\":{\"details\":\"The EIP-712 domain name used for computing the domain separator.\"},\"DOMAIN_TYPE_HASH\":{\"details\":\"The EIP-712 domain type hash used for computing the domain separator.\"},\"DOMAIN_VERSION\":{\"details\":\"The EIP-712 domain version used for computing the domain separator.\"}},\"title\":\"CoW Swap EIP-712 Encoding Library\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/libraries/CoWSwapEip712.sol\":\"CoWSwapEip712\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"src/libraries/CoWSwapEip712.sol\":{\"keccak256\":\"0x961461c50fbf52171a62f74dcf64dd1b3d2ef2a79fb985edb482e75e6b1c5e0c\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://6876c85f117b0c89339170fd365b98809f0e947aab3d3fff62a1c041bed86525\",\"dweb:/ipfs/QmeTPCEAJiYPwLjDErCnboCvgjPyBDo4neHHi7rycB5ra4\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/libraries/CoWSwapEip712.sol": "CoWSwapEip712"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/libraries/CoWSwapEip712.sol": {
+        "keccak256": "0x961461c50fbf52171a62f74dcf64dd1b3d2ef2a79fb985edb482e75e6b1c5e0c",
+        "urls": [
+          "bzz-raw://6876c85f117b0c89339170fd365b98809f0e947aab3d3fff62a1c041bed86525",
+          "dweb:/ipfs/QmeTPCEAJiYPwLjDErCnboCvgjPyBDo4neHHi7rycB5ra4"
+        ],
+        "license": "LGPL-3.0-or-later"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/libraries/CoWSwapEip712.sol",
+    "id": 24560,
+    "exportedSymbols": {
+      "CoWSwapEip712": [
+        24559
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:1960:29",
+    "nodes": [
+      {
+        "id": 24515,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:29",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 24559,
+        "nodeType": "ContractDefinition",
+        "src": "311:1694:29",
+        "nodes": [
+          {
+            "id": 24522,
+            "nodeType": "VariableDeclaration",
+            "src": "422:169:29",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 24517,
+              "nodeType": "StructuredDocumentation",
+              "src": "339:78:29",
+              "text": "@dev The EIP-712 domain type hash used for computing the domain separator."
+            },
+            "mutability": "constant",
+            "name": "DOMAIN_TYPE_HASH",
+            "nameLocation": "447:16:29",
+            "scope": 24559,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 24518,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "422:7:29",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "hexValue": "454950373132446f6d61696e28737472696e67206e616d652c737472696e672076657273696f6e2c75696e7432353620636861696e49642c6164647265737320766572696679696e67436f6e747261637429",
+                  "id": 24520,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "string",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "497:84:29",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_stringliteral_8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f",
+                    "typeString": "literal_string \"EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)\""
+                  },
+                  "value": "EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_stringliteral_8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f",
+                    "typeString": "literal_string \"EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)\""
+                  }
+                ],
+                "id": 24519,
+                "name": "keccak256",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": -8,
+                "src": "474:9:29",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                  "typeString": "function (bytes memory) pure returns (bytes32)"
+                }
+              },
+              "id": 24521,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "functionCall",
+              "lValueRequested": false,
+              "nameLocations": [],
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "474:117:29",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "id": 24528,
+            "nodeType": "VariableDeclaration",
+            "src": "676:67:29",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 24523,
+              "nodeType": "StructuredDocumentation",
+              "src": "598:73:29",
+              "text": "@dev The EIP-712 domain name used for computing the domain separator."
+            },
+            "mutability": "constant",
+            "name": "DOMAIN_NAME",
+            "nameLocation": "701:11:29",
+            "scope": 24559,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 24524,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "676:7:29",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "hexValue": "476e6f7369732050726f746f636f6c",
+                  "id": 24526,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "string",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "725:17:29",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_stringliteral_6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c",
+                    "typeString": "literal_string \"Gnosis Protocol\""
+                  },
+                  "value": "Gnosis Protocol"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_stringliteral_6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c",
+                    "typeString": "literal_string \"Gnosis Protocol\""
+                  }
+                ],
+                "id": 24525,
+                "name": "keccak256",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": -8,
+                "src": "715:9:29",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                  "typeString": "function (bytes memory) pure returns (bytes32)"
+                }
+              },
+              "id": 24527,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "functionCall",
+              "lValueRequested": false,
+              "nameLocations": [],
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "715:28:29",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "id": 24534,
+            "nodeType": "VariableDeclaration",
+            "src": "831:57:29",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 24529,
+              "nodeType": "StructuredDocumentation",
+              "src": "750:76:29",
+              "text": "@dev The EIP-712 domain version used for computing the domain separator."
+            },
+            "mutability": "constant",
+            "name": "DOMAIN_VERSION",
+            "nameLocation": "856:14:29",
+            "scope": 24559,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 24530,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "831:7:29",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "arguments": [
+                {
+                  "hexValue": "7632",
+                  "id": 24532,
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "kind": "string",
+                  "lValueRequested": false,
+                  "nodeType": "Literal",
+                  "src": "883:4:29",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_stringliteral_f9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf",
+                    "typeString": "literal_string \"v2\""
+                  },
+                  "value": "v2"
+                }
+              ],
+              "expression": {
+                "argumentTypes": [
+                  {
+                    "typeIdentifier": "t_stringliteral_f9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf",
+                    "typeString": "literal_string \"v2\""
+                  }
+                ],
+                "id": 24531,
+                "name": "keccak256",
+                "nodeType": "Identifier",
+                "overloadedDeclarations": [],
+                "referencedDeclaration": -8,
+                "src": "873:9:29",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                  "typeString": "function (bytes memory) pure returns (bytes32)"
+                }
+              },
+              "id": 24533,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "functionCall",
+              "lValueRequested": false,
+              "nameLocations": [],
+              "names": [],
+              "nodeType": "FunctionCall",
+              "src": "873:15:29",
+              "tryCall": false,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "id": 24558,
+            "nodeType": "FunctionDefinition",
+            "src": "1381:622:29",
+            "nodes": [],
+            "body": {
+              "id": 24557,
+              "nodeType": "Block",
+              "src": "1490:513:29",
+              "nodes": [],
+              "statements": [
+                {
+                  "assignments": [
+                    24543
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 24543,
+                      "mutability": "mutable",
+                      "name": "chainId",
+                      "nameLocation": "1600:7:29",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 24557,
+                      "src": "1592:15:29",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 24542,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1592:7:29",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 24544,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1592:15:29"
+                },
+                {
+                  "AST": {
+                    "nodeType": "YulBlock",
+                    "src": "1682:44:29",
+                    "statements": [
+                      {
+                        "nodeType": "YulAssignment",
+                        "src": "1696:20:29",
+                        "value": {
+                          "arguments": [],
+                          "functionName": {
+                            "name": "chainid",
+                            "nodeType": "YulIdentifier",
+                            "src": "1707:7:29"
+                          },
+                          "nodeType": "YulFunctionCall",
+                          "src": "1707:9:29"
+                        },
+                        "variableNames": [
+                          {
+                            "name": "chainId",
+                            "nodeType": "YulIdentifier",
+                            "src": "1696:7:29"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "evmVersion": "london",
+                  "externalReferences": [
+                    {
+                      "declaration": 24543,
+                      "isOffset": false,
+                      "isSlot": false,
+                      "src": "1696:7:29",
+                      "valueSize": 1
+                    }
+                  ],
+                  "id": 24545,
+                  "nodeType": "InlineAssembly",
+                  "src": "1673:53:29"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "id": 24549,
+                            "name": "DOMAIN_TYPE_HASH",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 24522,
+                            "src": "1814:16:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          {
+                            "id": 24550,
+                            "name": "DOMAIN_NAME",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 24528,
+                            "src": "1852:11:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          {
+                            "id": 24551,
+                            "name": "DOMAIN_VERSION",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 24534,
+                            "src": "1885:14:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          {
+                            "id": 24552,
+                            "name": "chainId",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 24543,
+                            "src": "1921:7:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          {
+                            "id": 24553,
+                            "name": "cowSwapAddress",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 24537,
+                            "src": "1950:14:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "expression": {
+                            "id": 24547,
+                            "name": "abi",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -1,
+                            "src": "1782:3:29",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_abi",
+                              "typeString": "abi"
+                            }
+                          },
+                          "id": 24548,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "memberLocation": "1786:6:29",
+                          "memberName": "encode",
+                          "nodeType": "MemberAccess",
+                          "src": "1782:10:29",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_abiencode_pure$__$returns$_t_bytes_memory_ptr_$",
+                            "typeString": "function () pure returns (bytes memory)"
+                          }
+                        },
+                        "id": 24554,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1782:200:29",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "id": 24546,
+                      "name": "keccak256",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": -8,
+                      "src": "1755:9:29",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
+                        "typeString": "function (bytes memory) pure returns (bytes32)"
+                      }
+                    },
+                    "id": 24555,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1755:241:29",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 24541,
+                  "id": 24556,
+                  "nodeType": "Return",
+                  "src": "1736:260:29"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 24535,
+              "nodeType": "StructuredDocumentation",
+              "src": "895:481:29",
+              "text": "@dev Computes the EIP-712 domain separator of the CoW Swap settlement contract on the current network.\n @param cowSwapAddress The address of the CoW Swap settlement contract for which to compute the domain separator.\n Note that there are no checks to verify that the input address points to an actual contract.\n @return The domain separator of the settlement contract for the input address as computed by the settlement\n contract internally."
+            },
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "domainSeparator",
+            "nameLocation": "1390:15:29",
+            "parameters": {
+              "id": 24538,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24537,
+                  "mutability": "mutable",
+                  "name": "cowSwapAddress",
+                  "nameLocation": "1414:14:29",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24558,
+                  "src": "1406:22:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24536,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1406:7:29",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1405:24:29"
+            },
+            "returnParameters": {
+              "id": 24541,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24540,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24558,
+                  "src": "1477:7:29",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 24539,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1477:7:29",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1476:9:29"
+            },
+            "scope": 24559,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "CoWSwapEip712",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": {
+          "id": 24516,
+          "nodeType": "StructuredDocumentation",
+          "src": "69:242:29",
+          "text": "@title CoW Swap EIP-712 Encoding Library\n @author CoW Swap Developers\n @dev The code in this contract was largely taken from:\n <https://raw.githubusercontent.com/cowprotocol/contracts/v1.0.0/src/contracts/mixins/GPv2Signing.sol>"
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          24559
+        ],
+        "name": "CoWSwapEip712",
+        "nameLocation": "319:13:29",
+        "scope": 24560,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 29
+}
