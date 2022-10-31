@@ -122,14 +122,29 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrders(EthFlowOrder.Data[] calldata orderArray) external {
+    function deleteOrdersIgnoringInvalid(
+        EthFlowOrder.Data[] calldata orderArray
+    ) external {
         for (uint256 i = 0; i < orderArray.length; i++) {
-            deleteOrder(orderArray[i]);
+            _deleteOrder(orderArray[i], false);
         }
     }
 
     /// @inheritdoc ICoWSwapEthFlow
     function deleteOrder(EthFlowOrder.Data calldata order) public {
+        _deleteOrder(order, true);
+    }
+
+    /// @dev Performs the same tasks as `deleteOrder` (see documentation in `ICoWSwapEthFlow`), but also allows the
+    /// caller to ignore the revert condition `NotAllowedToDeleteOrder`. Instead of reverting, it stops execution
+    /// without causing any state change.
+    ///
+    /// @param order order to be deleted.
+    /// @param revertOnInvalidDeletion controls whether the function call should revert or just return.
+    function _deleteOrder(
+        EthFlowOrder.Data calldata order,
+        bool revertOnInvalidDeletion
+    ) internal {
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
@@ -144,7 +159,11 @@ contract CoWSwapEthFlow is
             orderData.validTo >= block.timestamp &&
                 orderData.owner != msg.sender)
         ) {
-            revert NotAllowedToDeleteOrder(orderHash);
+            if (revertOnInvalidDeletion) {
+                revert NotAllowedToDeleteOrder(orderHash);
+            } else {
+                return;
+            }
         }
 
         orders[orderHash].owner = EthFlowOrder.INVALIDATED_OWNER;

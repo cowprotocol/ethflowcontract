@@ -34,10 +34,13 @@ interface ICoWSwapEthFlow {
         returns (bytes32 orderHash);
 
     /// @dev Marks existing ETH-flow orders as invalid and, for each order, refunds the ETH that hasn't been traded yet.
+    /// The function call will not revert, if some orders are not refundable. It will silently ignore these orders.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
     /// @param orderArray Array of orders to be deleted.
-    function deleteOrders(EthFlowOrder.Data[] calldata orderArray) external;
+    function deleteOrdersIgnoringInvalid(
+        EthFlowOrder.Data[] calldata orderArray
+    ) external;
 
     /// @dev Marks an existing ETH-flow order as invalid and refunds the ETH that hasn't been traded yet.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
