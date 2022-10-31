@@ -20,7 +20,7 @@ for deployment in "$deployment_output_folder/"*; do
     | select(.transactionType == "CREATE" )
     | {(.contractName): {($chainId): {address: .contractAddress, transactionHash: .hash }}}
   '  <"$deployment/deployment.json"
-  # Then, all these single-contract single-chain-id networks.jsons are merged
 done \
-  | jq -n 'reduce inputs as $item ({}; . *= $item)' \
+  | # Then, all these single-contract single-chain-id networks.jsons are merged
+    jq -n 'reduce inputs as $item ({}; . *= $item)' \
   > "$repo_root_dir/networks.json"
