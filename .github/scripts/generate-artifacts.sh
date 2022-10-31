@@ -21,6 +21,7 @@ for deployment in "$deployment_output_folder/"*; do
     | {(.contractName): {($chainId): {address: .contractAddress, transactionHash: .hash }}}
   '  <"$deployment/deployment.json"
 done \
-  | # Then, all these single-contract single-chain-id networks.jsons are merged
+  | # Then, all these single-contract single-chain-id networks.jsons are merged. Note: in case the same contract is
+    # deployed twice in the same script run, the last deployed contract takes priority.  
     jq -n 'reduce inputs as $item ({}; . *= $item)' \
   > "$repo_root_dir/networks.json"
