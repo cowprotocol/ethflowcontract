@@ -174,6 +174,9 @@ contract CoWSwapEthFlow is
             address(this),
             cowSwapOrder.validTo
         );
+
+        emit OrderDeletion(orderUid);
+
         uint256 filledAmount = cowSwapSettlement.filledAmount(orderUid);
 
         // This comment argues that a CoW Swap trader does not pay more fees if a partially fillable order is

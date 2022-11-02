@@ -357,7 +357,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
     }
 }
 
-contract OrderDeletion is EthFlowTestSetup {
+contract OrderDeletion is EthFlowTestSetup, ICoWSwapOnchainOrders {
     function dummyOrder() internal view returns (EthFlowOrder.Data memory) {
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
@@ -458,6 +458,20 @@ contract OrderDeletion is EthFlowTestSetup {
             ordersMapping(order3.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
         );
+    }
+
+    function testOrderDeletionEmitsEvent() public {
+        address owner = address(0x424242);
+        EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
+        OrderDetails memory order = orderDetails(ethFlowOrder);
+        createOrderWithOwner(order, owner);
+        mockOrderFilledAmount(order.orderUid, 0);
+
+        vm.expectEmit(true, true, true, true, address(ethFlow));
+        emit ICoWSwapOnchainOrders.OrderDeletion(order.orderUid);
+
+        vm.prank(owner);
+        ethFlow.deleteOrder(order.data);
     }
 
     function testCannotDeleteValidOrdersIfNotOwner() public {
