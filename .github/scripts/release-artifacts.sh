@@ -8,6 +8,7 @@ set -o pipefail
 set -o errexit
 
 main_branch="main"
+script_path=$(dirname "$0")
 
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <refs/tags/tag-name or 'refs/heads/$main_branch'>"
@@ -34,9 +35,9 @@ artifacts_tag="$target_ref_short-artifacts"
 git fetch origin "$target_ref"
 git checkout --detach "$target_ref"
 
-forge build -o artifacts
+bash "$script_path/generate-artifacts.sh"
 
-git add artifacts
+git add --all
 git commit -m "Add artifacts for $target_ref"
 git tag -m "Artifacts for $target_ref" --end-of-options "$artifacts_tag"
 

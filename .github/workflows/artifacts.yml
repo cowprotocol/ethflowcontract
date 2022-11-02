@@ -25,4 +25,4 @@ jobs:
           version: nightly
 
       - name: Generate artifacts and push as new tag
-        run: bash .github/scripts/artifacts.sh "$GITHUB_REF"
+        run: bash .github/scripts/release-artifacts.sh "$GITHUB_REF"
