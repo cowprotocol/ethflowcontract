@@ -396,7 +396,7 @@ contract OrderDeletion is
         }(order.data);
     }
 
-    function testCanDeleteValidOrdersIfOwner() public {
+    function testCanInvalidateValidOrdersIfOwner() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         OrderDetails memory order = orderDetails(ethFlowOrder);
@@ -404,10 +404,10 @@ contract OrderDeletion is
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
-    function testCanDeleteExpiredOrdersIfNotOwner() public {
+    function testCanInvalidateExpiredOrdersIfNotOwner() public {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
@@ -417,10 +417,10 @@ contract OrderDeletion is
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.prank(executor);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
-    function testCandeleteOrdersIgnoringInvalid() public {
+    function testCanInvalidateOrdersIgnoringNotAllowed() public {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
@@ -437,7 +437,7 @@ contract OrderDeletion is
         mockOrderFilledAmount(order2.orderUid, 0);
 
         vm.prank(executor);
-        ethFlow.deleteOrdersIgnoringInvalid(orderArray);
+        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray);
         assertEq(
             ordersMapping(order1.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -449,15 +449,14 @@ contract OrderDeletion is
         EthFlowOrder.Data[] memory orderArray2 = new EthFlowOrder.Data[](3);
         orderArray2[0] = orderArray[0];
         orderArray2[1] = orderArray[1];
-        // And we can even delete the order, if some deletions are
-        // already done
+        // And we can even invalidate a list of orders if some have already been invalidated previously
         orderArray2[2] = dummyOrder();
         orderArray2[2].validTo = uint32(block.timestamp) - 1;
         orderArray2[2].sellAmount = FillWithSameByte.toUint128(0x11);
         OrderDetails memory order3 = orderDetails(orderArray2[2]);
         createOrderWithOwner(order3, owner);
         mockOrderFilledAmount(order3.orderUid, 0);
-        ethFlow.deleteOrdersIgnoringInvalid(orderArray2);
+        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray2);
         assertEq(
             ordersMapping(order3.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -477,7 +476,7 @@ contract OrderDeletion is
         emit ICoWSwapEthFlowEvents.OrderRefund(order.orderUid, executor);
 
         vm.prank(executor);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
     function testEmitsEventForValidOrderDeletion() public {
@@ -492,10 +491,10 @@ contract OrderDeletion is
         emit ICoWSwapOnchainOrders.OrderInvalidation(order.orderUid);
 
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
-    function testCannotDeleteValidOrdersIfNotOwner() public {
+    function testCannotInvalidateValidOrdersIfNotOwner() public {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
@@ -506,12 +505,12 @@ contract OrderDeletion is
 
         vm.expectRevert(
             abi.encodeWithSelector(
-                ICoWSwapEthFlow.NotAllowedToDeleteOrder.selector,
+                ICoWSwapEthFlow.NotAllowedToInvalidateOrder.selector,
                 order.hash
             )
         );
         vm.prank(executor);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
     function testOrderDeletionSetsOrderAsInvalidated() public {
@@ -522,7 +521,7 @@ contract OrderDeletion is
 
         assertEq(ordersMapping(order.hash).owner, owner);
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
         assertEq(
             ordersMapping(order.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -541,7 +540,7 @@ contract OrderDeletion is
 
         assertEq(owner.balance, 0);
         vm.prank(executor);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
         assertEq(owner.balance, order.data.sellAmount + order.data.feeAmount);
     }
 
@@ -550,11 +549,11 @@ contract OrderDeletion is
 
         vm.expectRevert(
             abi.encodeWithSelector(
-                ICoWSwapEthFlow.NotAllowedToDeleteOrder.selector,
+                ICoWSwapEthFlow.NotAllowedToInvalidateOrder.selector,
                 order.hash
             )
         );
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
     function testOrderDeletionRevertsIfDeletingOrderTwice() public {
@@ -565,14 +564,14 @@ contract OrderDeletion is
 
         vm.startPrank(owner);
 
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
         vm.expectRevert(
             abi.encodeWithSelector(
-                ICoWSwapEthFlow.NotAllowedToDeleteOrder.selector,
+                ICoWSwapEthFlow.NotAllowedToInvalidateOrder.selector,
                 order.hash
             )
         );
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
 
         vm.stopPrank();
     }
@@ -592,7 +591,7 @@ contract OrderDeletion is
 
         assertEq(owner.balance, 0);
         vm.prank(owner);
-        ethFlow.deleteOrder(order);
+        ethFlow.invalidateOrder(order);
         assertEq(owner.balance, remainingSellAmount + remainingFeeAmount);
     }
 
@@ -604,10 +603,10 @@ contract OrderDeletion is
 
         vm.expectRevert(ICoWSwapEthFlow.EthTransferFailed.selector);
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 
-    function testCannotCreateSameOrderOnceDeleted() public {
+    function testCannotCreateSameOrderOnceInvalidated() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) - 1;
@@ -620,7 +619,7 @@ contract OrderDeletion is
         ethFlow.createOrder{
             value: order.data.sellAmount + order.data.feeAmount
         }(order.data);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.OrderIsAlreadyOwned.selector,
@@ -663,7 +662,7 @@ contract OrderDeletion is
         vm.etch(address(wrappedNativeToken), type(SendOnUnwrap).runtimeCode);
 
         vm.prank(owner);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
     }
 }
 
@@ -729,7 +728,7 @@ contract SignatureVerification is EthFlowTestSetup {
         assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
     }
 
-    function testBadSignatureIfOrderWasDeleted() public {
+    function testBadSignatureIfOrderWasInvalidated() public {
         address owner = address(0x424242);
         OrderDetails memory order = orderDetails(dummyOrder());
 
@@ -740,7 +739,7 @@ contract SignatureVerification is EthFlowTestSetup {
             value: order.data.sellAmount + order.data.feeAmount
         }(order.data);
         mockOrderFilledAmount(order.orderUid, 0);
-        ethFlow.deleteOrder(order.data);
+        ethFlow.invalidateOrder(order.data);
 
         vm.stopPrank();
 
