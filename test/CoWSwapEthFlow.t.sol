@@ -489,7 +489,7 @@ contract OrderDeletion is
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.expectEmit(true, true, true, true, address(ethFlow));
-        emit ICoWSwapOnchainOrders.OrderDeletion(order.orderUid);
+        emit ICoWSwapOnchainOrders.OrderInvalidation(order.orderUid);
 
         vm.prank(owner);
         ethFlow.deleteOrder(order.data);

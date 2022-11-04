@@ -178,7 +178,7 @@ contract CoWSwapEthFlow is
         // solhint-disable-next-line not-rely-on-time
         if (isTradable) {
             // Order is valid but its owner decided to delete it.
-            emit OrderDeletion(orderUid);
+            emit OrderInvalidation(orderUid);
         } else {
             // The order cannot be traded anymore, so this transaction is likely triggered to get back the ETH. We are
             // interested in knowing who is the source of the refund.
