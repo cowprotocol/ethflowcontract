@@ -43,8 +43,8 @@ interface ICoWSwapOnchainOrders {
         bytes data
     );
 
-    /// @dev Event emitted to notify that an order was deleted.
+    /// @dev Event emitted to notify that an order was invalidated.
     ///
-    /// @param orderUid CoW Swap's unique order identifier of the order that has been cancelled.
+    /// @param orderUid CoW Swap's unique order identifier of the order that has been invalidated.
     event OrderInvalidation(bytes indexed orderUid);
 }

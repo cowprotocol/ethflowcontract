@@ -101,7 +101,7 @@ contract TradingWithCowSwap is DeploymentSetUp {
     function testPartiallyFillableOrder() public {
         // Sell 100 ETH for 2M COW (plus 1 ETH fees) in a partially fillable order matching multiple times against the
         // internal buffer of the settlement contract.
-        // When the order is 80% filled, delete it.
+        // When the order is 80% filled, invalidate it.
         address user = FillWithSameByte.toAddress(0x42);
         uint256 sellAmount = 100 ether;
         uint256 buyAmount = 2000000 ether;
@@ -218,9 +218,9 @@ contract TradingWithCowSwap is DeploymentSetUp {
         );
         assertEq(address(ethFlow).balance, 0);
 
-        // Delete what remains of the order
+        // Invalidate what remains of the order
         vm.prank(user);
-        ethFlow.deleteOrder(order);
+        ethFlow.invalidateOrder(order);
         assertEq(user.balance, unusedSellAmount + returnedFeeAmount);
     }
 

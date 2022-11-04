@@ -6,11 +6,12 @@ import "../libraries/EthFlowOrder.sol";
 /// @title CoW Swap ETH Flow Event Interface
 /// @author CoW Swap Developers
 interface ICoWSwapEthFlowEvents {
-    /// @dev Event emitted to notify that an order was refunded. Note that this event is not fired if the order is
-    /// cancelled (even though the user receives all unspent ETH back). This is because we want to differenciate the
-    /// case where the user cancels a valid order and when the user receives back the funds from an expired order.
+    /// @dev Event emitted to notify that an order was refunded. Note that this event is not fired every time the order
+    /// is invalidated (even though the user receives all unspent ETH back). This is because we want to differenciate
+    /// the case where the user invalidates a valid order and when the user receives back the funds from an expired
+    /// order.
     ///
-    /// @param orderUid CoW Swap's unique order identifier of the order that has been cancelled.
+    /// @param orderUid CoW Swap's unique order identifier of the order that has been invalidated (and refunded).
     /// @param refunder The address that triggered the order refund.
     event OrderRefund(bytes indexed orderUid, address indexed refunder);
 }
@@ -28,8 +29,8 @@ interface ICoWSwapEthFlow is ICoWSwapEthFlowEvents {
     /// @dev Error thrown when trying to create an order with a sell amount == 0
     error NotAllowedZeroSellAmount();
 
-    /// @dev Error thrown if trying to delete an order while not allowed.
-    error NotAllowedToDeleteOrder(bytes32 orderHash);
+    /// @dev Error thrown if trying to invalidate an order while not allowed.
+    error NotAllowedToInvalidateOrder(bytes32 orderHash);
 
     /// @dev Error thrown when unsuccessfully sending ETH to an address.
     error EthTransferFailed();
@@ -49,16 +50,16 @@ interface ICoWSwapEthFlow is ICoWSwapEthFlowEvents {
     /// The function call will not revert, if some orders are not refundable. It will silently ignore these orders.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
-    /// @param orderArray Array of orders to be deleted.
-    function deleteOrdersIgnoringInvalid(
+    /// @param orderArray Array of orders to be invalidated.
+    function invalidateOrdersIgnoringNotAllowed(
         EthFlowOrder.Data[] calldata orderArray
     ) external;
 
     /// @dev Marks an existing ETH-flow order as invalid and refunds the ETH that hasn't been traded yet.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
-    /// @param order order to be deleted.
-    function deleteOrder(EthFlowOrder.Data calldata order) external;
+    /// @param order Order to be invalidated.
+    function invalidateOrder(EthFlowOrder.Data calldata order) external;
 
     /// @dev EIP1271-compliant onchain signature verification function.
     /// This function is used by the CoW Swap settlement contract to determine if an order that is signed with an

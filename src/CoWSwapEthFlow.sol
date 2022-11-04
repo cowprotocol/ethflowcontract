@@ -122,26 +122,26 @@ contract CoWSwapEthFlow is
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrdersIgnoringInvalid(
+    function invalidateOrdersIgnoringNotAllowed(
         EthFlowOrder.Data[] calldata orderArray
     ) external {
         for (uint256 i = 0; i < orderArray.length; i++) {
-            _deleteOrder(orderArray[i], false);
+            _invalidateOrder(orderArray[i], false);
         }
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function deleteOrder(EthFlowOrder.Data calldata order) public {
-        _deleteOrder(order, true);
+    function invalidateOrder(EthFlowOrder.Data calldata order) public {
+        _invalidateOrder(order, true);
     }
 
-    /// @dev Performs the same tasks as `deleteOrder` (see documentation in `ICoWSwapEthFlow`), but also allows the
-    /// caller to ignore the revert condition `NotAllowedToDeleteOrder`. Instead of reverting, it stops execution
+    /// @dev Performs the same tasks as `invalidateOrder` (see documentation in `ICoWSwapEthFlow`), but also allows the
+    /// caller to ignore the revert condition `NotAllowedToInvalidateOrder`. Instead of reverting, it stops execution
     /// without causing any state change.
     ///
-    /// @param order order to be deleted.
+    /// @param order order to be invalidated.
     /// @param revertOnInvalidDeletion controls whether the function call should revert or just return.
-    function _deleteOrder(
+    function _invalidateOrder(
         EthFlowOrder.Data calldata order,
         bool revertOnInvalidDeletion
     ) internal {
@@ -160,7 +160,7 @@ contract CoWSwapEthFlow is
             (isTradable && orderData.owner != msg.sender)
         ) {
             if (revertOnInvalidDeletion) {
-                revert NotAllowedToDeleteOrder(orderHash);
+                revert NotAllowedToInvalidateOrder(orderHash);
             } else {
                 return;
             }
@@ -177,7 +177,7 @@ contract CoWSwapEthFlow is
 
         // solhint-disable-next-line not-rely-on-time
         if (isTradable) {
-            // Order is valid but its owner decided to delete it.
+            // Order is valid but its owner decided to invalidate it.
             emit OrderInvalidation(orderUid);
         } else {
             // The order cannot be traded anymore, so this transaction is likely triggered to get back the ETH. We are
