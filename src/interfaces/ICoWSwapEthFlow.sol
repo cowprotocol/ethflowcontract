@@ -3,9 +3,21 @@ pragma solidity ^0.8;
 
 import "../libraries/EthFlowOrder.sol";
 
+/// @title CoW Swap ETH Flow Event Interface
+/// @author CoW Swap Developers
+interface ICoWSwapEthFlowEvents {
+    /// @dev Event emitted to notify that an order was refunded. Note that this event is not fired if the order is
+    /// cancelled (even though the user receives all unspent ETH back). This is because we want to differenciate the
+    /// case where the user cancels a valid order and when the user receives back the funds from an expired order.
+    ///
+    /// @param orderUid CoW Swap's unique order identifier of the order that has been cancelled.
+    /// @param refunder The address that triggered the order refund.
+    event OrderRefund(bytes indexed orderUid, address indexed refunder);
+}
+
 /// @title CoW Swap ETH Flow Interface
 /// @author CoW Swap Developers
-interface ICoWSwapEthFlow {
+interface ICoWSwapEthFlow is ICoWSwapEthFlowEvents {
     /// @dev Error thrown when trying to create a new order whose order hash is the same as an order hash that was
     /// already assigned.
     error OrderIsAlreadyOwned(bytes32 orderHash);

@@ -152,12 +152,12 @@ contract CoWSwapEthFlow is
 
         EthFlowOrder.OnchainData memory orderData = orders[orderHash];
 
+        // solhint-disable-next-line not-rely-on-time
+        bool isTradable = orderData.validTo >= block.timestamp;
         if (
             orderData.owner == EthFlowOrder.INVALIDATED_OWNER ||
             orderData.owner == EthFlowOrder.NO_OWNER ||
-            (// solhint-disable-next-line not-rely-on-time
-            orderData.validTo >= block.timestamp &&
-                orderData.owner != msg.sender)
+            (isTradable && orderData.owner != msg.sender)
         ) {
             if (revertOnInvalidDeletion) {
                 revert NotAllowedToDeleteOrder(orderHash);
@@ -174,6 +174,17 @@ contract CoWSwapEthFlow is
             address(this),
             cowSwapOrder.validTo
         );
+
+        // solhint-disable-next-line not-rely-on-time
+        if (isTradable) {
+            // Order is valid but its owner decided to delete it.
+            emit OrderInvalidation(orderUid);
+        } else {
+            // The order cannot be traded anymore, so this transaction is likely triggered to get back the ETH. We are
+            // interested in knowing who is the source of the refund.
+            emit OrderRefund(orderUid, msg.sender);
+        }
+
         uint256 filledAmount = cowSwapSettlement.filledAmount(orderUid);
 
         // This comment argues that a CoW Swap trader does not pay more fees if a partially fillable order is
