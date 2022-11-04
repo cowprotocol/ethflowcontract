@@ -1,0 +1,698 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes",
+          "name": "orderUid",
+          "type": "bytes"
+        }
+      ],
+      "name": "OrderInvalidation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "sellToken",
+              "type": "address"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "kind",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sellTokenBalance",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "buyTokenBalance",
+              "type": "bytes32"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct GPv2Order.Data",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum ICoWSwapOnchainOrders.OnchainSigningScheme",
+              "name": "scheme",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct ICoWSwapOnchainOrders.OnchainSignature",
+          "name": "signature",
+          "type": "tuple"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "OrderPlacement",
+      "type": "event"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes\",\"name\":\"orderUid\",\"type\":\"bytes\"}],\"name\":\"OrderInvalidation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"contract IERC20\",\"name\":\"sellToken\",\"type\":\"address\"},{\"internalType\":\"contract IERC20\",\"name\":\"buyToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint32\",\"name\":\"validTo\",\"type\":\"uint32\"},{\"internalType\":\"bytes32\",\"name\":\"appData\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"feeAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"kind\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"partiallyFillable\",\"type\":\"bool\"},{\"internalType\":\"bytes32\",\"name\":\"sellTokenBalance\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"buyTokenBalance\",\"type\":\"bytes32\"}],\"indexed\":false,\"internalType\":\"struct GPv2Order.Data\",\"name\":\"order\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"enum ICoWSwapOnchainOrders.OnchainSigningScheme\",\"name\":\"scheme\",\"type\":\"uint8\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"indexed\":false,\"internalType\":\"struct ICoWSwapOnchainOrders.OnchainSignature\",\"name\":\"signature\",\"type\":\"tuple\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"OrderPlacement\",\"type\":\"event\"}],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"events\":{\"OrderInvalidation(bytes)\":{\"details\":\"Event emitted to notify that an order was invalidated.\",\"params\":{\"orderUid\":\"CoW Swap's unique order identifier of the order that has been invalidated.\"}},\"OrderPlacement(address,(address,address,address,uint256,uint256,uint32,bytes32,uint256,bytes32,bool,bytes32,bytes32),(uint8,bytes),bytes)\":{\"details\":\"Event emitted to broadcast an order onchain.\",\"params\":{\"data\":\"Any extra data that should be passed along with the order. This will be used by the services that collects onchain orders and no specific encoding is enforced on this field. It is supposed to encode extra information that is not included in the order data so that it can be passed along when decoding an onchain order. As an example, a contract that creates orders on behalf of a user could set a different expiration date than the one specified in the order.\",\"order\":\"Information on the order that is created in this transacion. The order is expected to be a valid order for the CoW Swap settlement contract and contain all information needed to settle it in a batch.\",\"sender\":\"The user who triggered the creation of the order. Note that this address does *not* need to be the actual owner of the order and does not need to be related to the order or signature in any way. For example, if a smart contract creates orders on behalf of the user, then the sender would be the user who triggers the creation of the order, while the actual owner of the order would be the smart contract that creates it.\",\"signature\":\"The signature that can be used to verify the newly created order. Note that it is always possible to recover the owner of the order from a valid signature.\"}}},\"kind\":\"dev\",\"methods\":{},\"title\":\"CoW Swap Onchain Order Creator Interface\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/interfaces/ICoWSwapOnchainOrders.sol\":\"ICoWSwapOnchainOrders\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"src/interfaces/ICoWSwapOnchainOrders.sol\":{\"keccak256\":\"0x9d5d65bf6b42b9a4db5c34599deef3b64e1ce83a9f27b9da48856d58dce0e49c\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://033c222c8baf45231f48c01870a03f6e1a27d8ba341684b014ee592b38ce35bf\",\"dweb:/ipfs/QmcaRHUHb3BQ3Sy4jQSt5QC1pbAiEkqs4bogzZMezmPtgX\"]},\"src/vendored/GPv2Order.sol\":{\"keccak256\":\"0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4\",\"dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR\"]},\"src/vendored/IERC20.sol\":{\"keccak256\":\"0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738\",\"dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "orderUid",
+              "type": "bytes",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "OrderInvalidation",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "struct GPv2Order.Data",
+              "name": "order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "contract IERC20",
+                  "name": "sellToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "contract IERC20",
+                  "name": "buyToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sellAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "validTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "appData",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "feeAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "kind",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "partiallyFillable",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "sellTokenBalance",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "buyTokenBalance",
+                  "type": "bytes32"
+                }
+              ],
+              "indexed": false
+            },
+            {
+              "internalType": "struct ICoWSwapOnchainOrders.OnchainSignature",
+              "name": "signature",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "enum ICoWSwapOnchainOrders.OnchainSigningScheme",
+                  "name": "scheme",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "data",
+                  "type": "bytes"
+                }
+              ],
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "OrderPlacement",
+          "anonymous": false
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/interfaces/ICoWSwapOnchainOrders.sol": "ICoWSwapOnchainOrders"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/interfaces/ICoWSwapOnchainOrders.sol": {
+        "keccak256": "0x9d5d65bf6b42b9a4db5c34599deef3b64e1ce83a9f27b9da48856d58dce0e49c",
+        "urls": [
+          "bzz-raw://033c222c8baf45231f48c01870a03f6e1a27d8ba341684b014ee592b38ce35bf",
+          "dweb:/ipfs/QmcaRHUHb3BQ3Sy4jQSt5QC1pbAiEkqs4bogzZMezmPtgX"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/GPv2Order.sol": {
+        "keccak256": "0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2",
+        "urls": [
+          "bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4",
+          "dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/IERC20.sol": {
+        "keccak256": "0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c",
+        "urls": [
+          "bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738",
+          "dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/interfaces/ICoWSwapOnchainOrders.sol",
+    "id": 24534,
+    "exportedSymbols": {
+      "GPv2Order": [
+        24968
+      ],
+      "ICoWSwapOnchainOrders": [
+        24533
+      ],
+      "IERC20": [
+        25046
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:2519:26",
+    "nodes": [
+      {
+        "id": 24501,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:26",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 24502,
+        "nodeType": "ImportDirective",
+        "src": "69:35:26",
+        "nodes": [],
+        "absolutePath": "src/vendored/GPv2Order.sol",
+        "file": "../vendored/GPv2Order.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 24534,
+        "sourceUnit": 24969,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 24533,
+        "nodeType": "ContractDefinition",
+        "src": "190:2374:26",
+        "nodes": [
+          {
+            "id": 24506,
+            "nodeType": "EnumDefinition",
+            "src": "329:66:26",
+            "nodes": [],
+            "canonicalName": "ICoWSwapOnchainOrders.OnchainSigningScheme",
+            "members": [
+              {
+                "id": 24504,
+                "name": "Eip1271",
+                "nameLocation": "365:7:26",
+                "nodeType": "EnumValue",
+                "src": "365:7:26"
+              },
+              {
+                "id": 24505,
+                "name": "PreSign",
+                "nameLocation": "382:7:26",
+                "nodeType": "EnumValue",
+                "src": "382:7:26"
+              }
+            ],
+            "name": "OnchainSigningScheme",
+            "nameLocation": "334:20:26"
+          },
+          {
+            "id": 24514,
+            "nodeType": "StructDefinition",
+            "src": "505:206:26",
+            "nodes": [],
+            "canonicalName": "ICoWSwapOnchainOrders.OnchainSignature",
+            "members": [
+              {
+                "constant": false,
+                "id": 24510,
+                "mutability": "mutable",
+                "name": "scheme",
+                "nameLocation": "624:6:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 24514,
+                "src": "603:27:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_OnchainSigningScheme_$24506",
+                  "typeString": "enum ICoWSwapOnchainOrders.OnchainSigningScheme"
+                },
+                "typeName": {
+                  "id": 24509,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 24508,
+                    "name": "OnchainSigningScheme",
+                    "nameLocations": [
+                      "603:20:26"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 24506,
+                    "src": "603:20:26"
+                  },
+                  "referencedDeclaration": 24506,
+                  "src": "603:20:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_OnchainSigningScheme_$24506",
+                    "typeString": "enum ICoWSwapOnchainOrders.OnchainSigningScheme"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 24513,
+                "mutability": "mutable",
+                "name": "data",
+                "nameLocation": "700:4:26",
+                "nodeType": "VariableDeclaration",
+                "scope": 24514,
+                "src": "694:10:26",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes_storage_ptr",
+                  "typeString": "bytes"
+                },
+                "typeName": {
+                  "id": 24512,
+                  "name": "bytes",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "694:5:26",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_storage_ptr",
+                    "typeString": "bytes"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "OnchainSignature",
+            "nameLocation": "512:16:26",
+            "scope": 24533,
+            "visibility": "public"
+          },
+          {
+            "id": 24527,
+            "nodeType": "EventDefinition",
+            "src": "2188:145:26",
+            "nodes": [],
+            "anonymous": false,
+            "documentation": {
+              "id": 24515,
+              "nodeType": "StructuredDocumentation",
+              "src": "717:1466:26",
+              "text": "@dev Event emitted to broadcast an order onchain.\n @param sender The user who triggered the creation of the order. Note that this address does *not* need to be\n the actual owner of the order and does not need to be related to the order or signature in any way.\n For example, if a smart contract creates orders on behalf of the user, then the sender would be the user who\n triggers the creation of the order, while the actual owner of the order would be the smart contract that\n creates it.\n @param order Information on the order that is created in this transacion. The order is expected to be a valid\n order for the CoW Swap settlement contract and contain all information needed to settle it in a batch.\n @param signature The signature that can be used to verify the newly created order. Note that it is always\n possible to recover the owner of the order from a valid signature.\n @param data Any extra data that should be passed along with the order. This will be used by the services that\n collects onchain orders and no specific encoding is enforced on this field. It is supposed to encode extra\n information that is not included in the order data so that it can be passed along when decoding an onchain\n order. As an example, a contract that creates orders on behalf of a user could set a different expiration date\n than the one specified in the order."
+            },
+            "eventSelector": "cf5f9de2984132265203b5c335b25727702ca77262ff622e136baa7362bf1da9",
+            "name": "OrderPlacement",
+            "nameLocation": "2194:14:26",
+            "parameters": {
+              "id": 24526,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24517,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "sender",
+                  "nameLocation": "2234:6:26",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24527,
+                  "src": "2218:22:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24516,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2218:7:26",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24520,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "2265:5:26",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24527,
+                  "src": "2250:20:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$24843_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 24519,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 24518,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": [
+                        "2250:9:26",
+                        "2260:4:26"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 24843,
+                      "src": "2250:14:26"
+                    },
+                    "referencedDeclaration": 24843,
+                    "src": "2250:14:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$24843_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24523,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "2297:9:26",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24527,
+                  "src": "2280:26:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_OnchainSignature_$24514_memory_ptr",
+                    "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature"
+                  },
+                  "typeName": {
+                    "id": 24522,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 24521,
+                      "name": "OnchainSignature",
+                      "nameLocations": [
+                        "2280:16:26"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 24514,
+                      "src": "2280:16:26"
+                    },
+                    "referencedDeclaration": 24514,
+                    "src": "2280:16:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_OnchainSignature_$24514_storage_ptr",
+                      "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24525,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "2322:4:26",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24527,
+                  "src": "2316:10:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 24524,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2316:5:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2208:124:26"
+            }
+          },
+          {
+            "id": 24532,
+            "nodeType": "EventDefinition",
+            "src": "2514:48:26",
+            "nodes": [],
+            "anonymous": false,
+            "documentation": {
+              "id": 24528,
+              "nodeType": "StructuredDocumentation",
+              "src": "2339:170:26",
+              "text": "@dev Event emitted to notify that an order was invalidated.\n @param orderUid CoW Swap's unique order identifier of the order that has been invalidated."
+            },
+            "eventSelector": "b8bad102ac8bbacfef31ff1c906ec6d951c230b4dce750bb0376b812ad35852a",
+            "name": "OrderInvalidation",
+            "nameLocation": "2520:17:26",
+            "parameters": {
+              "id": 24531,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24530,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "orderUid",
+                  "nameLocation": "2552:8:26",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24532,
+                  "src": "2538:22:26",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 24529,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2538:5:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2537:24:26"
+            }
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICoWSwapOnchainOrders",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 24503,
+          "nodeType": "StructuredDocumentation",
+          "src": "106:84:26",
+          "text": "@title CoW Swap Onchain Order Creator Interface\n @author CoW Swap Developers"
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          24533
+        ],
+        "name": "ICoWSwapOnchainOrders",
+        "nameLocation": "200:21:26",
+        "scope": 24534,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 26
+}
