@@ -1,0 +1,347 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "orderUid",
+          "type": "bytes"
+        }
+      ],
+      "name": "filledAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vaultRelayer",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "filledAmount(bytes)": "2479fb6e",
+    "vaultRelayer()": "9b552cc2"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"orderUid\",\"type\":\"bytes\"}],\"name\":\"filledAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vaultRelayer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"details\":\"This interface collects the functions of the CoW Swap settlement contract that are used by the ETH flow contract.\",\"kind\":\"dev\",\"methods\":{\"filledAmount(bytes)\":{\"details\":\"Map each user order by UID to the amount that has been filled so far. If this amount is larger than or equal to the amount traded in the order (amount sold for sell orders, amount bought for buy orders) then the order cannot be traded anymore. If the order is fill or kill, then this value is only used to determine whether the order has already been executed.\",\"params\":{\"orderUid\":\"The uinique identifier to use to retrieve the filled amount.\"}},\"vaultRelayer()\":{\"details\":\"The address of the vault relayer: the contract that handles withdrawing tokens from the user to the settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token.\"}},\"title\":\"CoW Swap Settlement Contract Interface\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/interfaces/ICoWSwapSettlement.sol\":\"ICoWSwapSettlement\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"src/interfaces/ICoWSwapSettlement.sol\":{\"keccak256\":\"0xcb5007f3259129930d32a273874a955ebf18135294a3a7cbff6e2e03318bb75a\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://dbd6e3f4a8bb893fc562cd44d7ca1d835dd53b7be05091653dfbcdd4f9541451\",\"dweb:/ipfs/Qmdv2KnRjuWB1J1uqVErdUPywGeAuhNwbhz2Reouf9kbi9\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "orderUid",
+              "type": "bytes"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "filledAmount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "vaultRelayer",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "filledAmount(bytes)": {
+            "details": "Map each user order by UID to the amount that has been filled so far. If this amount is larger than or equal to the amount traded in the order (amount sold for sell orders, amount bought for buy orders) then the order cannot be traded anymore. If the order is fill or kill, then this value is only used to determine whether the order has already been executed.",
+            "params": {
+              "orderUid": "The uinique identifier to use to retrieve the filled amount."
+            }
+          },
+          "vaultRelayer()": {
+            "details": "The address of the vault relayer: the contract that handles withdrawing tokens from the user to the settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token."
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/interfaces/ICoWSwapSettlement.sol": "ICoWSwapSettlement"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/interfaces/ICoWSwapSettlement.sol": {
+        "keccak256": "0xcb5007f3259129930d32a273874a955ebf18135294a3a7cbff6e2e03318bb75a",
+        "urls": [
+          "bzz-raw://dbd6e3f4a8bb893fc562cd44d7ca1d835dd53b7be05091653dfbcdd4f9541451",
+          "dweb:/ipfs/Qmdv2KnRjuWB1J1uqVErdUPywGeAuhNwbhz2Reouf9kbi9"
+        ],
+        "license": "LGPL-3.0-or-later"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/interfaces/ICoWSwapSettlement.sol",
+    "id": 24552,
+    "exportedSymbols": {
+      "ICoWSwapSettlement": [
+        24551
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:1132:27",
+    "nodes": [
+      {
+        "id": 24535,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:27",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 24551,
+        "nodeType": "ContractDefinition",
+        "src": "278:899:27",
+        "nodes": [
+          {
+            "id": 24544,
+            "nodeType": "FunctionDefinition",
+            "src": "812:72:27",
+            "nodes": [],
+            "documentation": {
+              "id": 24537,
+              "nodeType": "StructuredDocumentation",
+              "src": "313:494:27",
+              "text": "@dev Map each user order by UID to the amount that has been filled so\n far. If this amount is larger than or equal to the amount traded in the\n order (amount sold for sell orders, amount bought for buy orders) then\n the order cannot be traded anymore. If the order is fill or kill, then\n this value is only used to determine whether the order has already been\n executed.\n @param orderUid The uinique identifier to use to retrieve the filled amount."
+            },
+            "functionSelector": "2479fb6e",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "filledAmount",
+            "nameLocation": "821:12:27",
+            "parameters": {
+              "id": 24540,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24539,
+                  "mutability": "mutable",
+                  "name": "orderUid",
+                  "nameLocation": "847:8:27",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24544,
+                  "src": "834:21:27",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 24538,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "834:5:27",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "833:23:27"
+            },
+            "returnParameters": {
+              "id": 24543,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24542,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24544,
+                  "src": "875:7:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 24541,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "875:7:27",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "874:9:27"
+            },
+            "scope": 24551,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 24550,
+            "nodeType": "FunctionDefinition",
+            "src": "1124:51:27",
+            "nodes": [],
+            "documentation": {
+              "id": 24545,
+              "nodeType": "StructuredDocumentation",
+              "src": "890:229:27",
+              "text": "@dev The address of the vault relayer: the contract that handles withdrawing tokens from the user to the\n settlement contract. A user who wants to sell a token on CoW Swap must approve this contract to spend the token."
+            },
+            "functionSelector": "9b552cc2",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "vaultRelayer",
+            "nameLocation": "1133:12:27",
+            "parameters": {
+              "id": 24546,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1145:2:27"
+            },
+            "returnParameters": {
+              "id": 24549,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24548,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24550,
+                  "src": "1166:7:27",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24547,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1166:7:27",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1165:9:27"
+            },
+            "scope": 24551,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICoWSwapSettlement",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 24536,
+          "nodeType": "StructuredDocumentation",
+          "src": "69:209:27",
+          "text": "@title CoW Swap Settlement Contract Interface\n @author CoW Swap Developers\n @dev This interface collects the functions of the CoW Swap settlement contract that are used by the ETH flow\n contract."
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          24551
+        ],
+        "name": "ICoWSwapSettlement",
+        "nameLocation": "288:18:27",
+        "scope": 24552,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 27
+}
