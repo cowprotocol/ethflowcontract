@@ -7,6 +7,7 @@ out/
 /broadcast/*/31337/
 /broadcast/Deploy.sol/5/*
 !/broadcast/Deploy.sol/5/deployment.json
+!/broadcast/Deploy.sol/5/run-latest.json
 
 # JS dependencies
 node_modules/
