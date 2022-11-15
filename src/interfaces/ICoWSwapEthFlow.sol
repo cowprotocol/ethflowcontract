@@ -13,7 +13,7 @@ interface ICoWSwapEthFlowEvents {
     ///
     /// @param orderUid CoW Swap's unique order identifier of the order that has been invalidated (and refunded).
     /// @param refunder The address that triggered the order refund.
-    event OrderRefund(bytes indexed orderUid, address indexed refunder);
+    event OrderRefund(bytes orderUid, address indexed refunder);
 }
 
 /// @title CoW Swap ETH Flow Interface
