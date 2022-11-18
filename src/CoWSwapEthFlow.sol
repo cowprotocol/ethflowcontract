@@ -91,9 +91,11 @@ contract CoWSwapEthFlow is
             revert NotAllowedZeroSellAmount();
         }
 
+        address owner = msg.sender;
+        uint32 validTo = order.validTo;
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
-            msg.sender,
-            order.validTo
+            owner,
+            validTo
         );
 
         OnchainSignature memory signature = OnchainSignature(
@@ -102,17 +104,15 @@ contract CoWSwapEthFlow is
         );
 
         // The data event field includes extra information needed to settle orders with the CoW Swap API.
-        bytes memory data = abi.encodePacked(
-            order.quoteId,
-            onchainData.validTo
-        );
+        bytes memory data = abi.encodePacked(order.quoteId, validTo);
 
-        orderHash = broadcastOrder(
-            onchainData.owner,
+        bytes32 cowSwapOrderHash = broadcastOrder(
+            owner,
             order.toCoWSwapOrder(wrappedNativeToken),
             signature,
             data
         );
+        orderHash = EthFlowOrder.hash(cowSwapOrderHash, owner, validTo);
 
         if (orders[orderHash].owner != EthFlowOrder.NO_OWNER) {
             revert OrderIsAlreadyOwned(orderHash);
@@ -123,16 +123,20 @@ contract CoWSwapEthFlow is
 
     /// @inheritdoc ICoWSwapEthFlow
     function invalidateOrdersIgnoringNotAllowed(
-        EthFlowOrder.Data[] calldata orderArray
+        EthFlowOrder.Data[] calldata orderArray,
+        bytes32[] calldata providedOrderHashes
     ) external {
         for (uint256 i = 0; i < orderArray.length; i++) {
-            _invalidateOrder(orderArray[i], false);
+            _invalidateOrder(orderArray[i], providedOrderHashes[i], false);
         }
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function invalidateOrder(EthFlowOrder.Data calldata order) public {
-        _invalidateOrder(order, true);
+    function invalidateOrder(
+        EthFlowOrder.Data calldata order,
+        bytes32 providedOrderHash
+    ) public {
+        _invalidateOrder(order, providedOrderHash, true);
     }
 
     /// @dev Performs the same tasks as `invalidateOrder` (see documentation in `ICoWSwapEthFlow`), but also allows the
@@ -143,21 +147,30 @@ contract CoWSwapEthFlow is
     /// @param revertOnInvalidDeletion controls whether the function call should revert or just return.
     function _invalidateOrder(
         EthFlowOrder.Data calldata order,
+        bytes32 providedOrderHash,
         bool revertOnInvalidDeletion
     ) internal {
+        EthFlowOrder.OnchainData memory providedOrderData = orders[
+            providedOrderHash
+        ];
+        address owner = providedOrderData.owner;
+        uint32 validTo = providedOrderData.validTo;
+
         GPv2Order.Data memory cowSwapOrder = order.toCoWSwapOrder(
             wrappedNativeToken
         );
-        bytes32 orderHash = cowSwapOrder.hash(cowSwapDomainSeparator);
+        bytes32 cowSwapOrderHash = cowSwapOrder.hash(cowSwapDomainSeparator);
+        bytes32 orderHash = EthFlowOrder.hash(cowSwapOrderHash, owner, validTo);
 
-        EthFlowOrder.OnchainData memory orderData = orders[orderHash];
-
+        // We test if the order is valid using user provided values. The validity of these values is confirmad by
+        // comparing the real and user-provided hash.
         // solhint-disable-next-line not-rely-on-time
-        bool isTradable = orderData.validTo >= block.timestamp;
+        bool isTradable = validTo >= block.timestamp;
         if (
-            orderData.owner == EthFlowOrder.INVALIDATED_OWNER ||
-            orderData.owner == EthFlowOrder.NO_OWNER ||
-            (isTradable && orderData.owner != msg.sender)
+            orderHash != providedOrderHash ||
+            owner == EthFlowOrder.NO_OWNER ||
+            owner == EthFlowOrder.INVALIDATED_OWNER ||
+            (isTradable && owner != msg.sender)
         ) {
             if (revertOnInvalidDeletion) {
                 revert NotAllowedToInvalidateOrder(orderHash);
@@ -165,12 +178,11 @@ contract CoWSwapEthFlow is
                 return;
             }
         }
-
         orders[orderHash].owner = EthFlowOrder.INVALIDATED_OWNER;
 
         bytes memory orderUid = new bytes(GPv2Order.UID_LENGTH);
         orderUid.packOrderUidParams(
-            orderHash,
+            cowSwapOrderHash,
             address(this),
             cowSwapOrder.validTo
         );
@@ -233,29 +245,34 @@ contract CoWSwapEthFlow is
         // Using low level calls to perform the transfer avoids setting arbitrary limits to the amount of gas used in a
         // call. Reentrancy is avoided thanks to the `nonReentrant` function modifier.
         // solhint-disable-next-line avoid-low-level-calls
-        (bool success, ) = payable(orderData.owner).call{value: refundAmount}(
-            ""
-        );
+        (bool success, ) = payable(owner).call{value: refundAmount}("");
         if (!success) {
             revert EthTransferFailed();
         }
     }
 
     /// @inheritdoc ICoWSwapEthFlow
-    function isValidSignature(bytes32 orderHash, bytes memory)
+    function isValidSignature(bytes32 cowSwapOrderHash, bytes memory signature)
         external
         view
         override(EIP1271Verifier, ICoWSwapEthFlow)
         returns (bytes4)
     {
-        // Note: the signature parameter is ignored since all information needed to verify the validity of the order is
-        // already available onchain.
-        EthFlowOrder.OnchainData memory orderData = orders[orderHash];
+        // Note: the signature is the expected hash of the eth-flow order.
+        bytes32 providedOrderHash = abi.decode(signature, (bytes32));
+        EthFlowOrder.OnchainData memory providedOrderData = orders[
+            providedOrderHash
+        ];
+        address owner = providedOrderData.owner;
+        uint32 validTo = providedOrderData.validTo;
+        bytes32 orderHash = EthFlowOrder.hash(cowSwapOrderHash, owner, validTo);
+
         if (
-            (orderData.owner != EthFlowOrder.NO_OWNER) &&
-            (orderData.owner != EthFlowOrder.INVALIDATED_OWNER) &&
+            (orderHash == providedOrderHash) &&
+            (owner != EthFlowOrder.NO_OWNER) &&
+            (owner != EthFlowOrder.INVALIDATED_OWNER) &&
             // solhint-disable-next-line not-rely-on-time
-            (orderData.validTo >= block.timestamp)
+            (validTo >= block.timestamp)
         ) {
             return GPv2EIP1271.MAGICVALUE;
         } else {

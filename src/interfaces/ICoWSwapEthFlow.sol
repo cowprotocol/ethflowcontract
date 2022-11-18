@@ -52,14 +52,18 @@ interface ICoWSwapEthFlow is ICoWSwapEthFlowEvents {
     ///
     /// @param orderArray Array of orders to be invalidated.
     function invalidateOrdersIgnoringNotAllowed(
-        EthFlowOrder.Data[] calldata orderArray
+        EthFlowOrder.Data[] calldata orderArray,
+        bytes32[] calldata providedOrderHashes
     ) external;
 
     /// @dev Marks an existing ETH-flow order as invalid and refunds the ETH that hasn't been traded yet.
     /// Note that some parameters of the orders are ignored, as for example the order expiration date and the quote id.
     ///
     /// @param order Order to be invalidated.
-    function invalidateOrder(EthFlowOrder.Data calldata order) external;
+    function invalidateOrder(
+        EthFlowOrder.Data calldata order,
+        bytes32 providedOrderHash
+    ) external;
 
     /// @dev EIP1271-compliant onchain signature verification function.
     /// This function is used by the CoW Swap settlement contract to determine if an order that is signed with an

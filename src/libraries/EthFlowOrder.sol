@@ -99,4 +99,12 @@ library EthFlowOrder {
                 GPv2Order.BALANCE_ERC20 // bytes32 buyTokenBalance
             );
     }
+
+    function hash(
+        bytes32 cowSwapOrderHash,
+        address owner,
+        uint32 validTo
+    ) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked(cowSwapOrderHash, owner, validTo));
+    }
 }

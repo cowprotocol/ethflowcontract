@@ -12,6 +12,9 @@ import "../../src/CoWSwapEthFlow.sol";
 import "../../src/vendored/GPv2Order.sol";
 
 contract TradingWithCowSwap is DeploymentSetUp {
+    using EthFlowOrder for EthFlowOrder.Data;
+    using GPv2Order for GPv2Order.Data;
+
     CoWSwapEthFlow public ethFlow;
     OpenZeppelin.ERC20PresetMinterPauser public cowToken;
     ICoWSwapSettlementExtended public settlement;
@@ -50,6 +53,15 @@ contract TradingWithCowSwap is DeploymentSetUp {
         );
         assertLt(block.timestamp, order.validTo);
 
+        bytes32 cowSwapOrderHash = order.toCoWSwapOrder(weth).hash(
+            settlement.domainSeparator()
+        );
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            user,
+            order.validTo
+        );
+
         vm.prank(user);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
         assertEq(address(ethFlow).balance, sellAmount + feeAmount);
@@ -64,7 +76,10 @@ contract TradingWithCowSwap is DeploymentSetUp {
         clearingPrices[wethIndex] = buyAmount;
         clearingPrices[cowIndex] = sellAmount;
 
-        bytes memory eip1271EthFlowSignature = abi.encodePacked(ethFlow);
+        bytes memory eip1271EthFlowSignature = abi.encodePacked(
+            ethFlow,
+            orderHash
+        );
         ICoWSwapSettlementExtended.TradeData memory trade = deriveTrade(
             wethIndex,
             cowIndex,
@@ -125,6 +140,15 @@ contract TradingWithCowSwap is DeploymentSetUp {
         );
         assertLt(block.timestamp, order.validTo);
 
+        bytes32 cowSwapOrderHash = order.toCoWSwapOrder(weth).hash(
+            settlement.domainSeparator()
+        );
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            user,
+            order.validTo
+        );
+
         vm.prank(user);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
 
@@ -173,7 +197,10 @@ contract TradingWithCowSwap is DeploymentSetUp {
             clearingPrices[0] = buyAmount;
             clearingPrices[1] = sellAmount;
 
-            bytes memory eip1271EthFlowSignature = abi.encodePacked(ethFlow);
+            bytes memory eip1271EthFlowSignature = abi.encodePacked(
+                ethFlow,
+                orderHash
+            );
 
             ICoWSwapSettlementExtended.TradeData memory trade = deriveTrade(
                 0,
@@ -220,7 +247,8 @@ contract TradingWithCowSwap is DeploymentSetUp {
 
         // Invalidate what remains of the order
         vm.prank(user);
-        ethFlow.invalidateOrder(order);
+
+        ethFlow.invalidateOrder(order, orderHash);
         assertEq(user.balance, unusedSellAmount + returnedFeeAmount);
     }
 

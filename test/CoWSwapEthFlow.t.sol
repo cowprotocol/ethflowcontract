@@ -20,9 +20,10 @@ contract EthFlowTestSetup is Test {
     using GPv2Order for bytes;
 
     struct OrderDetails {
-        EthFlowOrder.Data data;
         bytes32 hash;
+        EthFlowOrder.Data data;
         bytes orderUid;
+        bytes32 cowSwapHash;
     }
 
     CoWSwapEthFlowExposed internal ethFlow;
@@ -93,21 +94,26 @@ contract EthFlowTestSetup is Test {
         );
     }
 
-    function orderDetails(EthFlowOrder.Data memory order)
+    function orderDetails(EthFlowOrder.Data memory order, address owner)
         internal
         view
         returns (OrderDetails memory)
     {
-        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
-            ethFlow.cowSwapDomainSeparatorPublic()
-        );
+        bytes32 cowSwapOrderHash = order
+            .toCoWSwapOrder(wrappedNativeToken)
+            .hash(ethFlow.cowSwapDomainSeparatorPublic());
         bytes memory orderUid = new bytes(GPv2Order.UID_LENGTH);
         orderUid.packOrderUidParams(
-            orderHash,
+            cowSwapOrderHash,
             address(ethFlow),
             type(uint32).max
         );
-        return OrderDetails(order, orderHash, orderUid);
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            owner,
+            order.validTo
+        );
+        return OrderDetails(orderHash, order, orderUid, cowSwapOrderHash);
     }
 }
 
@@ -196,6 +202,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
     }
 
     function testRevertIfCreatingAnOrderWithTheSameHashTwice() public {
+        address executor = address(0x42);
         uint256 sellAmount = 41 ether;
         uint256 feeAmount = 1 ether;
         EthFlowOrder.Data memory order = EthFlowOrder.Data(
@@ -212,16 +219,18 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
 
-        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
-            ethFlow.cowSwapDomainSeparatorPublic()
+        bytes32 cowSwapOrderHash = order
+            .toCoWSwapOrder(wrappedNativeToken)
+            .hash(ethFlow.cowSwapDomainSeparatorPublic());
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            executor,
+            order.validTo
         );
 
-        address executor1 = address(0x42);
-        address executor2 = address(0x1337);
-        vm.deal(executor1, sellAmount + feeAmount);
-        vm.deal(executor2, sellAmount + feeAmount);
+        vm.deal(executor, 2 * (sellAmount + feeAmount));
 
-        vm.prank(executor1);
+        vm.prank(executor);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
 
         vm.expectRevert(
@@ -230,7 +239,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
                 orderHash
             )
         );
-        vm.prank(executor2);
+        vm.prank(executor);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
     }
 
@@ -251,10 +260,19 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
 
-        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
-            ethFlow.cowSwapDomainSeparatorPublic()
+        address owner = address(42);
+        vm.prank(owner);
+        bytes32 cowSwapOrderHash = order
+            .toCoWSwapOrder(wrappedNativeToken)
+            .hash(ethFlow.cowSwapDomainSeparatorPublic());
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            owner,
+            order.validTo
         );
 
+        vm.deal(owner, sellAmount + feeAmount);
+        vm.prank(owner);
         assertEq(
             ethFlow.createOrder{value: sellAmount + feeAmount}(order),
             orderHash
@@ -301,6 +319,7 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
     }
 
     function testOrderCreationSetsExpectedOnchainOrderInformation() public {
+        address executor = address(0x1337);
         uint256 sellAmount = 41 ether;
         uint256 feeAmount = 1 ether;
         uint32 validTo = FillWithSameByte.toUint32(0x01);
@@ -319,11 +338,15 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.feeAmount, feeAmount);
         assertEq(order.validTo, validTo);
 
-        bytes32 orderHash = order.toCoWSwapOrder(wrappedNativeToken).hash(
-            ethFlow.cowSwapDomainSeparatorPublic()
+        bytes32 cowSwapOrderHash = order
+            .toCoWSwapOrder(wrappedNativeToken)
+            .hash(ethFlow.cowSwapDomainSeparatorPublic());
+        bytes32 orderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            executor,
+            order.validTo
         );
 
-        address executor = address(0x1337);
         vm.deal(executor, sellAmount + feeAmount);
         vm.prank(executor);
         ethFlow.createOrder{value: sellAmount + feeAmount}(order);
@@ -399,12 +422,12 @@ contract OrderDeletion is
     function testCanInvalidateValidOrdersIfOwner() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.prank(owner);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testCanInvalidateExpiredOrdersIfNotOwner() public {
@@ -412,32 +435,35 @@ contract OrderDeletion is
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.prank(executor);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testCanInvalidateOrdersIgnoringNotAllowed() public {
         address owner = address(0x424242);
         address executor = address(0x1337);
         EthFlowOrder.Data[] memory orderArray = new EthFlowOrder.Data[](2);
+        bytes32[] memory hashArray = new bytes32[](2);
         orderArray[0] = dummyOrder();
         orderArray[0].validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order1 = orderDetails(orderArray[0]);
+        OrderDetails memory order1 = orderDetails(orderArray[0], owner);
+        hashArray[0] = order1.hash;
         mockOrderFilledAmount(order1.orderUid, 0);
         createOrderWithOwner(order1, owner);
         orderArray[1] = dummyOrder();
         orderArray[1].validTo = uint32(block.timestamp) - 1;
         orderArray[1].sellAmount = orderArray[1].sellAmount + 1;
-        OrderDetails memory order2 = orderDetails(orderArray[1]);
+        OrderDetails memory order2 = orderDetails(orderArray[1], owner);
+        hashArray[1] = order2.hash;
         createOrderWithOwner(order2, owner);
         mockOrderFilledAmount(order2.orderUid, 0);
 
         vm.prank(executor);
-        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray);
+        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray, hashArray);
         assertEq(
             ordersMapping(order1.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -447,16 +473,20 @@ contract OrderDeletion is
             EthFlowOrder.INVALIDATED_OWNER
         );
         EthFlowOrder.Data[] memory orderArray2 = new EthFlowOrder.Data[](3);
+        bytes32[] memory hashArray2 = new bytes32[](3);
         orderArray2[0] = orderArray[0];
+        hashArray2[0] = hashArray[0];
         orderArray2[1] = orderArray[1];
+        hashArray2[1] = hashArray[1];
         // And we can even invalidate a list of orders if some have already been invalidated previously
         orderArray2[2] = dummyOrder();
         orderArray2[2].validTo = uint32(block.timestamp) - 1;
         orderArray2[2].sellAmount = FillWithSameByte.toUint128(0x11);
-        OrderDetails memory order3 = orderDetails(orderArray2[2]);
+        OrderDetails memory order3 = orderDetails(orderArray2[2], owner);
+        hashArray2[2] = order3.hash;
         createOrderWithOwner(order3, owner);
         mockOrderFilledAmount(order3.orderUid, 0);
-        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray2);
+        ethFlow.invalidateOrdersIgnoringNotAllowed(orderArray2, hashArray2);
         assertEq(
             ordersMapping(order3.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -468,7 +498,7 @@ contract OrderDeletion is
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
@@ -476,14 +506,14 @@ contract OrderDeletion is
         emit ICoWSwapEthFlowEvents.OrderRefund(order.orderUid, executor);
 
         vm.prank(executor);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testEmitsEventForValidOrderDeletion() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) + 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
@@ -491,7 +521,7 @@ contract OrderDeletion is
         emit ICoWSwapOnchainOrders.OrderInvalidation(order.orderUid);
 
         vm.prank(owner);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testCannotInvalidateValidOrdersIfNotOwner() public {
@@ -499,7 +529,7 @@ contract OrderDeletion is
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) + 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
@@ -510,18 +540,18 @@ contract OrderDeletion is
             )
         );
         vm.prank(executor);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testOrderDeletionSetsOrderAsInvalidated() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         assertEq(ordersMapping(order.hash).owner, owner);
         vm.prank(owner);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
         assertEq(
             ordersMapping(order.hash).owner,
             EthFlowOrder.INVALIDATED_OWNER
@@ -534,44 +564,60 @@ contract OrderDeletion is
         address executor = address(0x1337);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         assertEq(owner.balance, 0);
         vm.prank(executor);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
         assertEq(owner.balance, order.data.sellAmount + order.data.feeAmount);
     }
 
     function testOrderDeletionRevertsIfDeletingUninitializedOrder() public {
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(
+            dummyOrder(),
+            EthFlowOrder.NO_OWNER
+        );
+        // Note: if the order was never created, then the owner is NO_OWNER and validTo is zero.
+        bytes32 nulledHash = EthFlowOrder.hash(
+            order.cowSwapHash,
+            EthFlowOrder.NO_OWNER,
+            uint32(0)
+        );
 
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.NotAllowedToInvalidateOrder.selector,
-                order.hash
+                nulledHash
             )
         );
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, nulledHash);
     }
 
     function testOrderDeletionRevertsIfDeletingOrderTwice() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.startPrank(owner);
 
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
+
+        // The hash changed, since the owner of the order has changed onchain. Note that order validity didn't change.
+        bytes32 updatedHash = EthFlowOrder.hash(
+            order.cowSwapHash,
+            EthFlowOrder.INVALIDATED_OWNER,
+            order.data.validTo
+        );
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.NotAllowedToInvalidateOrder.selector,
-                order.hash
+                updatedHash
             )
         );
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
 
         vm.stopPrank();
     }
@@ -581,7 +627,7 @@ contract OrderDeletion is
         EthFlowOrder.Data memory order = dummyOrder();
         order.sellAmount = 10 ether;
         order.feeAmount = 1 ether;
-        OrderDetails memory orderDetails = orderDetails(order);
+        OrderDetails memory orderDetails = orderDetails(order, owner);
 
         createOrderWithOwner(orderDetails, owner);
         uint256 filledAmount = 2 ether + 1; // does not divide sellAmount to test rounding
@@ -591,26 +637,26 @@ contract OrderDeletion is
 
         assertEq(owner.balance, 0);
         vm.prank(owner);
-        ethFlow.invalidateOrder(order);
+        ethFlow.invalidateOrder(order, orderDetails.hash);
         assertEq(owner.balance, remainingSellAmount + remainingFeeAmount);
     }
 
     function testOrderDeletionRevertsIfSendingEthFails() public {
         address owner = address(new Reverter());
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         createOrderWithOwner(order, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.expectRevert(ICoWSwapEthFlow.EthTransferFailed.selector);
         vm.prank(owner);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 
     function testCannotCreateSameOrderOnceInvalidated() public {
         address owner = address(0x424242);
         EthFlowOrder.Data memory ethFlowOrder = dummyOrder();
         ethFlowOrder.validTo = uint32(block.timestamp) - 1;
-        OrderDetails memory order = orderDetails(ethFlowOrder);
+        OrderDetails memory order = orderDetails(ethFlowOrder, owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
@@ -619,7 +665,7 @@ contract OrderDeletion is
         ethFlow.createOrder{
             value: order.data.sellAmount + order.data.feeAmount
         }(order.data);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
         vm.expectRevert(
             abi.encodeWithSelector(
                 ICoWSwapEthFlow.OrderIsAlreadyOwned.selector,
@@ -635,7 +681,7 @@ contract OrderDeletion is
 
     function testWethUnwrappingIfContractDoesNotHaveEnoughEth() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         mockOrderFilledAmount(order.orderUid, 0);
 
         vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
@@ -662,7 +708,7 @@ contract OrderDeletion is
         vm.etch(address(wrappedNativeToken), type(SendOnUnwrap).runtimeCode);
 
         vm.prank(owner);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
     }
 }
 
@@ -689,14 +735,23 @@ contract SignatureVerification is EthFlowTestSetup {
     }
 
     function testBadSignatureIfOrderWasNotCreatedYet() public {
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), address(0));
+        // Note: if the order was never created, then the owner is NO_OWNER and validTo is zero.
+        bytes32 nulledHash = EthFlowOrder.hash(
+            order.cowSwapHash,
+            EthFlowOrder.NO_OWNER,
+            uint32(0)
+        );
 
-        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+        assertEq(
+            ethFlow.isValidSignature(order.cowSwapHash, abi.encode(nulledHash)),
+            BAD_SIGNATURE
+        );
     }
 
     function testGoodSignatureIfOrderIsValid() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         assertGt(order.data.validTo, block.timestamp);
 
         vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
@@ -706,14 +761,14 @@ contract SignatureVerification is EthFlowTestSetup {
         }(order.data);
 
         assertEq(
-            ethFlow.isValidSignature(order.hash, ""),
+            ethFlow.isValidSignature(order.cowSwapHash, abi.encode(order.hash)),
             GPv2EIP1271.MAGICVALUE
         );
     }
 
     function testBadSignatureIfOrderIsExpired() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
         assertGt(order.data.validTo, block.timestamp);
 
         vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
@@ -725,12 +780,15 @@ contract SignatureVerification is EthFlowTestSetup {
         vm.warp(order.data.validTo + 1);
         assertLt(order.data.validTo, block.timestamp);
 
-        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+        assertEq(
+            ethFlow.isValidSignature(order.cowSwapHash, abi.encode(order.hash)),
+            BAD_SIGNATURE
+        );
     }
 
     function testBadSignatureIfOrderWasInvalidated() public {
         address owner = address(0x424242);
-        OrderDetails memory order = orderDetails(dummyOrder());
+        OrderDetails memory order = orderDetails(dummyOrder(), owner);
 
         vm.deal(owner, order.data.sellAmount + order.data.feeAmount);
         vm.startPrank(owner);
@@ -739,12 +797,19 @@ contract SignatureVerification is EthFlowTestSetup {
             value: order.data.sellAmount + order.data.feeAmount
         }(order.data);
         mockOrderFilledAmount(order.orderUid, 0);
-        ethFlow.invalidateOrder(order.data);
+        ethFlow.invalidateOrder(order.data, order.hash);
 
         vm.stopPrank();
 
+        assertEq(
+            ordersMapping(order.hash).owner,
+            EthFlowOrder.INVALIDATED_OWNER
+        ); // Ascertain that failure is not caused by an expired order.
         assertGt(order.data.validTo, block.timestamp); // Ascertain that failure is not caused by an expired order.
-        assertEq(ethFlow.isValidSignature(order.hash, ""), BAD_SIGNATURE);
+        assertEq(
+            ethFlow.isValidSignature(order.cowSwapHash, abi.encode(order.hash)),
+            BAD_SIGNATURE
+        );
     }
 }
 
