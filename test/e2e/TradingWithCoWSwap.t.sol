@@ -28,6 +28,106 @@ contract TradingWithCowSwap is DeploymentSetUp {
         ethFlow = new CoWSwapEthFlow(settlement, weth);
     }
 
+    function testShouldDeleteOrdersWithSameCowSwapHash() public {
+        // Create an eth flow order and execute it.
+        address settledUser = FillWithSameByte.toAddress(0x42);
+        address userWhoLosesMoney = FillWithSameByte.toAddress(42);
+        uint256 sellAmount = 1 ether;
+        uint256 buyAmount = 15000 ether;
+        uint256 feeAmount = 0.01 ether;
+
+        // Fill buffer with enough funds in buffer to settle the order
+        cowToken.mint(address(settlement), buyAmount);
+        // Give users enough funds to create the order
+        vm.deal(settledUser, sellAmount + feeAmount);
+
+        EthFlowOrder.Data memory order = EthFlowOrder.Data(
+            IERC20(address(cowToken)),
+            FillWithSameByte.toAddress(0x31),
+            sellAmount,
+            buyAmount,
+            FillWithSameByte.toBytes32(0xaa), //appData
+            feeAmount,
+            31337, //validTo
+            false, //partiallyFillable
+            424242 //quoteId
+        );
+        bytes32 cowSwapOrderHash = order.toCoWSwapOrder(weth).hash(
+            settlement.domainSeparator()
+        );
+
+        // BEGIN settle order, go to END to skip
+        {
+            vm.prank(settledUser);
+            ethFlow.createOrder{value: sellAmount + feeAmount}(order);
+            assertEq(address(ethFlow).balance, sellAmount + feeAmount);
+            bytes32 orderHash = EthFlowOrder.hash(
+                cowSwapOrderHash,
+                settledUser,
+                order.validTo
+            );
+
+            IERC20[] memory tokens = new IERC20[](2);
+            uint256 wethIndex = 0;
+            uint256 cowIndex = 1;
+            tokens[wethIndex] = weth;
+            tokens[cowIndex] = IERC20(address(cowToken));
+
+            uint256[] memory clearingPrices = new uint256[](2);
+            clearingPrices[wethIndex] = buyAmount;
+            clearingPrices[cowIndex] = sellAmount;
+
+            bytes memory eip1271EthFlowSignature = abi.encodePacked(
+                ethFlow,
+                orderHash
+            );
+            ICoWSwapSettlementExtended.TradeData memory trade = deriveTrade(
+                wethIndex,
+                cowIndex,
+                order,
+                sellAmount,
+                eip1271EthFlowSignature
+            );
+            ICoWSwapSettlementExtended.TradeData[]
+                memory trades = new ICoWSwapSettlementExtended.TradeData[](1);
+            trades[0] = trade;
+
+            ICoWSwapSettlementExtended.InteractionData
+                memory wrap = ICoWSwapSettlementExtended.InteractionData(
+                    address(ethFlow),
+                    0,
+                    abi.encodeCall(ICoWSwapEthFlow.wrapAll, ())
+                );
+            ICoWSwapSettlementExtended.InteractionData[]
+                memory preInteractions = new ICoWSwapSettlementExtended.InteractionData[](
+                    1
+                );
+            preInteractions[0] = wrap;
+            ICoWSwapSettlementExtended.InteractionData[][3]
+                memory interactions = [
+                    preInteractions,
+                    new ICoWSwapSettlementExtended.InteractionData[](0),
+                    new ICoWSwapSettlementExtended.InteractionData[](0)
+                ];
+
+            settlement.settle(tokens, clearingPrices, trades, interactions);
+        }
+        // END settle order
+
+        vm.startPrank(userWhoLosesMoney);
+        vm.deal(userWhoLosesMoney, sellAmount + feeAmount);
+        assertEq(userWhoLosesMoney.balance, sellAmount + feeAmount);
+        ethFlow.createOrder{value: sellAmount + feeAmount}(order);
+        assertEq(userWhoLosesMoney.balance, 0);
+        bytes32 otherUserOrderHash = EthFlowOrder.hash(
+            cowSwapOrderHash,
+            userWhoLosesMoney,
+            order.validTo
+        );
+        ethFlow.invalidateOrder(order, otherUserOrderHash);
+        assertEq(userWhoLosesMoney.balance, sellAmount + feeAmount, "User didn't recover the funds from the order");
+    }
+
     function testSingleTrade() public {
         // Sell 1 ETH for 15k COW (plus 0.01 ETH fees) using the internal buffer of the settlement contract.
         address user = FillWithSameByte.toAddress(0x42);
