@@ -91,6 +91,11 @@ contract CoWSwapEthFlow is
             revert NotAllowedZeroSellAmount();
         }
 
+        // solhint-disable-next-line not-rely-on-time
+        if (order.validTo < block.timestamp) {
+            revert OrderIsAlreadyExpired();
+        }
+
         EthFlowOrder.OnchainData memory onchainData = EthFlowOrder.OnchainData(
             msg.sender,
             order.validTo

@@ -23,6 +23,9 @@ interface ICoWSwapEthFlow is ICoWSwapEthFlowEvents {
     /// already assigned.
     error OrderIsAlreadyOwned(bytes32 orderHash);
 
+    /// @dev Error thrown when trying to create an order that would be expired at the time of creation
+    error OrderIsAlreadyExpired();
+
     /// @dev Error thrown when trying to create an order without sending the expected amount of ETH to this contract.
     error IncorrectEthAmount();
 
