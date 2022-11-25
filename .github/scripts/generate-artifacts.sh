@@ -10,21 +10,26 @@ deployment_output_folder="$repo_root_dir/broadcast/Deploy.sol"
 echo "Creating build artifacts..."
 forge build -o artifacts
 
-echo "Creating networks.json..."
-for deployment in "$deployment_output_folder/"*; do
-  # The subfolder name is the chain id
-  chain_id=${deployment##*/}
-  # First, every single deployment is formatted as if it had its own networks.json
-  jq --arg chainId "$chain_id" '
-    .transactions[]
-    | select(.transactionType == "CREATE" )
-    | {(.contractName): {($chainId): {address: .contractAddress, transactionHash: .hash }}}
-  '  <"$deployment/deployment.json"
-done \
-  | # Then, all these single-contract single-chain-id networks.jsons are merged. Note: in case the same contract is
-    # deployed twice in the same script run, the last deployed contract takes priority.  
-    jq -n 'reduce inputs as $item ({}; . *= $item)' \
-  > "$repo_root_dir/networks.json"
+echo "Creating list of deployments..."
+collect_deployments() {
+  local environment=${1}
+  for deployment in "$deployment_output_folder/"*; do
+    # The subfolder name is the chain id
+    chain_id=${deployment##*/}
+    # First, every single deployment is formatted as if it had its own networks.json
+    jq --arg chainId "$chain_id" '
+      .transactions[]
+      | select(.transactionType == "CREATE" )
+      | {(.contractName): {($chainId): {address: .contractAddress, transactionHash: .hash }}}
+    '  <"$deployment/deployment.${environment}.json"
+  done \
+    | # Then, all these single-contract single-chain-id networks.jsons are merged. Note: in case the same contract is
+      # deployed twice in the same script run, the last deployed contract takes priority.  
+      jq -n 'reduce inputs as $item ({}; . *= $item)' \
+    > "$repo_root_dir/networks.${environment}.json"
+}
+collect_deployments "barn"
+collect_deployments "prod"
 
 echo "Creating hardhat build artifacts..."
 # Eventually we want to stop generating Hardhat artifacts, in the meantime we pin here a specific version
