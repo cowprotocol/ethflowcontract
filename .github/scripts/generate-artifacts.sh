@@ -25,3 +25,8 @@ done \
     # deployed twice in the same script run, the last deployed contract takes priority.  
     jq -n 'reduce inputs as $item ({}; . *= $item)' \
   > "$repo_root_dir/networks.json"
+
+echo "Creating hardhat build artifacts..."
+# Eventually we want to stop generating Hardhat artifacts, in the meantime we pin here a specific version
+yarn add --dev "hardhat@2.12.2"
+npx hardhat --config "$repo_root_dir/.github/scripts/hardhat.config.js" compile
