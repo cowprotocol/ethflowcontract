@@ -24,7 +24,7 @@ collect_deployments() {
     '  <"$deployment/deployment.${environment}.json"
   done \
     | # Then, all these single-contract single-chain-id networks.jsons are merged. Note: in case the same contract is
-      # deployed twice in the same script run, the last deployed contract takes priority.  
+      # deployed twice in the same script run, the last deployed contract takes priority.
       jq -n 'reduce inputs as $item ({}; . *= $item)' \
     > "$repo_root_dir/networks.${environment}.json"
 }
