@@ -1,0 +1,1119 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "settlementContractAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "orderUid",
+          "type": "bytes"
+        }
+      ],
+      "name": "OrderInvalidation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "sellToken",
+              "type": "address"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "kind",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "sellTokenBalance",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "buyTokenBalance",
+              "type": "bytes32"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct GPv2Order.Data",
+          "name": "order",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "enum ICoWSwapOnchainOrders.OnchainSigningScheme",
+              "name": "scheme",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct ICoWSwapOnchainOrders.OnchainSignature",
+          "name": "signature",
+          "type": "tuple"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "OrderPlacement",
+      "type": "event"
+    }
+  ],
+  "bytecode": {
+    "object": "0x60a060405234801561001057600080fd5b5060405161024338038061024383398101604081905261002f916100fe565b6100428161004b60201b6100091760201c565b6080525061012e565b604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c918101919091527ff9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf606082015246608082018190526001600160a01b03831660a083015260009160c00160405160208183030381529060405280519060200120915050919050565b60006020828403121561011057600080fd5b81516001600160a01b038116811461012757600080fd5b9392505050565b60805160ff6101446000396000505060ff6000f3fe6080604052600080fd5b604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c918101919091527ff9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf6060820152466080820181905273ffffffffffffffffffffffffffffffffffffffff831660a083015260009160c0016040516020818303038152906040528051906020012091505091905056fea264697066735822122034884705db461c0bd7b94f40059478705b8892a84a48b930715d62beb4ec3a2664736f6c63430008100033",
+    "sourceMap": "285:1225:31:-:0;;;687:167;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;769:78;812:25;769:29;;;;;:78;;:::i;:::-;744:103;;-1:-1:-1;285:1225:31;;1381:622:29;1782:200;;;474:117;1782:200;;;568:25:50;715:28:29;609:18:50;;;602:34;;;;873:15:29;652:18:50;;;645:34;1707:9:29;695:18:50;;;688:34;;;-1:-1:-1;;;;;759:32:50;;738:19;;;731:61;1477:7:29;;540:19:50;;1782:200:29;;;;;;;;;;;;1755:241;;;;;;1736:260;;;1381:622;;;:::o;14:290:50:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:50;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:50:o;309:489::-;285:1225:31;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052600080fd5b604080517f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f60208201527f6c85c0337eba1661327f94f3bf46c8a7f9311a563f4d5c948362567f5d8ed60c918101919091527ff9446b8e937d86f0bc87cac73923491692b123ca5f8761908494703758206adf6060820152466080820181905273ffffffffffffffffffffffffffffffffffffffff831660a083015260009160c0016040516020818303038152906040528051906020012091505091905056fea264697066735822122034884705db461c0bd7b94f40059478705b8892a84a48b930715d62beb4ec3a2664736f6c63430008100033",
+    "sourceMap": "285:1225:31:-:0;;;;;;1381:622:29;1782:200;;;474:117;1782:200;;;273:25:50;715:28:29;314:18:50;;;307:34;;;;873:15:29;357:18:50;;;350:34;1707:9:29;400:18:50;;;393:34;;;476:42;464:55;;443:19;;;436:84;1477:7:29;;245:19:50;;1782:200:29;;;;;;;;;;;;1755:241;;;;;;1736:260;;;1381:622;;;:::o",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"settlementContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"orderUid\",\"type\":\"bytes\"}],\"name\":\"OrderInvalidation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"components\":[{\"internalType\":\"contract IERC20\",\"name\":\"sellToken\",\"type\":\"address\"},{\"internalType\":\"contract IERC20\",\"name\":\"buyToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint32\",\"name\":\"validTo\",\"type\":\"uint32\"},{\"internalType\":\"bytes32\",\"name\":\"appData\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"feeAmount\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"kind\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"partiallyFillable\",\"type\":\"bool\"},{\"internalType\":\"bytes32\",\"name\":\"sellTokenBalance\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"buyTokenBalance\",\"type\":\"bytes32\"}],\"indexed\":false,\"internalType\":\"struct GPv2Order.Data\",\"name\":\"order\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"enum ICoWSwapOnchainOrders.OnchainSigningScheme\",\"name\":\"scheme\",\"type\":\"uint8\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"indexed\":false,\"internalType\":\"struct ICoWSwapOnchainOrders.OnchainSignature\",\"name\":\"signature\",\"type\":\"tuple\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"OrderPlacement\",\"type\":\"event\"}],\"devdoc\":{\"author\":\"CoW Swap Developers\",\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"settlementContractAddress\":\"The address of CoW Swap's settlement contract on the chain where this contract is deployed.\"}}},\"stateVariables\":{\"cowSwapDomainSeparator\":{\"details\":\"The domain separator for the CoW Swap settlement contract.\"}},\"title\":\"CoW Swap Onchain Order Creator Event Emitter\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/mixins/CoWSwapOnchainOrders.sol\":\"CoWSwapOnchainOrders\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"src/interfaces/ICoWSwapOnchainOrders.sol\":{\"keccak256\":\"0x84faba3229db2f641f22b93e5f4fd0c66fead704dfbd3918952ec4e6365ad7b9\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://426548c645e531f5bc1a7c5b2cecdee3eba0e2778cbd0086ea483ad9bb12bab8\",\"dweb:/ipfs/QmdqGi919potsKAio5fLTQFL9m24hdKDucgNU3T6nfVpUS\"]},\"src/libraries/CoWSwapEip712.sol\":{\"keccak256\":\"0x961461c50fbf52171a62f74dcf64dd1b3d2ef2a79fb985edb482e75e6b1c5e0c\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://6876c85f117b0c89339170fd365b98809f0e947aab3d3fff62a1c041bed86525\",\"dweb:/ipfs/QmeTPCEAJiYPwLjDErCnboCvgjPyBDo4neHHi7rycB5ra4\"]},\"src/mixins/CoWSwapOnchainOrders.sol\":{\"keccak256\":\"0xbfe4db574a1928958f43534fd69e21a78010b6a9e6d44bd522e068de59399e64\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://720f7392e675b7b09a221f9ba5ea7f6dbfba0b4506907b53164e6f058d3a02b9\",\"dweb:/ipfs/QmeWUDeWPsmZwV4S8ZbxFAx4fDAPHYG8LivYjVWAo2Pn8x\"]},\"src/vendored/GPv2Order.sol\":{\"keccak256\":\"0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4\",\"dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR\"]},\"src/vendored/IERC20.sol\":{\"keccak256\":\"0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738\",\"dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "settlementContractAddress",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "orderUid",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "OrderInvalidation",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "struct GPv2Order.Data",
+              "name": "order",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "contract IERC20",
+                  "name": "sellToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "contract IERC20",
+                  "name": "buyToken",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "receiver",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "sellAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "buyAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint32",
+                  "name": "validTo",
+                  "type": "uint32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "appData",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "feeAmount",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "kind",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "partiallyFillable",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "sellTokenBalance",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "buyTokenBalance",
+                  "type": "bytes32"
+                }
+              ],
+              "indexed": false
+            },
+            {
+              "internalType": "struct ICoWSwapOnchainOrders.OnchainSignature",
+              "name": "signature",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "enum ICoWSwapOnchainOrders.OnchainSigningScheme",
+                  "name": "scheme",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "bytes",
+                  "name": "data",
+                  "type": "bytes"
+                }
+              ],
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "OrderPlacement",
+          "anonymous": false
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "constructor": {
+            "params": {
+              "settlementContractAddress": "The address of CoW Swap's settlement contract on the chain where this contract is deployed."
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/mixins/CoWSwapOnchainOrders.sol": "CoWSwapOnchainOrders"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/interfaces/ICoWSwapOnchainOrders.sol": {
+        "keccak256": "0x84faba3229db2f641f22b93e5f4fd0c66fead704dfbd3918952ec4e6365ad7b9",
+        "urls": [
+          "bzz-raw://426548c645e531f5bc1a7c5b2cecdee3eba0e2778cbd0086ea483ad9bb12bab8",
+          "dweb:/ipfs/QmdqGi919potsKAio5fLTQFL9m24hdKDucgNU3T6nfVpUS"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/libraries/CoWSwapEip712.sol": {
+        "keccak256": "0x961461c50fbf52171a62f74dcf64dd1b3d2ef2a79fb985edb482e75e6b1c5e0c",
+        "urls": [
+          "bzz-raw://6876c85f117b0c89339170fd365b98809f0e947aab3d3fff62a1c041bed86525",
+          "dweb:/ipfs/QmeTPCEAJiYPwLjDErCnboCvgjPyBDo4neHHi7rycB5ra4"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/mixins/CoWSwapOnchainOrders.sol": {
+        "keccak256": "0xbfe4db574a1928958f43534fd69e21a78010b6a9e6d44bd522e068de59399e64",
+        "urls": [
+          "bzz-raw://720f7392e675b7b09a221f9ba5ea7f6dbfba0b4506907b53164e6f058d3a02b9",
+          "dweb:/ipfs/QmeWUDeWPsmZwV4S8ZbxFAx4fDAPHYG8LivYjVWAo2Pn8x"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/GPv2Order.sol": {
+        "keccak256": "0x0ce12e72d13c34c1d255d7e5945421e8129e7bea5d93a80f63acf8461535cdc2",
+        "urls": [
+          "bzz-raw://53a307b0402ecf0b01df8b0cff874c73e7ba79828b7ffb4de27dc324f463b3e4",
+          "dweb:/ipfs/QmWdrYo5bGQjKJKJ4p6chrr4UZzuWVi3stFMHHC3rmDgYR"
+        ],
+        "license": "LGPL-3.0-or-later"
+      },
+      "src/vendored/IERC20.sol": {
+        "keccak256": "0xcbe49e308e3aecb1ee9fe6a7c412a4d65790a03d676a2e06f6a73c8de7b4f83c",
+        "urls": [
+          "bzz-raw://a49944b2e03bf8fe6594b9a8cb250d60adf56f88551240982e7a029bfc327738",
+          "dweb:/ipfs/QmWjmaZuXwj8zWvgoUng9crWZhAFpLnYciyEnUjFeKbzog"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/mixins/CoWSwapOnchainOrders.sol",
+    "id": 24807,
+    "exportedSymbols": {
+      "CoWSwapEip712": [
+        24627
+      ],
+      "CoWSwapOnchainOrders": [
+        24806
+      ],
+      "GPv2Order": [
+        24981
+      ],
+      "ICoWSwapOnchainOrders": [
+        24546
+      ],
+      "IERC20": [
+        25059
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:1465:31",
+    "nodes": [
+      {
+        "id": 24746,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:31",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 24747,
+        "nodeType": "ImportDirective",
+        "src": "69:35:31",
+        "nodes": [],
+        "absolutePath": "src/vendored/GPv2Order.sol",
+        "file": "../vendored/GPv2Order.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 24807,
+        "sourceUnit": 24982,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 24748,
+        "nodeType": "ImportDirective",
+        "src": "105:49:31",
+        "nodes": [],
+        "absolutePath": "src/interfaces/ICoWSwapOnchainOrders.sol",
+        "file": "../interfaces/ICoWSwapOnchainOrders.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 24807,
+        "sourceUnit": 24547,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 24749,
+        "nodeType": "ImportDirective",
+        "src": "155:40:31",
+        "nodes": [],
+        "absolutePath": "src/libraries/CoWSwapEip712.sol",
+        "file": "../libraries/CoWSwapEip712.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 24807,
+        "sourceUnit": 24628,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 24806,
+        "nodeType": "ContractDefinition",
+        "src": "285:1225:31",
+        "nodes": [
+          {
+            "id": 24756,
+            "nodeType": "UsingForDirective",
+            "src": "346:35:31",
+            "nodes": [],
+            "global": false,
+            "libraryName": {
+              "id": 24753,
+              "name": "GPv2Order",
+              "nameLocations": [
+                "352:9:31"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 24981,
+              "src": "352:9:31"
+            },
+            "typeName": {
+              "id": 24755,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 24754,
+                "name": "GPv2Order.Data",
+                "nameLocations": [
+                  "366:9:31",
+                  "376:4:31"
+                ],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 24856,
+                "src": "366:14:31"
+              },
+              "referencedDeclaration": 24856,
+              "src": "366:14:31",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_Data_$24856_storage_ptr",
+                "typeString": "struct GPv2Order.Data"
+              }
+            }
+          },
+          {
+            "id": 24759,
+            "nodeType": "UsingForDirective",
+            "src": "386:26:31",
+            "nodes": [],
+            "global": false,
+            "libraryName": {
+              "id": 24757,
+              "name": "GPv2Order",
+              "nameLocations": [
+                "392:9:31"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 24981,
+              "src": "392:9:31"
+            },
+            "typeName": {
+              "id": 24758,
+              "name": "bytes",
+              "nodeType": "ElementaryTypeName",
+              "src": "406:5:31",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes_storage_ptr",
+                "typeString": "bytes"
+              }
+            }
+          },
+          {
+            "id": 24762,
+            "nodeType": "VariableDeclaration",
+            "src": "490:49:31",
+            "nodes": [],
+            "constant": false,
+            "documentation": {
+              "id": 24760,
+              "nodeType": "StructuredDocumentation",
+              "src": "418:67:31",
+              "text": "@dev The domain separator for the CoW Swap settlement contract."
+            },
+            "mutability": "immutable",
+            "name": "cowSwapDomainSeparator",
+            "nameLocation": "517:22:31",
+            "scope": 24806,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 24761,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "490:7:31",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 24776,
+            "nodeType": "FunctionDefinition",
+            "src": "687:167:31",
+            "nodes": [],
+            "body": {
+              "id": 24775,
+              "nodeType": "Block",
+              "src": "734:120:31",
+              "nodes": [],
+              "statements": [
+                {
+                  "expression": {
+                    "id": 24773,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 24768,
+                      "name": "cowSwapDomainSeparator",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 24762,
+                      "src": "744:22:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 24771,
+                          "name": "settlementContractAddress",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 24765,
+                          "src": "812:25:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "expression": {
+                          "id": 24769,
+                          "name": "CoWSwapEip712",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 24627,
+                          "src": "769:13:31",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_CoWSwapEip712_$24627_$",
+                            "typeString": "type(library CoWSwapEip712)"
+                          }
+                        },
+                        "id": 24770,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "783:15:31",
+                        "memberName": "domainSeparator",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 24626,
+                        "src": "769:29:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_bytes32_$",
+                          "typeString": "function (address) view returns (bytes32)"
+                        }
+                      },
+                      "id": 24772,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "functionCall",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "769:78:31",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "744:103:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 24774,
+                  "nodeType": "ExpressionStatement",
+                  "src": "744:103:31"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 24763,
+              "nodeType": "StructuredDocumentation",
+              "src": "546:136:31",
+              "text": "@param settlementContractAddress The address of CoW Swap's settlement contract on the chain where this contract\n is deployed."
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 24766,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24765,
+                  "mutability": "mutable",
+                  "name": "settlementContractAddress",
+                  "nameLocation": "707:25:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24776,
+                  "src": "699:33:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24764,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "699:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "698:35:31"
+            },
+            "returnParameters": {
+              "id": 24767,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "734:0:31"
+            },
+            "scope": 24806,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 24805,
+            "nodeType": "FunctionDefinition",
+            "src": "1201:307:31",
+            "nodes": [],
+            "body": {
+              "id": 24804,
+              "nodeType": "Block",
+              "src": "1389:119:31",
+              "nodes": [],
+              "statements": [
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 24793,
+                        "name": "sender",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24779,
+                        "src": "1419:6:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 24794,
+                        "name": "order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24782,
+                        "src": "1427:5:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$24856_memory_ptr",
+                          "typeString": "struct GPv2Order.Data memory"
+                        }
+                      },
+                      {
+                        "id": 24795,
+                        "name": "signature",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24785,
+                        "src": "1434:9:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_OnchainSignature_$24527_memory_ptr",
+                          "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature memory"
+                        }
+                      },
+                      {
+                        "id": 24796,
+                        "name": "data",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24787,
+                        "src": "1445:4:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_Data_$24856_memory_ptr",
+                          "typeString": "struct GPv2Order.Data memory"
+                        },
+                        {
+                          "typeIdentifier": "t_struct$_OnchainSignature_$24527_memory_ptr",
+                          "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature memory"
+                        },
+                        {
+                          "typeIdentifier": "t_bytes_memory_ptr",
+                          "typeString": "bytes memory"
+                        }
+                      ],
+                      "id": 24792,
+                      "name": "OrderPlacement",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 24540,
+                      "src": "1404:14:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_struct$_Data_$24856_memory_ptr_$_t_struct$_OnchainSignature_$24527_memory_ptr_$_t_bytes_memory_ptr_$returns$__$",
+                        "typeString": "function (address,struct GPv2Order.Data memory,struct ICoWSwapOnchainOrders.OnchainSignature memory,bytes memory)"
+                      }
+                    },
+                    "id": 24797,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1404:46:31",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 24798,
+                  "nodeType": "EmitStatement",
+                  "src": "1399:51:31"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 24801,
+                        "name": "cowSwapDomainSeparator",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24762,
+                        "src": "1478:22:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "id": 24799,
+                        "name": "order",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24782,
+                        "src": "1467:5:31",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Data_$24856_memory_ptr",
+                          "typeString": "struct GPv2Order.Data memory"
+                        }
+                      },
+                      "id": 24800,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1473:4:31",
+                      "memberName": "hash",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 24936,
+                      "src": "1467:10:31",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_pure$_t_struct$_Data_$24856_memory_ptr_$_t_bytes32_$returns$_t_bytes32_$bound_to$_t_struct$_Data_$24856_memory_ptr_$",
+                        "typeString": "function (struct GPv2Order.Data memory,bytes32) pure returns (bytes32)"
+                      }
+                    },
+                    "id": 24802,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1467:34:31",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 24791,
+                  "id": 24803,
+                  "nodeType": "Return",
+                  "src": "1460:41:31"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 24777,
+              "nodeType": "StructuredDocumentation",
+              "src": "860:336:31",
+              "text": "@dev Emits an event with all information needed to execute an order onchain and returns the corresponding order\n hash.\n See [`ICoWSwapOnchainOrders.OrderPlacement`] for details on the meaning of each parameter.\n @return The EIP-712 hash of the order data as computed by the CoW Swap settlement contract."
+            },
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "broadcastOrder",
+            "nameLocation": "1210:14:31",
+            "parameters": {
+              "id": 24788,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24779,
+                  "mutability": "mutable",
+                  "name": "sender",
+                  "nameLocation": "1242:6:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24805,
+                  "src": "1234:14:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24778,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1234:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24782,
+                  "mutability": "mutable",
+                  "name": "order",
+                  "nameLocation": "1280:5:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24805,
+                  "src": "1258:27:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Data_$24856_memory_ptr",
+                    "typeString": "struct GPv2Order.Data"
+                  },
+                  "typeName": {
+                    "id": 24781,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 24780,
+                      "name": "GPv2Order.Data",
+                      "nameLocations": [
+                        "1258:9:31",
+                        "1268:4:31"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 24856,
+                      "src": "1258:14:31"
+                    },
+                    "referencedDeclaration": 24856,
+                    "src": "1258:14:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Data_$24856_storage_ptr",
+                      "typeString": "struct GPv2Order.Data"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24785,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "1319:9:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24805,
+                  "src": "1295:33:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_OnchainSignature_$24527_memory_ptr",
+                    "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature"
+                  },
+                  "typeName": {
+                    "id": 24784,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 24783,
+                      "name": "OnchainSignature",
+                      "nameLocations": [
+                        "1295:16:31"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 24527,
+                      "src": "1295:16:31"
+                    },
+                    "referencedDeclaration": 24527,
+                    "src": "1295:16:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_OnchainSignature_$24527_storage_ptr",
+                      "typeString": "struct ICoWSwapOnchainOrders.OnchainSignature"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24787,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "1351:4:31",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24805,
+                  "src": "1338:17:31",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 24786,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1338:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1224:137:31"
+            },
+            "returnParameters": {
+              "id": 24791,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24790,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24805,
+                  "src": "1380:7:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 24789,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1380:7:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1379:9:31"
+            },
+            "scope": 24806,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 24751,
+              "name": "ICoWSwapOnchainOrders",
+              "nameLocations": [
+                "318:21:31"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 24546,
+              "src": "318:21:31"
+            },
+            "id": 24752,
+            "nodeType": "InheritanceSpecifier",
+            "src": "318:21:31"
+          }
+        ],
+        "canonicalName": "CoWSwapOnchainOrders",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 24750,
+          "nodeType": "StructuredDocumentation",
+          "src": "197:88:31",
+          "text": "@title CoW Swap Onchain Order Creator Event Emitter\n @author CoW Swap Developers"
+        },
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          24806,
+          24546
+        ],
+        "name": "CoWSwapOnchainOrders",
+        "nameLocation": "294:20:31",
+        "scope": 24807,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 31
+}
