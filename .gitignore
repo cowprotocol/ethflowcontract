@@ -5,8 +5,8 @@ out/
 # Ignores development broadcast logs
 !/broadcast
 /broadcast/*/31337/
-/broadcast/Deploy.sol/5/*
-!/broadcast/Deploy.sol/5/deployment*.json
+/broadcast/Deploy.sol/*
+!/broadcast/Deploy.sol/*/deployment*.json
 
 # JS dependencies
 node_modules/
