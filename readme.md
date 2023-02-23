@@ -2,6 +2,11 @@
 
 Smart contracts that enable native ETH sell orders on CoW Swap.
 
+## Deployment
+Contracts were deployed to mainnet and available here:
+- [Production](https://etherscan.io/address/0x40A50cf069e992AA4536211B23F286eF88752187)
+- [Staging](https://etherscan.io/address/0xD02De8Da0B71E1B59489794F423FaBBa2AdC4d93)
+
 ## Development
 
 ### Install
