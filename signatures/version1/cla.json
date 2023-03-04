@@ -1,3 +1,12 @@
 {
-   "signedContributors": []
+  "signedContributors": [
+    {
+      "name": "fedgiac",
+      "id": 58218759,
+      "comment_id": 1454783926,
+      "created_at": "2023-03-04T15:52:02Z",
+      "repoId": 523246028,
+      "pullRequestNo": 51
+    }
+  ]
 }
