@@ -34,7 +34,7 @@ library EthFlowOrder {
         /// @dev The exact amount of ETH that should be paid by the user to the CoW Swap contract after the order is
         /// settled.
         uint256 feeAmount;
-        /// @dev The latest timestamp in seconds when the order can be settled.
+        /// @dev The last timestamp in seconds from which the order can be settled (order cannot resolve after this timestamp).
         uint32 validTo;
         /// @dev Flag indicating whether the order is fill-or-kill or can be filled partially.
         bool partiallyFillable;
