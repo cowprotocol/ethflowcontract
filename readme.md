@@ -28,7 +28,7 @@ Build artifacts are automatically generated for every tagged version.
 A version of the code at tag `tag-name` with build artifacts included can ba found at tag `tag-name-artifacts`.
 Artifacts are stored in the folder `artifacts` in the root directory.
 
-The tag `master-artifacts` is kept up to date with the latest working version of current master and provides up-to-date artifacts.
+The tag `main-artifacts` is kept up to date with the latest working version of current main and provides up-to-date artifacts.
 
 To manually generate the build artifacts, run:
 
