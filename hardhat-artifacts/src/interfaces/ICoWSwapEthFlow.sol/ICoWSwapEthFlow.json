@@ -1,0 +1,315 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "ICoWSwapEthFlow",
+  "sourceName": "src/interfaces/ICoWSwapEthFlow.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "EthTransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IncorrectEthAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "NotAllowedToInvalidateOrder",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAllowedZeroSellAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OrderIsAlreadyExpired",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "OrderIsAlreadyOwned",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "orderUid",
+          "type": "bytes"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "refunder",
+          "type": "address"
+        }
+      ],
+      "name": "OrderRefund",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "int64",
+              "name": "quoteId",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct EthFlowOrder.Data",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "createOrder",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "int64",
+              "name": "quoteId",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct EthFlowOrder.Data",
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "invalidateOrder",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "contract IERC20",
+              "name": "buyToken",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "sellAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "buyAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "appData",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeAmount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint32",
+              "name": "validTo",
+              "type": "uint32"
+            },
+            {
+              "internalType": "bool",
+              "name": "partiallyFillable",
+              "type": "bool"
+            },
+            {
+              "internalType": "int64",
+              "name": "quoteId",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct EthFlowOrder.Data[]",
+          "name": "orderArray",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "invalidateOrdersIgnoringNotAllowed",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "magicValue",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "unwrap",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "wrap",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "wrapAll",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

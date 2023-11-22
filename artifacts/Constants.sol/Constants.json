@@ -1,0 +1,421 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "COWSWAP_AUTHENTICATOR",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "COWSWAP_DEPLOYER",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "COWSWAP_SETTLEMENT",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "COWSWAP_TEST_DOMAIN_SEPARATOR",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x61014161003a600b82828239805160001a60731461002d57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600436106100565760003560e01c8063020f10cd1461005b5780630af066ec146100a0578063a0c842d0146100bb578063bc9e4f8a146100f0575b600080fd5b610076734e59b44847b379578588920ca78fbf26c0b4956c81565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b610076739008d19f58aabd9ed0d60971565aa8510560ab4181565b6100e27f28dc932d67cd79da82085f7fbb19d7c88f84894397b07917354176f60f0096d481565b604051908152602001610097565b610076732c4c28ddbdac9c5e7055b4c863b72ea0149d8afe8156fea2646970667358221220933b1981c54cc70549583d35d1d6af50229505ec695f6e210e2b2e783a7a9a0a64736f6c63430008100033",
+    "sourceMap": "69:819:46:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;69:819:46;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x73000000000000000000000000000000000000000030146080604052600436106100565760003560e01c8063020f10cd1461005b5780630af066ec146100a0578063a0c842d0146100bb578063bc9e4f8a146100f0575b600080fd5b610076734e59b44847b379578588920ca78fbf26c0b4956c81565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b610076739008d19f58aabd9ed0d60971565aa8510560ab4181565b6100e27f28dc932d67cd79da82085f7fbb19d7c88f84894397b07917354176f60f0096d481565b604051908152602001610097565b610076732c4c28ddbdac9c5e7055b4c863b72ea0149d8afe8156fea2646970667358221220933b1981c54cc70549583d35d1d6af50229505ec695f6e210e2b2e783a7a9a0a64736f6c63430008100033",
+    "sourceMap": "69:819:46:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;146:93;;197:42;146:93;;;;;198:42:50;186:55;;;168:74;;156:2;141:18;146:93:46;;;;;;;;316:95;;369:42;316:95;;755:130;;819:66;755:130;;;;;407:25:50;;;395:2;380:18;755:130:46;253:185:50;488:98:46;;544:42;488:98;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "COWSWAP_AUTHENTICATOR()": "bc9e4f8a",
+    "COWSWAP_DEPLOYER()": "020f10cd",
+    "COWSWAP_SETTLEMENT()": "0af066ec",
+    "COWSWAP_TEST_DOMAIN_SEPARATOR()": "a0c842d0"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"COWSWAP_AUTHENTICATOR\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"COWSWAP_DEPLOYER\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"COWSWAP_SETTLEMENT\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"COWSWAP_TEST_DOMAIN_SEPARATOR\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"stateVariables\":{\"COWSWAP_AUTHENTICATOR\":{\"details\":\"Deterministic address of CoW Swap's settlement contract.\"},\"COWSWAP_DEPLOYER\":{\"details\":\"CoW Swap deterministic deployer address\"},\"COWSWAP_SETTLEMENT\":{\"details\":\"Deterministic address of CoW Swap's settlement contract.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"test/lib/Constants.sol\":\"Constants\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000000},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"test/lib/Constants.sol\":{\"keccak256\":\"0x91667aacc54ca5ee38c298bfb4d02bbbe7101fca160ad2b95c14f174a0d3e1d4\",\"license\":\"LGPL-3.0-or-later\",\"urls\":[\"bzz-raw://49eb05129d1609cc11b5b294dc4228da27d2c0321847c167f021b7d6ffffee82\",\"dweb:/ipfs/QmNSTsV7iZM37BBsaMNNBbKPynJPR62eNX6RpvjQ4FHASs\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "COWSWAP_AUTHENTICATOR",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "COWSWAP_DEPLOYER",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "COWSWAP_SETTLEMENT",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "COWSWAP_TEST_DOMAIN_SEPARATOR",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ]
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        "ds-test/=lib/forge-std/lib/ds-test/src/",
+        "forge-std/=lib/forge-std/src/",
+        "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000000
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "test/lib/Constants.sol": "Constants"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "test/lib/Constants.sol": {
+        "keccak256": "0x91667aacc54ca5ee38c298bfb4d02bbbe7101fca160ad2b95c14f174a0d3e1d4",
+        "urls": [
+          "bzz-raw://49eb05129d1609cc11b5b294dc4228da27d2c0321847c167f021b7d6ffffee82",
+          "dweb:/ipfs/QmNSTsV7iZM37BBsaMNNBbKPynJPR62eNX6RpvjQ4FHASs"
+        ],
+        "license": "LGPL-3.0-or-later"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "test/lib/Constants.sol",
+    "id": 30300,
+    "exportedSymbols": {
+      "Constants": [
+        30299
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "46:843:46",
+    "nodes": [
+      {
+        "id": 30283,
+        "nodeType": "PragmaDirective",
+        "src": "46:21:46",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "^",
+          "0.8"
+        ]
+      },
+      {
+        "id": 30299,
+        "nodeType": "ContractDefinition",
+        "src": "69:819:46",
+        "nodes": [
+          {
+            "id": 30287,
+            "nodeType": "VariableDeclaration",
+            "src": "146:93:46",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 30284,
+              "nodeType": "StructuredDocumentation",
+              "src": "93:48:46",
+              "text": "@dev CoW Swap deterministic deployer address"
+            },
+            "functionSelector": "020f10cd",
+            "mutability": "constant",
+            "name": "COWSWAP_DEPLOYER",
+            "nameLocation": "170:16:46",
+            "scope": 30299,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 30285,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "146:7:46",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307834653539623434383437623337393537383538383932306341373846624632366330423439353643",
+              "id": 30286,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "197:42:46",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0x4e59b44847b379578588920cA78FbF26c0B4956C"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 30291,
+            "nodeType": "VariableDeclaration",
+            "src": "316:95:46",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 30288,
+              "nodeType": "StructuredDocumentation",
+              "src": "246:65:46",
+              "text": "@dev Deterministic address of CoW Swap's settlement contract."
+            },
+            "functionSelector": "0af066ec",
+            "mutability": "constant",
+            "name": "COWSWAP_SETTLEMENT",
+            "nameLocation": "340:18:46",
+            "scope": 30299,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 30289,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "316:7:46",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307839303038443139663538414162443965443044363039373135363541413835313035363061623431",
+              "id": 30290,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "369:42:46",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0x9008D19f58AAbD9eD0D60971565AA8510560ab41"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 30295,
+            "nodeType": "VariableDeclaration",
+            "src": "488:98:46",
+            "nodes": [],
+            "constant": true,
+            "documentation": {
+              "id": 30292,
+              "nodeType": "StructuredDocumentation",
+              "src": "418:65:46",
+              "text": "@dev Deterministic address of CoW Swap's settlement contract."
+            },
+            "functionSelector": "bc9e4f8a",
+            "mutability": "constant",
+            "name": "COWSWAP_AUTHENTICATOR",
+            "nameLocation": "512:21:46",
+            "scope": 30299,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 30293,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "488:7:46",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": {
+              "hexValue": "307832633463323844444264416339433545373035356234433836336237326541303134394438614645",
+              "id": 30294,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "544:42:46",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              },
+              "value": "0x2c4c28DDBdAc9C5E7055b4C863b72eA0149D8aFE"
+            },
+            "visibility": "public"
+          },
+          {
+            "id": 30298,
+            "nodeType": "VariableDeclaration",
+            "src": "755:130:46",
+            "nodes": [],
+            "constant": true,
+            "functionSelector": "a0c842d0",
+            "mutability": "constant",
+            "name": "COWSWAP_TEST_DOMAIN_SEPARATOR",
+            "nameLocation": "779:29:46",
+            "scope": 30299,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes32",
+              "typeString": "bytes32"
+            },
+            "typeName": {
+              "id": 30296,
+              "name": "bytes32",
+              "nodeType": "ElementaryTypeName",
+              "src": "755:7:46",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes32",
+                "typeString": "bytes32"
+              }
+            },
+            "value": {
+              "hexValue": "307832386463393332643637636437396461383230383566376662623139643763383866383438393433393762303739313733353431373666363066303039366434",
+              "id": 30297,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "819:66:46",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_18482236078424172283620863921734274618380678525530225720824008253608892077780_by_1",
+                "typeString": "int_const 1848...(69 digits omitted)...7780"
+              },
+              "value": "0x28dc932d67cd79da82085f7fbb19d7c88f84894397b07917354176f60f0096d4"
+            },
+            "visibility": "public"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Constants",
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          30299
+        ],
+        "name": "Constants",
+        "nameLocation": "77:9:46",
+        "scope": 30300,
+        "usedErrors": []
+      }
+    ],
+    "license": "LGPL-3.0-or-later"
+  },
+  "id": 46
+}
