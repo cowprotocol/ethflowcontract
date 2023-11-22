@@ -2,6 +2,20 @@
 
 Smart contracts that enable native ETH sell orders on CoW Swap.
 
+## Deployed contracts
+
+The ETH-flow contract has been deployed on all networks that are supported by CoW Swap (currently Ethereum mainnet, Gnosis Chain, Görli).
+There are two deployments of the ETH-flow contract for each network: one is used in the production environment and one is used in the barn (staging/testing) environment.
+The bytecode and parameters are the same for all contracts in the same network.
+
+You can find deployment details by network id in `broadcast/Deploy.sol/`.
+
+We also release all current contract addresses together with our build artifacts.
+The addresses of the ETH-flow's latest deployments can be found [here (production)](https://github.com/cowprotocol/ethflowcontract/blob/main-artifacts/networks.prod.json) and [here (barn)](https://github.com/cowprotocol/ethflowcontract/blob/main-artifacts/networks.barn.json)
+
+You can also retrieve the deployed contract for any tagged version.
+For example, for version v1.0.0 you can find the contract addresses for production [here](https://github.com/cowprotocol/ethflowcontract/blob/v1.0.0-artifacts/networks.prod.json) and for barn [here](https://github.com/cowprotocol/ethflowcontract/blob/v1.0.0-artifacts/networks.barn.json).
+
 ## Development
 
 ### Install
