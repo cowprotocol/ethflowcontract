@@ -1,0 +1,20 @@
+{
+  "CoWSwapEthFlow": {
+    "1": {
+      "address": "0x40A50cf069e992AA4536211B23F286eF88752187",
+      "transactionHash": "0x0247e3c15f59a52b099f192265f1c1e6227f48a280717b3eefd7a5d9d0c051a1"
+    },
+    "100": {
+      "address": "0x40A50cf069e992AA4536211B23F286eF88752187",
+      "transactionHash": "0x6280e079f454fbb5de3c52beddd64ca2b5be0a4b3ec74edfd5f47e118347d4fb"
+    },
+    "11155111": {
+      "address": "0x0b7795E18767259CC253a2dF471db34c72B49516",
+      "transactionHash": "0x558a7608a770b5c4f68fffa9b02e7908a40f61b557b435ea768a4c62cb79ae25"
+    },
+    "5": {
+      "address": "0x40A50cf069e992AA4536211B23F286eF88752187",
+      "transactionHash": "0x427f4e96a6de122720428c652258eb07b463869a32239f99a6e9b321d9584f9c"
+    }
+  }
+}
