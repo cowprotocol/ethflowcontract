@@ -10,5 +10,5 @@
     "fmt": "prettier 'src/**/*.sol' -w && prettier 'test/**/*.sol' -w",
     "lint": "solhint 'src/**/*.sol' 'test/**/*.sol'"
   },
-  "version": "1.1.1"
+  "version": "1.2.0"
 }
