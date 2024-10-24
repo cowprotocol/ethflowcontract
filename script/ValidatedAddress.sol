@@ -16,6 +16,7 @@ library ValidatedAddress {
     uint256 internal constant CHAINID_GNOSISCHAIN = 100;
     uint256 internal constant CHAINID_SEPOLIA = 11155111;
     uint256 internal constant CHAINID_ARBITRUM = 42161;
+    uint256 internal constant CHAINID_BASE = 8453;
 
     function cowSwapSettlement()
         internal
@@ -28,6 +29,7 @@ library ValidatedAddress {
                 (chainId() == CHAINID_GOERLI) ||
                 (chainId() == CHAINID_GNOSISCHAIN) ||
                 (chainId() == CHAINID_ARBITRUM) ||
+                (chainId() == CHAINID_BASE) ||
                 (chainId() == CHAINID_SEPOLIA),
             "Settlement contract not available on this chain"
         );
@@ -63,6 +65,9 @@ library ValidatedAddress {
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else if (chainId() == CHAINID_ARBITRUM) {
             _wrappedNativeToken = 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
+        } else if (chainId() == CHAINID_BASE) {
+            _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else {
             revert("Wrapped native token not supported on this chain");
