@@ -19,6 +19,13 @@ jobs:
         with:
           submodules: recursive
 
+      # This step is required by `generate-artifacts.sh` since it pins an old
+      # version of the Hardhat package ("hardhat@2.12.2").
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
