@@ -373,15 +373,12 @@ contract TestOrderCreation is EthFlowTestSetup, ICoWSwapOnchainOrders {
         assertEq(order.sellAmount, sellAmount);
         assertEq(order.feeAmount, feeAmount);
 
-        // We explicitly test for a messageless revert. This should technically
-        // be "panic: arithmetic underflow or overflow (0x11)" but there's no
-        // way to encode that in Foundry as of writing.
-        vm.expectRevert(bytes(""));
+        vm.expectRevert(stdError.arithmeticError);
         // We use value `0` instead of the more appropriate `sellAmount` because
         // otherwise we receive a revert from Foundry's internals and the call
         // doesn't reach the called contract. This means that this call would
         // revert regardless (the amount doesn't match) and so it's important to
-        // require that the revert message is empty.
+        // require that the revert message matches an arithmetic error.
         ethFlow.createOrder{value: 0}(order);
     }
 }
