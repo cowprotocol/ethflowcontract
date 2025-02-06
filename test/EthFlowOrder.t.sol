@@ -49,6 +49,8 @@ contract TestCoWSwapOnchainOrders is Test {
         assertEq(cowSwapOrder.buyTokenBalance, GPv2Order.BALANCE_ERC20);
     }
 
+    /// This is a reverting library call, an internal revert is expected.
+    /// forge-config: default.allow_internal_expect_revert = true
     function testRevertIfNoReceiver() public {
         EthFlowOrder.Data memory ethFlowOrder = EthFlowOrder.Data(
             IERC20(FillWithSameByte.toAddress(0x01)),
@@ -66,7 +68,6 @@ contract TestCoWSwapOnchainOrders is Test {
         IERC20 wrappedNativeToken = IERC20(FillWithSameByte.toAddress(0x42));
 
         vm.expectRevert(EthFlowOrder.ReceiverMustBeSet.selector);
-
         ethFlowOrder.toCoWSwapOrder(wrappedNativeToken);
     }
 }
