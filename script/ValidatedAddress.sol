@@ -78,7 +78,7 @@ library ValidatedAddress {
             _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else if (chainId() == CHAINID_POLYGON) {
-            _wrappedNativeToken = 0x0000000000000000000000000000000000001010;
+            _wrappedNativeToken = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "POL"));
         } else if (chainId() == CHAINID_BSC) {
             _wrappedNativeToken = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
