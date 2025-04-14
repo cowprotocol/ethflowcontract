@@ -17,6 +17,10 @@ library ValidatedAddress {
     uint256 internal constant CHAINID_SEPOLIA = 11155111;
     uint256 internal constant CHAINID_ARBITRUM = 42161;
     uint256 internal constant CHAINID_BASE = 8453;
+    uint256 internal constant CHAINID_POLYGON = 137;
+    uint256 internal constant CHAINID_BSC = 56;
+    uint256 internal constant CHAINID_AVALANCHE = 43114;
+    uint256 internal constant CHAINID_OPTIMISM = 10;
 
     function cowSwapSettlement()
         internal
@@ -30,6 +34,10 @@ library ValidatedAddress {
                 (chainId() == CHAINID_GNOSISCHAIN) ||
                 (chainId() == CHAINID_ARBITRUM) ||
                 (chainId() == CHAINID_BASE) ||
+                (chainId() == CHAINID_POLYGON) ||
+                (chainId() == CHAINID_BSC) ||
+                (chainId() == CHAINID_AVALANCHE) ||
+                (chainId() == CHAINID_OPTIMISM) ||
                 (chainId() == CHAINID_SEPOLIA),
             "Settlement contract not available on this chain"
         );
@@ -67,6 +75,18 @@ library ValidatedAddress {
             _wrappedNativeToken = 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else if (chainId() == CHAINID_BASE) {
+            _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
+        } else if (chainId() == CHAINID_POLYGON) {
+            _wrappedNativeToken = 0x0000000000000000000000000000000000001010;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "POL"));
+        } else if (chainId() == CHAINID_BSC) {
+            _wrappedNativeToken = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "BNB"));
+        } else if (chainId() == CHAINID_AVALANCHE) {
+            _wrappedNativeToken = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "AVAX"));
+        } else if (chainId() == CHAINID_OPTIMISM) {
             _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else {
