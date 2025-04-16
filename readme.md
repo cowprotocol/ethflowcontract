@@ -4,7 +4,7 @@ Smart contracts that enable native ETH sell orders on CoW Swap.
 
 ## Deployed contracts
 
-The ETH-flow contract has been deployed on all networks that are supported by CoW Swap (currently Ethereum mainnet, Gnosis Chain, Görli).
+The ETH-flow contract has been deployed on all networks that are supported by CoW Swap (currently Ethereum mainnet, Gnosis Chain, Arbitrum One, Base, Avalance, Optimism, BNB, Polygon and Sepolia).
 There are two deployments of the ETH-flow contract for each network: one is used in the production environment and one is used in the barn (staging/testing) environment.
 The bytecode and parameters are the same for all contracts in the same network.
 

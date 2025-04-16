@@ -9,9 +9,13 @@ optimizer_runs = 1000000
 [rpc_endpoints]
 env = "${NODE_URL}"
 mainnet = "https://mainnet.infura.io/v3/${INFURA_KEY}"
-rinkeby = "https://rinkeby.infura.io/v3/${INFURA_KEY}"
-goerli = "https://goerli.infura.io/v3/${INFURA_KEY}"
 gnosischain = "https://rpc.gnosischain.com"
+arbitrumone = "https://arb1.arbitrum.io/rpc"
+base = "https://mainnet.base.org"
+optimism = "https://mainnet.optimism.io"
+polygon = "https://polygon-rpc.com"
+bnb = "https://bsc-dataseed.binance.org"
+avalanche = "https://api.avax.network/ext/bc/C/rpc"
 sepolia = "https://ethereum-sepolia.publicnode.com"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
