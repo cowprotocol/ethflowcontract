@@ -79,13 +79,13 @@ library ValidatedAddress {
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else if (chainId() == CHAINID_POLYGON) {
             _wrappedNativeToken = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270;
-            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "POL"));
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WPOL"));
         } else if (chainId() == CHAINID_BSC) {
             _wrappedNativeToken = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
-            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "BNB"));
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WBNB"));
         } else if (chainId() == CHAINID_AVALANCHE) {
             _wrappedNativeToken = 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7;
-            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "AVAX"));
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WAVAX"));
         } else if (chainId() == CHAINID_OPTIMISM) {
             _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
