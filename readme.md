@@ -68,7 +68,7 @@ You can verify a contract you deployed with the deployment script on the block e
 
 ```sh
 export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed if the default chain explorer is Etherscan
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --verify  
+forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --private-key "$PK" --verify
 ```
 
 ### Code formatting
