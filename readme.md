@@ -55,19 +55,19 @@ forge build -o artifacts
 The ETH flow contract has a dedicated deployment script. To simulate a deployment, run:
 
 ```sh
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --sender $DEPLOYER
+forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --private-key "$PK"
 ```
 
 You can find a list of supported RPC URLs in `foundry.toml` under `[rpc_endpoints]`.
 
-To broadcast the deployment onchain you must also replace the `--sender` flag with the private key of the deployer and add the broadcast flag: `--private-key "$PK" --broadcast`.
+To broadcast the deployment onchain, append `--broadcast` to the command above.
 
 _Note: For chains that don't support EIP-1559 by default, append `--legacy` flag._
 
 You can verify a contract you deployed with the deployment script on the block explorer of the current chain with:
 
 ```sh
-export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed if the default chain explorer is Etherscan
+export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed for etherscan-based explorers
 forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --private-key "$PK" --verify
 ```
 
