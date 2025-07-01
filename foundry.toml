@@ -16,6 +16,7 @@ optimism = "https://mainnet.optimism.io"
 polygon = "https://polygon-rpc.com"
 bnb = "https://bsc-dataseed.binance.org"
 avalanche = "https://api.avax.network/ext/bc/C/rpc"
+lens = "https://rpc.lens.xyz"
 sepolia = "https://ethereum-sepolia.publicnode.com"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
