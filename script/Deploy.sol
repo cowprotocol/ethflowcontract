@@ -11,10 +11,10 @@ contract Deploy is Script {
     function run() external {
         vm.startBroadcast();
 
-        new CoWSwapEthFlow(
+        try new CoWSwapEthFlow(
             ICoWSwapSettlement(ValidatedAddress.cowSwapSettlement()),
             IWrappedNativeToken(ValidatedAddress.wrappedNativeToken())
-        );
+        ) {} catch {}
 
         vm.stopBroadcast();
     }
