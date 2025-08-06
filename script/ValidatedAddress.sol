@@ -94,7 +94,7 @@ library ValidatedAddress {
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else if (chainId() == CHAINID_LENS) {
             _wrappedNativeToken = 0x6bDc36E20D267Ff0dd6097799f82e78907105e2F;
-//            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WGHO"));
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WGHO"));
         } else {
             revert("Wrapped native token not supported on this chain");
         }
