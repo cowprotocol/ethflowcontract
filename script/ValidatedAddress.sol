@@ -6,7 +6,6 @@ pragma solidity ^0.8;
 import "../src/interfaces/ICoWSwapSettlement.sol";
 import "../src/libraries/CoWSwapEip712.sol";
 import "../src/vendored/IERC20.sol";
-import {console} from "../lib/forge-std/src/console.sol";
 
 /// @title Constant Address Validator
 /// @author CoW Swap Developers.
