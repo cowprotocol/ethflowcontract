@@ -21,6 +21,7 @@ library ValidatedAddress {
     uint256 internal constant CHAINID_BSC = 56;
     uint256 internal constant CHAINID_AVALANCHE = 43114;
     uint256 internal constant CHAINID_OPTIMISM = 10;
+    uint256 internal constant CHAINID_LENS = 232;
 
     function cowSwapSettlement()
         internal
@@ -38,6 +39,7 @@ library ValidatedAddress {
                 (chainId() == CHAINID_BSC) ||
                 (chainId() == CHAINID_AVALANCHE) ||
                 (chainId() == CHAINID_OPTIMISM) ||
+                (chainId() == CHAINID_LENS) ||
                 (chainId() == CHAINID_SEPOLIA),
             "Settlement contract not available on this chain"
         );
@@ -89,6 +91,9 @@ library ValidatedAddress {
         } else if (chainId() == CHAINID_OPTIMISM) {
             _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
+        } else if (chainId() == CHAINID_LENS) {
+            _wrappedNativeToken = 0x6bDc36E20D267Ff0dd6097799f82e78907105e2F;
+            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WGHO"));
         } else {
             revert("Wrapped native token not supported on this chain");
         }
