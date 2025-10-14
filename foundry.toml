@@ -18,5 +18,7 @@ bnb = "https://bsc-dataseed.binance.org"
 avalanche = "https://api.avax.network/ext/bc/C/rpc"
 lens = "https://rpc.lens.xyz"
 sepolia = "https://ethereum-sepolia.publicnode.com"
+linea = "https://rpc.linea.build"
+plasma = "https://rpc.plasma.to"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
