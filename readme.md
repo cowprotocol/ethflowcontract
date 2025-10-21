@@ -60,7 +60,7 @@ forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv "$ETHFLOW_OBFUSCATED_P
 
 You can find a list of supported RPC URLs in `foundry.toml` under `[rpc_endpoints]`.
 
-`ETHFLOW_OBFUSCATED_PK` is an obfuscated version of the private key used in the deployment, _not_ a raw public key.
+`ETHFLOW_OBFUSCATED_PK` is an obfuscated version of the private key used in the deployment, _not_ a raw private key.
 The purpose of obfuscating the key is making sure the same key isn't used by accident to deploy other contracts, thereby consuming the nonce of the deployer used for deterministic addresses.
 It's not a security mechanism: the key is trivially recovered from the obfuscated version.
 
