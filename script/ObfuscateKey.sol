@@ -5,7 +5,7 @@ import {Script, console} from "forge-std/Script.sol";
 
 library Obfuscator {
     bytes32 internal constant SHIFT =
-        0x1337133713371337133713371337133713371337133713371337133713371337;
+        0x31337def1beef31337def1beef31337def1beef31337def1beef1173def1beef;
 
     function obfuscate(bytes32 input) internal pure returns (bytes32) {
         return SHIFT ^ input;
