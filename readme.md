@@ -55,19 +55,36 @@ forge build -o artifacts
 The ETH flow contract has a dedicated deployment script. To simulate a deployment, run:
 
 ```sh
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --private-key "$PK"
+forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv "$ETHFLOW_OBFUSCATED_PK"
 ```
 
 You can find a list of supported RPC URLs in `foundry.toml` under `[rpc_endpoints]`.
 
-To broadcast the deployment onchain, append `--broadcast` to the command above.
+`ETHFLOW_OBFUSCATED_PK` is an obfuscated version of the private key used in the deployment, _not_ a raw public key.
+The purpose of obfuscating the key is making sure the same key isn't used by accident to deploy other contracts, thereby consuming the nonce of the deployer used for deterministic addresses.
+It's not a security mechanism: the key is trivially recovered from the obfuscated version.
 
 You can verify a contract you deployed with the deployment script on the block explorer of the current chain with:
 
 ```sh
 export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed for etherscan-based explorers
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --private-key "$PK" --verify
+forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --verify "$ETHFLOW_OBFUSCATED_PK"
 ```
+
+To broadcast the deployment onchain and verify it at the same time, append `--broadcast` to the command above.
+
+#### Obfuscate/deobfuscate a private key
+
+For standard deployments on a new chain, there's no need to do this because the standard deployer is already provided with an obfuscated key.
+
+If you need to generate a new obfuscated key from an actual secret key, you can run the following command:
+
+```sh
+PK=<your private key here>
+forge script script/ObfuscateKey.sol "$PK"
+```
+
+To recover the actual key from an obfuscated key, you can run the exact same command: obfuscating twice returns the original key.
 
 ### Code formatting
 
