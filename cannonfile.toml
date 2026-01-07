@@ -1,0 +1,25 @@
+#:schema https://raw.githubusercontent.com/usecannon/cannon/refs/heads/dev/packages/lsp/src/schema.json
+name = "cow-ethflow"
+version = "1.0.1"
+
+# dummy token for test network only
+[import.dummyToken]
+source = "mintable-token:2.0"
+chainId = 13370
+
+[import.cow]
+source = "cow-settlement:2.0.1"
+
+[var.main]
+salt = "0x4d61747472657373657320696e204265726c696e210000000000000000000000"
+# the below should be overridden in production environments
+wrappedNativeToken = "<%= dummyToken.Token.address %>"
+cowSettlement = "<%= cow.Settlement.address %>"
+
+[deploy.EthFlow]
+artifact = "CoWSwapEthFlow"
+
+# EthFlow is one of the few CoW protocol contracts that doesn't use create2 because the `wrappedNativeToken` address will vary
+#create2 = true
+salt = "<%= settings.salt %>"
+args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
