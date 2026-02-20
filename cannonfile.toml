@@ -1,6 +1,6 @@
 #:schema https://raw.githubusercontent.com/usecannon/cannon/refs/heads/dev/packages/lsp/src/schema.json
 name = "cow-ethflow"
-version = "1.0.1"
+version = "1.0.2"
 
 # dummy token for test network only
 [import.dummyToken]
@@ -8,18 +8,25 @@ source = "mintable-token:2.0"
 chainId = 13370
 
 [import.cow]
-source = "cow-settlement:2.0.1"
+source = "cow-settlement:2.0.2"
 
 [var.main]
-salt = "0x4d61747472657373657320696e204265726c696e210000000000000000000000"
-# the below should be overridden in production environments
-wrappedNativeToken = "<%= dummyToken.Token.address %>"
 cowSettlement = "<%= cow.Settlement.address %>"
+
+# In particular, the wrappedNativeToken should be overridden in production environments.
+# If it is not overridden, the deployment will fail to run
+wrappedNativeToken = "<%= dummyToken.Token.address %>"
 
 [deploy.EthFlow]
 artifact = "CoWSwapEthFlow"
 
-# EthFlow is one of the few CoW protocol contracts that doesn't use create2 because the `wrappedNativeToken` address will vary
-#create2 = true
-salt = "<%= settings.salt %>"
+# EthFlow is one of the few CoW protocol contracts that doesn't use create2 because the `wrappedNativeToken`
+# so to achieve the same address, we use the same deployment key at nonce 0, resulting in the same address
+# no matter the initcode
+from = "0x18AA26D5e4A18ef6E49c509D52a4f7d60242b10D"
+nonce = 0
+
 args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
+
+# Prevent the contract from failing to deploy due to gas limit issues
+gasLimit = 2000000
