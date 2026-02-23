@@ -10,10 +10,10 @@
   "scripts": {
     "fmt": "prettier 'src/**/*.sol' -w && prettier 'test/**/*.sol' -w && prettier 'script/**/*.sol' -w",
     "lint": "solhint 'src/**/*.sol' 'test/**/*.sol' 'script/**/*.sol'",
-    "build": "pnpm build:cannon",
-    "build:cannon": "pnpm cannon build --wipe",
-    "cannon:publish": "pnpm cannon publish cow-ethflow --chain-id 13370 --registry-chain-id 10 && pnpm cannon:record",
-    "cannon:record": "pnpm cannon inspect cow-ethflow:latest --chain-id 13370 --out deploy-json > cannon/deploy.json && pnpm cannon inspect cow-ethflow:latest --chain-id 13370 --out misc-json > cannon/misc.json"
+    "build": "yarn build:cannon",
+    "build:cannon": "yarn cannon build --wipe",
+    "cannon:publish": "yarn cannon publish cow-ethflow --chain-id 13370 --registry-chain-id 10 && yarn cannon:record",
+    "cannon:record": "yarn cannon inspect cow-ethflow:latest --chain-id 13370 --out deploy-json > cannon/deploy.json && yarn cannon inspect cow-ethflow:latest --chain-id 13370 --out misc-json > cannon/misc.json"
   },
   "version": "1.5.0"
 }

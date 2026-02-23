@@ -50,41 +50,54 @@ To manually generate the build artifacts, run:
 forge build -o artifacts
 ```
 
-### Deploy
+## Building a Cannon Package for Deployment
 
-The ETH flow contract has a dedicated deployment script. To simulate a deployment, run:
+This project uses [Cannon](https://usecannon.com/) to generate a deployable artifact for the contracts in this repository. The deployment on live networks does not occur on this repository.
 
-```sh
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv "$ETHFLOW_OBFUSCATED_PK"
-```
+To learn more or browse artifacts for the actual deployed contracts, see [`cowprotocol/deployments` repository](https://github.com/cowprotocol/deployments) or [`cow-omnibus` on Cannon Explorer](https://usecannon.com/packages/cow-omnibus).
 
-You can find a list of supported RPC URLs in `foundry.toml` under `[rpc_endpoints]`.
+### Building the Cannon Package
 
-`ETHFLOW_OBFUSCATED_PK` is an obfuscated version of the private key used in the deployment, _not_ a raw private key.
-The purpose of obfuscating the key is making sure the same key isn't used by accident to deploy other contracts, thereby consuming the nonce of the deployer used for deterministic addresses.
-It's not a security mechanism: the key is trivially recovered from the obfuscated version.
-
-You can verify a contract you deployed with the deployment script on the block explorer of the current chain with:
+To build a new Cannon package for the GPv2 Settlement contracts:
 
 ```sh
-export ETHERSCAN_API_KEY=<your Etherscan API key> # Only needed for etherscan-based explorers
-forge script script/Deploy.sol --rpc-url "$RPC_URL" -vvvv --verify "$ETHFLOW_OBFUSCATED_PK"
+yarn build:cannon
 ```
 
-To broadcast the deployment onchain and verify it at the same time, append `--broadcast` to the command above.
+This will:
+- Recompile the Solidity contracts as needed
+- Generate a deployment manifest including the solidity input json, default settings, ABIs, as well as predicted deployment addresses.
+- Store the deployment artifacts in the `cannon/` directory
 
-#### Obfuscate/deobfuscate a private key
+### Publishing the Cannon Package
 
-For standard deployments on a new chain, there's no need to do this because the standard deployer is already provided with an obfuscated key.
+When the contracts should be released to staging or production:
 
-If you need to generate a new obfuscated key from an actual secret key, you can run the following command:
+1. Double check that the `version` field in `cannonfile.toml` is as expected, and modify as necessary.
 
-```sh
-PK=<your private key here>
-forge script script/ObfuscateKey.sol "$PK"
+2. Follow instructions in [Building the Cannon Package](#Building the Cannon Package) above to ensure the artifacts are up to date.
+
+3. Publish the cannon package using an EOA that has permission on the `cow-settlement` package. You will also need 0.0025 ETH + gas on Optimism Mainnet.
+
+To publish, execute the publish command:
+
+```
+yarn cannon:publish
 ```
 
-To recover the actual key from an obfuscated key, you can run the exact same command: obfuscating twice returns the original key.
+Where `<version>` is the version recorded in the `cannonfile.toml` from earlier, and `13370` is the anvil network created by cannon and used to prepare the packages before publishing. 
+
+You will be prompted for the publishing network (select "Optimism") and for the private key of the account to use to publish.
+
+4. Ensure that you have changes for git in your `cannon/` directory. If not, you may need to run the `cannon:record` command:
+
+```
+yarn cannon:record 
+```
+
+5. Bump the patch version of the package as specified in `cannonfile.toml`. This version should be bumped *after* the publish is complete.
+
+Commit all the changes to a PR. A CI job will ensure consistency between the published package and repository files.
 
 ### Code formatting
 
