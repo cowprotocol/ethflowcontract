@@ -24,7 +24,6 @@ library ValidatedAddress {
     uint256 internal constant CHAINID_LENS = 232;
     uint256 internal constant CHAINID_LINEA = 59144;
     uint256 internal constant CHAINID_PLASMA = 9745;
-    uint256 internal constant CHAINID_INK = 57073;
 
     function cowSwapSettlement()
         internal
@@ -45,8 +44,7 @@ library ValidatedAddress {
                 (chainId() == CHAINID_LENS) ||
                 (chainId() == CHAINID_LINEA) ||
                 (chainId() == CHAINID_PLASMA) ||
-                (chainId() == CHAINID_SEPOLIA) ||
-                (chainId() == CHAINID_INK),
+                (chainId() == CHAINID_SEPOLIA),
             "Settlement contract not available on this chain"
         );
         settlement = ICoWSwapSettlement(
@@ -106,9 +104,6 @@ library ValidatedAddress {
         } else if (chainId() == CHAINID_PLASMA) {
             _wrappedNativeToken = 0x6100E367285b01F48D07953803A2d8dCA5D19873;
             require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WXPL"));
-        } else if (chainId() == CHAINID_INK) {
-            _wrappedNativeToken = 0x4200000000000000000000000000000000000006;
-            require(eq(WithSymbol(_wrappedNativeToken).symbol(), "WETH"));
         } else {
             revert("Wrapped native token not supported on this chain");
         }
