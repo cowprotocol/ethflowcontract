@@ -19,15 +19,6 @@ wrappedNativeToken = "<%= dummyToken.Token.address %>"
 
 deployerAccount = "0x18AA26D5e4A18ef6E49c509D52a4f7d60242b10D"
 
-# This step is dummy: A sort of sanity check to see if this is a valid native token
-# We send 1 wei of native token 
-# If the native is an EOA/not deployed, Cannon will throw an error
-# If the contract does not have a `deposit` payable function (standard for wrapped native tokens), it will also revert
-#[invoke.checkNativeToken]
-#target = ["<%= settings.wrappedNativeToken %>"]
-#func = "0x"
-#value = "1"
-
 [deploy.EthFlow]
 artifact = "CoWSwapEthFlow"
 
@@ -41,6 +32,3 @@ args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
 
 # Prevent the contract from failing to deploy due to gas limit issues
 overrides.gasLimit = "2000000"
-
-# this step can't execute unless the sanity check passes
-#depends = ["invoke.checkNativeToken"]
