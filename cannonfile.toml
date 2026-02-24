@@ -13,8 +13,8 @@ source = "cow-settlement:2.0.2"
 [var.main]
 cowSettlement = "<%= cow.Settlement.address %>"
 
-# In particular, the wrappedNativeToken should be overridden in production environments.
-# If it is not overridden, the deployment will fail to run
+# WARNING: Make sure you override the wrappedNativeToken with the corresponding native token contract address in the network.
+# The deployment of CoWSwapEthFlow needs to happen in nonce 0, so there's only one possible attempt.
 wrappedNativeToken = "<%= dummyToken.Token.address %>"
 
 deployerAccount = "0x18AA26D5e4A18ef6E49c509D52a4f7d60242b10D"
