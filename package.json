@@ -1,7 +1,7 @@
 {
   "license": "LGPL-3.0-or-later",
   "devDependencies": {
-    "@usecannon/cli": "2.26.0-alpha.0",
+    "@usecannon/cli": "2.26.0",
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-beta.24",
     "solhint": "^3.3.7",
