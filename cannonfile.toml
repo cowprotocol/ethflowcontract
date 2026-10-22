@@ -34,7 +34,7 @@ nonce = "0"
 args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
 
 # Prevent the contract from failing to deploy due to gas limit issues
-overrides.gasLimit = "2000000"
+#overrides.gasLimit = "2000000"
 
 [deploy.EthFlow]
 artifact = "CoWSwapEthFlow"
@@ -49,6 +49,6 @@ args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
 
 
 # Prevent the contract from failing to deploy due to gas limit issues
-overrides.gasLimit = "2000000"
+#overrides.gasLimit = "2000000"
 
 depends = ["deploy.BurnedNonce"]
