@@ -22,6 +22,20 @@ source = "<%= settings.cowSettlementPkg %>"
 [var.settlementData]
 cowSettlement = "<%= cow.Settlement.address %>"
 
+[deploy.BurnedNonce]
+artifact = "CoWSwapEthFlow"
+
+# EthFlow is one of the few CoW protocol contracts that doesn't use create2 because the `wrappedNativeToken`
+# so to achieve the same address, we use the same deployment key at nonce 0, resulting in the same address
+# no matter the initcode
+from = "<%= settings.deployerAccount %>"
+nonce = "0"
+
+args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
+
+# Prevent the contract from failing to deploy due to gas limit issues
+#overrides.gasLimit = "2000000"
+
 [deploy.EthFlow]
 artifact = "CoWSwapEthFlow"
 
@@ -29,9 +43,12 @@ artifact = "CoWSwapEthFlow"
 # so to achieve the same address, we use the same deployment key at nonce 0, resulting in the same address
 # no matter the initcode
 from = "<%= settings.deployerAccount %>"
-nonce = 0
+nonce = "1"
 
 args = ["<%= settings.cowSettlement %>", "<%= settings.wrappedNativeToken %>"]
 
+
 # Prevent the contract from failing to deploy due to gas limit issues
-overrides.gasLimit = "2000000"
+#overrides.gasLimit = "2000000"
+
+depends = ["deploy.BurnedNonce"]
